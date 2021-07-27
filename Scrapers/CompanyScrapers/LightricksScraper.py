@@ -9,6 +9,7 @@ class LightricksScraper(Scraper):
 
     def __init__(self):
         super(LightricksScraper, self).__init__()
+        self.__base_url = "https://www.lightricks.com"
 
     def scrape(self):
         soup = self.scraping_unit(self.url)
@@ -21,9 +22,10 @@ class LightricksScraper(Scraper):
             self._company_positions.append(
                 self.Position(
                     title=title,
-                    link='https://www.lightricks.com' + a_tag['href'],
+                    link=self.__base_url + a_tag['href'],
                     location=location,
                     time_type=t_time,
-                    tags=a_tag.findPrevious('h1', attrs={'class': 'h3 light'}).text.strip()
+                    tags=a_tag.findPrevious('h1', attrs={'class': 'h3 light'}).text.strip(),
+                    company_url=self.__base_url
                 )
             )

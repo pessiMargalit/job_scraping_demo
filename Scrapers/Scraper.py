@@ -47,7 +47,7 @@ class Scraper(ABC):
         """
         self._company_positions = []
         self.pos_class = PositionClass(
-            defaults=(None, self.name, self.url, self.location, False, None, None, FULLTIME_JOB, None))
+            defaults=(None, self.name, self.url, self.location, False, None, None, FULLTIME_JOB, None, None))
         self.Position = self.pos_class.create_position
 
     @abstractmethod

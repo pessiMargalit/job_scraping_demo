@@ -8,6 +8,7 @@ class MicrosoftScraper(Scraper):
 
     def __init__(self):
         super(MicrosoftScraper, self).__init__()
+        self.__base_url = "https://www.microsoft.com"
 
     def scrape(self):
         cookies = {
@@ -74,6 +75,7 @@ class MicrosoftScraper(Scraper):
                         title=new_title,
                         link=link,
                         location=location,
-                        tags=job.get('category')
+                        tags=job.get('category'),
+                        company_url=self.__base_url
                     )
                 )

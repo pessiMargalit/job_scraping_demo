@@ -8,6 +8,7 @@ class FacebookScraper(Scraper):
 
     def __init__(self):
         super(FacebookScraper, self).__init__()
+        self.__base_url = 'https://www.facebook.com'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)
@@ -36,6 +37,7 @@ class FacebookScraper(Scraper):
                         title=title,
                         link=f"https://www.facebook.com{pos['href']}",
                         location="Tel Aviv",
-                        tags=tags
+                        tags=tags,
+                        company_url=self.__base_url
                     )
                 )

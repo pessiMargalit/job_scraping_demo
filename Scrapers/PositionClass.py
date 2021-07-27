@@ -10,7 +10,8 @@ PositionBase = NamedTuple('Position',
                               ('remote_level', str),
                               ('experience', str),
                               ('time_type', str),
-                              ('tags', str)
+                              ('tags', str),
+                              ('company_url', str)
                           ])
 
 JOB_REMOTE_OPTION = ['Remote', 'Partially Remote', 'Not Specified']
@@ -39,7 +40,7 @@ class PositionClass:
         self.defaults = defaults
 
     def create_position(self, title=None, company=None, link=None, location=None, remote=None, remote_level=None,
-                        experience=None, time_type=None, tags=None):
+                        experience=None, time_type=None, tags=None, company_url=None):
         if not title:
             title = self.defaults[0]
         if not company:
@@ -58,14 +59,15 @@ class PositionClass:
             time_type = self.defaults[7]
         if not tags:
             tags = self.defaults[8]
+        if not company_url:
+            company_url = self.defaults[9]
         lowered_title = title.lower()
         if location:
             lowered_location = location.lower()
 
         remote, remote_level = PositionClass.__is_remote(lowered_title, lowered_location, remote, remote_level)
         experience = PositionClass.check_experience(lowered_title, link)
-        # tags = ';'.join(PositionClass.create_tags(lowered_title))
-        return self.base(title, company, link, location, remote, remote_level, experience, time_type, tags)
+        return self.base(title, company, link, location, remote, remote_level, experience, time_type, tags, company_url)
 
     def __hash__(self):
         return self._hash
@@ -114,13 +116,15 @@ class PositionClass:
             return PARTTIME_JOB
         return FULLTIME_JOB
 
-#### TESTS
-# if __name__ == '__main__':
-#     title = 'Front-End Developer'
-#     x = PositionClass.create_tags(title.split('-')[0].split('–')[0].strip().lower())
-#     print(f"For title: {title}")
-#     print("Best matches are:")
-#     for p in x[:3]:
-#         if p['ratio']:
-#             print(p['title'])
-#
+    @staticmethod
+    def telegram_repr(pos):
+        repr = f"<a href=\"{pos.link}\">{pos.title}</a>"
+        repr += f"\n"
+        repr += f"Company: <a href=\"{pos.company_url}\">{pos.company}</a>\n"
+        repr += f"Category: {pos.tags}\n"
+        repr += f"{pos.location} | {pos.time_type} | {pos.experience}"
+        return repr
+
+    @staticmethod
+    def tagging_helper(pos):
+        return f"{pos.title};{pos.location};{pos.time_type};{pos.experience};{pos.tags}"
