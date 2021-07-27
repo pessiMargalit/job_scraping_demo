@@ -6,3 +6,4 @@ pytz
 webdriver_manager
 tqdm
 selenium
+python-telegram-bot==13.4.1
