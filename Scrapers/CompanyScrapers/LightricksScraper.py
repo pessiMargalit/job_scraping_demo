@@ -16,7 +16,7 @@ class LightricksScraper(Scraper):
             if not a_tag.parent.attrs.get('class') or 'w-dyn-item' not in a_tag.parent.attrs.get('class'):
                 continue
             title = a_tag.text.strip()
-            location = a_tag.findPrevious('h1', id="open-_company_positions", attrs={'class': 'h3'}).text.split('-')[-1].strip()
+            location = a_tag.findPrevious('h1', id="open-positions", attrs={'class': 'h3'}).text.split('-')[-1].strip()
             t_time = a_tag.findNext('h4', attrs={'class': 'part-time'}).text.strip()
             self._company_positions.append(
                 self.Position(
