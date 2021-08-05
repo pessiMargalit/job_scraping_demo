@@ -127,4 +127,5 @@ class PositionClass:
 
     @staticmethod
     def tagging_helper(pos):
-        return f"{pos.title};{pos.location};{pos.time_type};{pos.experience};{pos.tags}"
+        return f"{pos.title.lower()};{pos.location.lower().replace('-', ' ')};" \
+               f"{pos.time_type.lower().replace('-', ' ')};{pos.experience.lower()};{pos.tags.lower()} "

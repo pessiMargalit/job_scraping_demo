@@ -3,8 +3,8 @@ from Scrapers.Scraper import *
 
 
 class LightricksScraper(Scraper):
-    url = 'https://www.lightricks.com/careers'
     name = 'Lightricks'
+    url = 'https://www.lightricks.com/careers'
     location = 'Jerusalem'
 
     def __init__(self):

@@ -1,12 +1,16 @@
 import os
 import logging
+
 from Scrapers.PositionClass import PositionClass
 from telegram import ParseMode, Update
-from telegram.ext import Updater, CommandHandler, CallbackContext
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import InlineKeyboardButton
+from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, CallbackContext
+from telegram_bot_pagination import InlineKeyboardPaginator
+from ScrapersFactory import ScrapersFactory
 from Scrapers.CompanyScrapers.LightricksScraper import LightricksScraper
+from Scrapers.CompanyScrapers.SimilarWebScraper import SimilarWebScraper
 from Scrapers.CompanyScrapers.FacebookScraper import FacebookScraper
-from Scrapers.CompanyScrapers.MicrosoftScraper import MicrosoftScraper
+from datetime import datetime
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
@@ -15,83 +19,122 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 BOT_TOKEN = os.environ['BOT_TOKEN']
 
+
 # GROUP_ID = int(os.environ['JOBS_WEEKLY'])
 
+class JobsTelegramBot:
+    def __init__(self, debugging=False):
+        self.__positions_to_post = []
+        self.__positions = []
+        self.last_scrape = datetime.now()
 
-def get_lightricks_jobs(update: Update, context: CallbackContext) -> None:
-    post_might_take_awhile_message(update, context)
-    scraper = LightricksScraper()
-    scraper.scrape()
-    post_positions(scraper, update, context)
+        self.get_jobs()
 
+        if debugging:
+            updater = Updater(os.environ['DEV_BOT_TOKEN'])
+        else:
+            updater = Updater(BOT_TOKEN, use_context=True)
+        # Get the dispatcher to register handlers
+        self._dispatcher = updater.dispatcher
+        self._dispatcher.add_handler(CommandHandler('start', self.start_cmd))
+        self._dispatcher.add_handler(CommandHandler('lightricks', self.get_lightricks_jobs))
+        self._dispatcher.add_handler(CommandHandler('similarweb', self.get_similarweb_jobs))
+        self._dispatcher.add_handler(CommandHandler('facebook', self.get_facebook_jobs))
+        self._dispatcher.add_handler(CallbackQueryHandler(self.positions_page_callback, pattern='^Positions#'))
 
-def get_facebook_jobs(update: Update, context: CallbackContext) -> None:
-    post_might_take_awhile_message(update, context)
-    scraper = FacebookScraper()
-    scraper.scrape()
-    post_positions(scraper, update, context)
+        # Start the Bot
+        updater.start_polling()
 
+        # Block until you press Ctrl-C or the process receives SIGINT, SIGTERM or
+        # SIGABRT. This should be used most of the time, since start_polling() is
+        # non-blocking and will stop the bot gracefully.
+        updater.idle()
 
-def get_microsoft_jobs(update: Update, context: CallbackContext) -> None:
-    post_might_take_awhile_message(update, context)
-    scraper = MicrosoftScraper()
-    scraper.scrape()
-    post_positions(scraper, update, context)
+    def get_jobs(self):
+        fc = ScrapersFactory()
+        fc.start()
+        self.__positions = fc.get_all_positions()
 
+    def refresh_jobs(self):
+        self.last_scrape = datetime.now()
+        self.get_jobs()
 
-def post_might_take_awhile_message(update: Update, context: CallbackContext):
-    context.bot.send_message(
-        update.message.chat_id,
-        f"Running... this might take some time 😅",
-        parse_mode=ParseMode.HTML,
-        disable_web_page_preview=False
-    )
+    def check_if_needs_refresh(self):
+        if (self.last_scrape - datetime.now()).days > 0:
+            self.refresh_jobs()
 
-
-def post_positions(scraper, update: Update, context: CallbackContext) -> None:
-    if not context.args:
-        positions_to_post = scraper.get_positions()
-    else:
-        positions_to_post = list(filter(lambda j:
-                                        all(s for s in context.args[0].split(',')
-                                            if s in PositionClass.tagging_helper(j)),
-                                        scraper.get_positions()))
-    if len(positions_to_post) == 0:
+    def start_cmd(self, update: Update, context: CallbackContext) -> None:
         context.bot.send_message(
-            text="Oh no! no jobs found :(",
-            chat_id=update.message.chat_id
+            update.message.chat_id,
+            f"Hi! I'm a demo job board bot, select one of the options below and check me out 🤩",
         )
-    elif len(positions_to_post) < 5:
-        for job in positions_to_post:
+
+    @staticmethod
+    def post_might_take_awhile_message(update: Update, context: CallbackContext):
+        context.bot.send_message(
+            update.message.chat_id,
+            f"Running... this might take some time 😅",
+            parse_mode=ParseMode.HTML,
+            disable_web_page_preview=False
+        )
+
+    def get_lightricks_jobs(self, update: Update, context: CallbackContext) -> None:
+        self.check_if_needs_refresh()
+        self.__positions_to_post = list(filter(lambda p: p.company is LightricksScraper.name, self.__positions))
+        self.post_positions(update=update, context=context)
+
+    def get_similarweb_jobs(self, update: Update, context: CallbackContext) -> None:
+        self.check_if_needs_refresh()
+        self.__positions_to_post = list(filter(lambda p: p.company is SimilarWebScraper.name, self.__positions))
+        self.post_positions(update=update, context=context)
+
+    def get_facebook_jobs(self, update: Update, context: CallbackContext) -> None:
+        self.check_if_needs_refresh()
+        self.__positions_to_post = list(filter(lambda p: p.company is FacebookScraper.name, self.__positions))
+        self.post_positions(update=update, context=context)
+
+    def post_positions(self, update: Update, context: CallbackContext) -> None:
+        if context.args:
+            search_words = [q.strip() for q in ' '.join(context.args).split(',')]
+            self.__positions_to_post = list(filter(lambda j:
+                                                   any(s for s in search_words if s in PositionClass.tagging_helper(j)),
+                                                   self.__positions_to_post))
+        if len(self.__positions_to_post) == 0:
             context.bot.send_message(
-                text=PositionClass.telegram_repr(job),
-                chat_id=update.message.chat_id,
-                parse_mode=ParseMode.HTML,
-                disable_web_page_preview=False,
+                text="Oh no! no jobs found :(",
+                chat_id=update.message.chat_id
             )
-    else:
-        keyboard = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text=name, callback_data=name) for name
-                                                          in ['=>']]])
-        context.bot.send_message(chat_id=update.message.chat_id, text='', reply_markup=keyboard)
+        else:
+            paginator = InlineKeyboardPaginator(
+                len(self.__positions_to_post),
+                data_pattern="Positions#{page}",
+            )
+            update.message.reply_text(
+                text=PositionClass.telegram_repr(self.__positions_to_post[0]),
+                reply_markup=paginator.markup,
+                parse_mode=ParseMode.HTML
+            )
+
+    def positions_page_callback(self, update, context):
+        query = update.callback_query
+
+        query.answer()
+
+        page = int(query.data.split('#')[1])
+
+        paginator = InlineKeyboardPaginator(
+            len(self.__positions_to_post),
+            current_page=page,
+            data_pattern="Positions#{page}",
+        )
+
+        query.edit_message_text(
+            text=PositionClass.telegram_repr(self.__positions_to_post[page - 1]),
+            reply_markup=paginator.markup,
+            parse_mode=ParseMode.HTML,
+            disable_web_page_preview=False,
+        )
 
 
-def run_telegram_bot_main(deubugging=False) -> None:
-    if deubugging:
-        updater = Updater(os.environ['DEV_BOT_TOKEN'])
-    else:
-        updater = Updater(BOT_TOKEN)
-    # Get the dispatcher to register handlers
-    dispatcher = updater.dispatcher
-
-    from datetime import datetime
-    dispatcher.add_handler(CommandHandler('lightricks', get_lightricks_jobs))
-    dispatcher.add_handler(CommandHandler('microsoft', get_microsoft_jobs))
-    dispatcher.add_handler(CommandHandler('facebook', get_facebook_jobs))
-
-    # Start the Bot
-    updater.start_polling()
-
-    # Block until you press Ctrl-C or the process receives SIGINT, SIGTERM or
-    # SIGABRT. This should be used most of the time, since start_polling() is
-    # non-blocking and will stop the bot gracefully.
-    updater.idle()
+def run_telegram_bot_main(debugging=False):
+    JobsTelegramBot(debugging=debugging)
