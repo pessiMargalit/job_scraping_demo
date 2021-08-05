@@ -1,3 +1,5 @@
+import sys
+
 from Scrapers.PositionClass import PositionClass
 from ScrapersFactory import ScrapersFactory
 
@@ -8,5 +10,8 @@ if __name__ == '__main__':
     # for position in all_positions:
     #     print(PositionClass.telegram_repr(position))
     from Publishers.TelegramBotPublisher import *
-    run_telegram_bot_main()
+    if sys.argv[1] and os.environ.get('DEBUG_FLAG') == sys.argv[1]:
+        run_telegram_bot_main(deubugging=True)
+    else:
+        run_telegram_bot_main()
 
