@@ -7,4 +7,4 @@ webdriver_manager
 tqdm
 selenium
 python-telegram-bot==13.4.1
-telegram_bot_pagination
+python-telegram-bot-pagination
