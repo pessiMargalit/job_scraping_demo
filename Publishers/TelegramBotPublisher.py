@@ -1,9 +1,7 @@
 import os
-import logging
 
 from Scrapers.PositionClass import PositionClass
 from telegram import ParseMode, Update
-from telegram import InlineKeyboardButton
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, CallbackContext
 from telegram_bot_pagination import InlineKeyboardPaginator
 from ScrapersFactory import ScrapersFactory
@@ -12,15 +10,8 @@ from Scrapers.CompanyScrapers.SimilarWebScraper import SimilarWebScraper
 from Scrapers.CompanyScrapers.FacebookScraper import FacebookScraper
 from datetime import datetime
 
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
-)
-
-logger = logging.getLogger(__name__)
 BOT_TOKEN = os.environ['BOT_TOKEN']
 
-
-# GROUP_ID = int(os.environ['JOBS_WEEKLY'])
 
 class JobsTelegramBot:
     def __init__(self, debugging=False):
@@ -63,7 +54,8 @@ class JobsTelegramBot:
         if (self.last_scrape - datetime.now()).days > 0:
             self.refresh_jobs()
 
-    def start_cmd(self, update: Update, context: CallbackContext) -> None:
+    @staticmethod
+    def start_cmd(update: Update, context: CallbackContext) -> None:
         context.bot.send_message(
             update.message.chat_id,
             f"Hi! I'm a demo job board bot, select one of the options below and check me out 🤩",
