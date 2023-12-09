@@ -11,7 +11,3 @@ class ClalitScraper(Scraper):
         # and then use BeautifulSoup to parse the driver.page_source
         # don't forget to wait for the page to load using WebDriverWait(driver, TIMEOUT_IN_SECONDS).until(EC ... )
         pass
-
-
-ClalitScraper().check_self()
-# ClalitScraper().update_in_bageldb()
