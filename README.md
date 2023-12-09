@@ -2,14 +2,14 @@
 This project is a demo for a job scraper that scrapes jobs from different companies and sites.
 
 # Table of Contents
-1. [Prerequisites](#Prerequisites)
-2. [Scrapers](#Scrapers)
-    1. [Creating new scrapers](#Creating-new-scrapers)
-    2. [Running the scrapers](#Running-the-scrapers)
-        1. [Local Deployment](#Local-Deployment)
-3. [Authors](#Authors)
-4. [License](#License)
-5. [Acknowledgments](#Acknowledgments)
+1. [Prerequisites](#prerequisites)
+2. [Scrapers](#scrapers)
+    1. [Creating new scrapers](#creating-new-scrapers)
+    2. [Running the scrapers](#running-the-scrapers)
+3. [Authors](#authors)
+4. [License](#license)
+5. [Acknowledgments](#acknowledgments)
+
 
 
 
@@ -66,8 +66,3 @@ Then you can run the file, and it will run the scraper and print the results.
 ## License
 
 This project is licensed to Freshboard.city Company.
-
-## Acknowledgments
-
-* Thanks to Made in JLM for this opportunity.
-* Mainly thanks to Roy Munin Made in JLM's CEO for helping the research and marketing and so on.
