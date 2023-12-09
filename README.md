@@ -23,6 +23,9 @@ pip install -r requirements.txt
 ```
 
 ## Scrapers
+Need more scrapers?! No problem! You can easily add new scrapers to the project.
+For more companies, you can visit: https://jlmtech.freshboard.city/companies and find those who have jobs.
+
 ### Creating new scrapers
 Under the `Scrapers` folder you can find the Abstract classes (such as `Scraper`), and the next folder:
 `CompanyScrapers` - contains the scrapers of the companies.
