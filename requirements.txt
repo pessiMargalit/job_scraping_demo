@@ -1,10 +1,7 @@
-beautifulsoup4==4.8.2
-requests==2.22.0
-urllib3==1.23
+beautifulsoup4
+requests
+urllib3
 lxml
 pytz
-webdriver_manager
 tqdm
 selenium
-python-telegram-bot==13.4.1
-python-telegram-bot-pagination

@@ -1,4 +1,5 @@
 from typing import NamedTuple
+from Scrapers.JobCategories import JobCategories
 
 PositionBase = NamedTuple('Position',
                           [
@@ -11,7 +12,7 @@ PositionBase = NamedTuple('Position',
                               ('experience', str),
                               ('time_type', str),
                               ('tags', str),
-                              ('company_url', str)
+                              ('content', str)
                           ])
 
 JOB_REMOTE_OPTION = ['Remote', 'Partially Remote', 'Not Specified']
@@ -40,7 +41,7 @@ class PositionClass:
         self.defaults = defaults
 
     def create_position(self, title=None, company=None, link=None, location=None, remote=None, remote_level=None,
-                        experience=None, time_type=None, tags=None, company_url=None):
+                        experience=None, time_type=None, tags=None, content=None):
         if not title:
             title = self.defaults[0]
         if not company:
@@ -59,15 +60,16 @@ class PositionClass:
             time_type = self.defaults[7]
         if not tags:
             tags = self.defaults[8]
-        if not company_url:
-            company_url = self.defaults[9]
         lowered_title = title.lower()
         if location:
             lowered_location = location.lower()
+        if time_type:
+            time_type = PositionClass.check_job_time(time_type, lowered_title)
 
         remote, remote_level = PositionClass.__is_remote(lowered_title, lowered_location, remote, remote_level)
         experience = PositionClass.check_experience(lowered_title, link)
-        return self.base(title, company, link, location, remote, remote_level, experience, time_type, tags, company_url)
+        # tags = ';'.join(PositionClass.create_tags(lowered_title))
+        return self.base(title, company, link, location, remote, remote_level, experience, time_type, tags, content or '')
 
     def __hash__(self):
         return self._hash
@@ -80,7 +82,8 @@ class PositionClass:
 
     @staticmethod
     def __is_remote(title, location, remote, remote_level):
-        fully_remote = ['remote', 'wfh', 'work from home', 'מהבית', 'anywhere', 'מרחוק', 'רחוק', 'מרוחק', 'global']
+        fully_remote = ['remote', 'wfh', 'work from home', 'מהבית', 'anywhere', 'מרחוק', 'רחוק', 'מרוחק', 'global',
+                        'distributed']
         semi_remote = ['גמיש', 'flexible', 'hybrid', 'היברידי']
         if remote and remote_level:
             return remote, remote_level
@@ -111,21 +114,24 @@ class PositionClass:
         return level
 
     @staticmethod
-    def check_job_time(title, link):
-        if any(w for w in ['part time', 'חלקית', 'part-time', 'maternity', 'paternity'] if w in title):
+    def check_job_time(time, lowered_title):
+        if any(w for w in ['parttime', 'part time', 'חלקית', 'part-time', 'maternity', 'paternity'] if w in time.lower() or w in lowered_title):
             return PARTTIME_JOB
         return FULLTIME_JOB
 
     @staticmethod
-    def telegram_repr(pos):
-        repr = f"<a href=\"{pos.link}\">{pos.title}</a>"
-        repr += f"\n"
-        repr += f"Company: <a href=\"{pos.company_url}\">{pos.company}</a>\n"
-        repr += f"Category: {pos.tags}\n"
-        repr += f"{pos.location} | {pos.time_type} | {pos.experience}"
-        return repr
+    def create_tags(title):
+        tag_list = []
+        matches = JobCategories.similar(title.lower())
+        return matches
 
-    @staticmethod
-    def tagging_helper(pos):
-        return f"{pos.title.lower()};{pos.location.lower().replace('-', ' ')};" \
-               f"{pos.time_type.lower().replace('-', ' ')};{pos.experience.lower()};{pos.tags.lower()} "
+
+# if __name__ == '__main__':
+#     title = 'Front-End Developer'
+#     x = PositionClass.create_tags(title.split('-')[0].split('–')[0].strip().lower())
+#     print(f"For title: {title}")
+#     print("Best matches are:")
+#     for p in x[:3]:
+#         if p['ratio']:
+#             print(p['title'])
+#
