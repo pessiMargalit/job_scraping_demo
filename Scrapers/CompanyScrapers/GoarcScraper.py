@@ -12,7 +12,6 @@ class GoarcScraper(Scraper):
 
     def scrape(self):
         driver = self.selenium_url_maker(self.url)
-
         a_tags = driver.find_elements(By.CLASS_NAME, 'comeet-position')
         for a_tag in a_tags:
             link = a_tag.get_attribute('href')
