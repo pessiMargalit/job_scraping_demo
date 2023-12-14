@@ -1,6 +1,6 @@
 from Scrapers.Scraper import *
 
-TIMEOUT_IN_SECONDS = 30
+TIMEOUT_IN_SECONDS = 10
 
 
 class GoarcScraper(Scraper):
