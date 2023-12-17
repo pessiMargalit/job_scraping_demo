@@ -21,4 +21,5 @@ class LightricksScraper(Scraper):
                 location=location
             ))
 
+
 LightricksScraper().check_self()

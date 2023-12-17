@@ -5,7 +5,7 @@ import time
 
 def get_first_google_result(query):
     try:
-        search_results = search(query, num=1, stop=1, pause=2)  # Add a pause of 2 seconds
+        search_results = search(f'${query} career', num=1, stop=1, pause=2)  # Add a pause of 2 seconds
         first_result_url = next(search_results)
         print(query, ": ", first_result_url)
         return first_result_url
@@ -49,4 +49,4 @@ def update_excel_urls(input_file, output_file):
 
 
 # Replace 'input_file.xlsx' and 'output_file.xlsx' with your actual file names
-update_excel_urls('500 companies.xlsx', 'new.xlsx')
+update_excel_urls('500 companies.xlsx', 'new career.xlsx')
