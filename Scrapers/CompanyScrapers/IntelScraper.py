@@ -29,7 +29,7 @@ class IntelScraper(Scraper):
                     title = section.findNext('h2')
                     link = section.findNext('a', {'class': 'test-apply'})
                     location = section.findNext('span', {'class': 'job-location'})
-                    if self.location in location:
+                    if self.location in location.text:
                         self.positions.append(self.Position(
                             title=title.text if title else None,
                             link=urljoin(self.base_url, link['href']) if link else None,
