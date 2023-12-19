@@ -16,7 +16,6 @@ class IntelScraper(Scraper):
 
     def specific_page_url(self, index):
         string_index = f"?results&p={index}"
-        print(urljoin(self.url, string_index))
         return urljoin(self.url, string_index)
 
     def scrape(self):
@@ -30,11 +29,12 @@ class IntelScraper(Scraper):
                     title = section.findNext('h2')
                     link = section.findNext('a', {'class': 'test-apply'})
                     location = section.findNext('span', {'class': 'job-location'})
-                    self.positions.append(self.Position(
-                        title=title.text if title else None,
-                        link=urljoin(self.base_url, link['href']) if link else None,
-                        location=location.text if location else None
-                    ))
+                    if self.location in location:
+                        self.positions.append(self.Position(
+                            title=title.text if title else None,
+                            link=urljoin(self.base_url, link['href']) if link else None,
+                            location=location.text if location else None
+                        ))
             except Exception as e:
                 print(f"An error occurred: {e}")
 
