@@ -56,6 +56,3 @@ class ComeetScraper(Scraper):
                 location=location,
                 link=link
             ))
-
-
-# ComeetScraper().check_self()
