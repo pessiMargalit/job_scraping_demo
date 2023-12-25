@@ -1,6 +1,8 @@
 import os
 import re
 import subprocess
+from os.path import dirname
+from pathlib import Path
 
 
 class ComeetCompany:
@@ -21,9 +23,8 @@ class ComeetCompany:
         This function generate a comeet scraper using ComeetScraper class
         """
         if not directory_path:
-            root_dir = os.path.dirname(os.path.abspath(os.curdir))
-            print(root_dir)
-            directory_path = root_dir + "/Scrapers/CompanyScrapers/ComeetScrapers"
+            root_dir = os.path.dirname(dirname(dirname(os.path.abspath(__file__))))
+            directory_path = root_dir + r"\Scrapers\CompanyScrapers\ComeetScrapers"
         name = self.transform_string(self.name) + "Scraper"
         code = \
             f"""
@@ -41,10 +42,10 @@ class {name}(ComeetScraper):
             # Ensure the directory exists
             os.makedirs(directory_path, exist_ok=True)
             file_path = os.path.join(directory_path, name + ".py")
-            # with open(file_path, 'w') as file:
-            #     file.write(code)
-            #
-            # print(f"Python file created successfully: {file_path}")
+            with open(file_path, 'w') as file:
+                file.write(code)
+
+            print(f"Python file created successfully: {file_path}")
             return file_path
         except Exception as e:
             print(f"Error creating Python file: {e}")
@@ -94,3 +95,4 @@ class {name}(ComeetScraper):
 # curve.create_branch()
 # curve.generate_scraper()
 # curve.commit_and_push()
+
