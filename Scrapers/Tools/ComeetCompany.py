@@ -21,7 +21,8 @@ class ComeetCompany:
         This function generate a comeet scraper using ComeetScraper class
         """
         if not directory_path:
-            root_dir = os.path.dirname(os.path.abspath(__file__))
+            root_dir = os.path.dirname(os.path.abspath(os.curdir))
+            print(root_dir)
             directory_path = root_dir + "/Scrapers/CompanyScrapers/ComeetScrapers"
         name = self.transform_string(self.name) + "Scraper"
         code = \
@@ -40,10 +41,10 @@ class {name}(ComeetScraper):
             # Ensure the directory exists
             os.makedirs(directory_path, exist_ok=True)
             file_path = os.path.join(directory_path, name + ".py")
-            with open(file_path, 'w') as file:
-                file.write(code)
-
-            print(f"Python file created successfully: {file_path}")
+            # with open(file_path, 'w') as file:
+            #     file.write(code)
+            #
+            # print(f"Python file created successfully: {file_path}")
             return file_path
         except Exception as e:
             print(f"Error creating Python file: {e}")
