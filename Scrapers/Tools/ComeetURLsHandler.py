@@ -603,9 +603,9 @@ class ComeetURLsHandler:
 
     def create_new_comeet_branch(self, name, url):
         cc = ComeetCompany(name, url)
-        cc.create_branch(branch_name=f"shoshanas/{name.lower()}")
+        branch_name = cc.create_branch(branch_name=f"shoshanas/{name.lower()}")
         file_path = cc.generate_scraper()
-        cc.add_commit_push(file_path)
+        cc.add_commit_push(file_path, branch_name)
         cc.checkout_previous_branch()
 
 
