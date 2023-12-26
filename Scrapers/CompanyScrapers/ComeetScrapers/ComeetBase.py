@@ -38,3 +38,4 @@ class ComeetScraper(Scraper):
                 location=location,
                 link=link
             ))
+
