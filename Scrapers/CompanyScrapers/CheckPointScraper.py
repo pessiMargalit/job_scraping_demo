@@ -21,6 +21,3 @@ class CheckPointScraper(Scraper):
                     location=location
                 )
             )
-
-
-CheckPointScraper().check_self()
