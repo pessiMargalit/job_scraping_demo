@@ -36,7 +36,7 @@ class {class_name}Scraper(ComeetScraper):
         try:
             # Ensure the directory exists
             os.makedirs(directory_path, exist_ok=True)
-            file_path = os.path.join(directory_path, name + ".py")
+            file_path = os.path.join(directory_path, name + "Scraper.py")
             with open(file_path, 'w') as file:
                 code = self.code_template.format(class_name=self.transform_string(name), name=self.name, url=self.url)
                 file.write(code)
