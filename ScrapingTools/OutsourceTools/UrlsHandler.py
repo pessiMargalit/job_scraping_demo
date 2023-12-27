@@ -25,8 +25,9 @@ class UrlsHandler:
 
     def get_google_result(self, company_name):
         try:
-            search_results = search(f'{self.outsource_name} {company_name} career', num=5, stop=1, pause=2)
-            for result_url in next(search_results):
+            search_results = search(f'{self.outsource_name} {company_name} career', num=5, stop=5, pause=2)
+            for result_url in search_results:
+                print(result_url)
                 if self.check_url(result_url, company_name):
                     return result_url
             return None

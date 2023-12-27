@@ -23,9 +23,10 @@ class {scraper_name}(GreenhouseScraper):
 
 {scraper_name}().check_self()
 """
+    branch_name = "greenhouse2"
 
     def __init__(self, name, url=None):
-        super().__init__(name, "greenhouse", url)
+        super().__init__(name, self.branch_name, url)
 
     def generate_scraper(self, directory_path=None):
         if not directory_path:

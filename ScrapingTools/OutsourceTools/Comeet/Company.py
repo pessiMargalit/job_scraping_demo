@@ -20,9 +20,10 @@ class {class_name}Scraper(ComeetScraper):
         super().scrape()
 
     """
+    branch_name = "comeet"
 
     def __init__(self, name, url=None):
-        super().__init__(name, "comeet", url)
+        super().__init__(name, self.branch_name, url)
 
     def generate_scraper(self, directory_path=None):
         if not directory_path:
