@@ -9,15 +9,15 @@ from ScrapingTools.OutsourceTools.OutsourceCompany import OutsourceCompany
 class ComeetCompany(OutsourceCompany):
     code_template = \
         """
-    from ScrapingTools.OutsourceTools.Comeet.BaseScraper import ComeetScraper
-    
+from ScrapingTools.OutsourceTools.Comeet.BaseScraper import ComeetScraper
 
-    class {class_name}(ComeetScraper):
-        url = "{url}"
-        name = "{name}"
 
-        def scrape(self):
-            super().scrape()
+class {class_name}Scraper(ComeetScraper):
+    url = "{url}"
+    name = "{name}"
+
+    def scrape(self):
+        super().scrape()
 
     """
 
@@ -47,5 +47,3 @@ class ComeetCompany(OutsourceCompany):
             print(f"Error creating Python file: {e}")
             return None
 
-
-print(os.path.dirname(dirname(dirname(os.path.abspath(__file__)))))

@@ -1,6 +1,6 @@
 from enum import Enum
 
-from ScrapingTools.Scraper import Scraper
+from Scrapers.Scraper import Scraper
 
 TIMEOUT_IN_SECONDS = 10
 
