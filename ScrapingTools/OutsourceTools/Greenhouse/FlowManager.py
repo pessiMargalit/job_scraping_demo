@@ -1,9 +1,8 @@
 from ScrapingTools.OutsourceTools.Greenhouse.URLsHandler import GreenhouseURLsHandler
-from ScrapingTools.OutsourceTools.Comeet.Company import ComeetCompany
 
 if __name__ == "__main__":
     cuh = GreenhouseURLsHandler()
-    companies_dict = cuh.perform_urls_handler_flow()
+    companies_dict = cuh.perfortm_urls_handler_flow()
     # companies_dict = cuh.initialize_company_dict(r"C:\Users\User\Downloads\greenhouse.xlsx")
     # cc_general = ComeetCompany("")
     # cc_general.checkout_branch(cc_general.branch_name)
