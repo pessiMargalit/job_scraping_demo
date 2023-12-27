@@ -1,6 +1,10 @@
 from enum import Enum
 
-from Scrapers.Scraper import Scraper
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+from Scrapers.Scraper import *
 
 TIMEOUT_IN_SECONDS = 10
 
