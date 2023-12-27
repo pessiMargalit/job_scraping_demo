@@ -6,28 +6,31 @@ from os.path import dirname
 from ScrapingTools.OutsourceTools.OutsourceCompany import OutsourceCompany
 
 
-class ComeetCompany(OutsourceCompany):
-    code_template = \
-        """
-from ScrapingTools.OutsourceTools.Comeet.BaseScraper import ComeetScraper
+class GreenhouseCompany(OutsourceCompany):
+    code_template = """
+from Scrapers.CompanyScrapers.GreenhouseScrapers.GreenhouseScraper import GreenhouseScraper
 
 
-class {class_name}Scraper(ComeetScraper):
+class {scraper_name}(GreenhouseScraper):
+    official_url = "{official_url}"
     url = "{url}"
-    name = "{name}"
+    name = '{company_name}'
 
     def scrape(self):
+        # self.find_greenhouse_url(self.url)
         super().scrape()
 
-    """
+
+{scraper_name}().check_self()
+"""
 
     def __init__(self, name, url=None):
-        super().__init__(name, "comeet", url)
+        super().__init__(name, "greenhouse", url)
 
     def generate_scraper(self, directory_path=None):
         if not directory_path:
             root_dir = os.path.dirname(dirname(dirname(dirname(os.path.abspath(__file__)))))
-            directory_path = root_dir + r"\Scrapers\CompanyScrapers\ComeetScrapers"
+            directory_path = root_dir + r"\Scrapers\CompanyScrapers\GreenhouseScrapers"
         name = self.transform_string(self.name)
 
         try:
@@ -43,4 +46,3 @@ class {class_name}Scraper(ComeetScraper):
         except Exception as e:
             print(f"Error creating Python file: {e}")
             return None
-
