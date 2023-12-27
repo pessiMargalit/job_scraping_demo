@@ -3,9 +3,7 @@ import warnings
 from threading import Thread
 from queue import Queue
 import time
-from tqdm import tqdm
 from Scrapers import Scraper
-from Scrapers.CompanyScrapers import *
 from Scrapers.MainScrapers import *
 
 MAX_WORKERS = 21  # N + 1
