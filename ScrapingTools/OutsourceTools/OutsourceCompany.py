@@ -3,9 +3,10 @@ import subprocess
 
 
 class OutsourceCompany:
-    def __init__(self, name, url=None):
+    def __init__(self, name, branch_name, url=None):
         self.name = name
         self.url = url
+        self.branch_name = branch_name
 
     @staticmethod
     def transform_string(input_string):
@@ -18,12 +19,13 @@ class OutsourceCompany:
     def generate_scraper(self, directory_path=None):
         pass
 
-    def create_branch(self, branch_name):
+    def create_branch(self, branch_name= None):
         """
         This function create a new branch using for the new scraper
         """
         if not branch_name:
-            branch_name = self.name.replace(" ", "-").lower()
+            branch_name = self.branch_name
+            # branch_name = self.name.replace(" ", "-").lower()
         try:
             # Create a new branch
             subprocess.run(["git", "checkout", "-b", branch_name], check=True)

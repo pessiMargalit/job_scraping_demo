@@ -3,7 +3,10 @@ import pandas as pd
 from pathlib import Path
 
 
-class URLsHandler:
+class UrlsHandler:
+    def __init__(self, name):
+        self.name = name
+
     allowed_extensions = {'csv': ".csv", 'excel': ".xlsx"}
 
     def initialize_company_dict(self, companies):
@@ -20,9 +23,9 @@ class URLsHandler:
                 result_dict[name] = value
             return result_dict
 
-    def get_google_result(self, company, outsource):
+    def get_google_result(self, company):
         try:
-            search_results = search(f'{outsource} {company} career', num=5, stop=1, pause=2)  # Add a pause of 2 seconds
+            search_results = search(f'{self.name} {company} career', num=5, stop=1, pause=2)  # Add a pause of 2 seconds
             for result_url in next(search_results):
                 if self.check_url(result_url):
                     return result_url
@@ -56,5 +59,4 @@ class URLsHandler:
         pass
 
     def scrape_with_dict(self, comp_dict):
-        for name, url in comp_dict.items():
-            self.create_new_branch(name, url)
+        pass
