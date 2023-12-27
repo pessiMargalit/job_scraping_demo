@@ -31,7 +31,7 @@ class {class_name}Scraper(ComeetScraper):
         if not directory_path:
             root_dir = os.path.dirname(dirname(dirname(dirname(os.path.abspath(__file__)))))
             directory_path = root_dir + r"\Scrapers\CompanyScrapers\ComeetScrapers"
-        name = self.transform_string(self.name) + "Scraper"
+        name = self.transform_string(self.name)
 
         try:
             # Ensure the directory exists

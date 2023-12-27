@@ -57,7 +57,8 @@ class OutsourceCompany:
 
             subprocess.run(["git", "commit", "-m", commit_message], check=True)
 
-            subprocess.run(["git", "push", "--set-upstream", "origin", branch_name], check=True)
+            # TODO: Handle new branch case ("--set-upstream", "origin", branch_name)
+            subprocess.run(["git", "push"], check=True)
 
             print("Changes added, committed, and pushed successfully.")
         except subprocess.CalledProcessError as e:
