@@ -1,27 +1,22 @@
 import os
-import re
-import subprocess
 from os.path import dirname
 
 from ScrapingTools.OutsourceTools.OutsourceCompany import OutsourceCompany
 
 
 class GreenhouseCompany(OutsourceCompany):
+    # TODO: add this to the template: official_url = "{official_url}"
     code_template = """
-from Scrapers.CompanyScrapers.GreenhouseScrapers.GreenhouseScraper import GreenhouseScraper
+from ScrapingTools.OutsourceTools.Greenhouse.BaseScraper import GreenhouseScraper
 
 
-class {scraper_name}(GreenhouseScraper):
-    official_url = "{official_url}"
+class {class_name}(GreenhouseScraper): 
     url = "{url}"
-    name = '{company_name}'
+    name = '{name}'
 
     def scrape(self):
-        # self.find_greenhouse_url(self.url)
         super().scrape()
 
-
-{scraper_name}().check_self()
 """
     branch_name = "greenhouse2"
 

@@ -1,6 +1,4 @@
 import os
-import re
-import subprocess
 from os.path import dirname
 
 from ScrapingTools.OutsourceTools.OutsourceCompany import OutsourceCompany
