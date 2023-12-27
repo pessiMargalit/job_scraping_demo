@@ -2,8 +2,7 @@ import os
 import re
 import subprocess
 from os.path import dirname
-from pathlib import Path
-
+import OutsourceCompany from scrapers.
 
 class ComeetCompany(OutsourceCompany):
     def __init__(self, name, url=None):
