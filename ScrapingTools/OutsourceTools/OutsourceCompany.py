@@ -19,7 +19,7 @@ class OutsourceCompany:
     def generate_scraper(self, directory_path=None):
         pass
 
-    def create_branch(self, branch_name= None):
+    def create_branch(self, branch_name=None):
         """
         This function create a new branch using for the new scraper
         """
@@ -36,14 +36,17 @@ class OutsourceCompany:
             print(f"Error creating branch: {e}")
 
     @staticmethod
-    def checkout_previous_branch():
+    def checkout_branch(name):
         try:
             # Switch back to the previous branch
-            subprocess.run(["git", "checkout", "-"], check=True)
+            subprocess.run(["git", "checkout", name], check=True)
 
-            print("Switched back to the previous branch.")
+            print(f"Switched to the branch {name}.")
         except subprocess.CalledProcessError as e:
-            print(f"Error switching back to the previous branch: {e}")
+            print(f"Error switching to branch {name}: {e}")
+
+    def checkout_previous_branch(self):
+        self.checkout_branch("-")
 
     def add_commit_push(self, file_path, branch_name, commit_message=None):
         if not commit_message:

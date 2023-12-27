@@ -1,8 +1,8 @@
 from enum import Enum
 
-TIMEOUT_IN_SECONDS = 10
+from ScrapingTools.Scraper import Scraper
 
-from Scrapers.Scraper import *
+TIMEOUT_IN_SECONDS = 10
 
 
 class JobsDivisionBy(Enum):
