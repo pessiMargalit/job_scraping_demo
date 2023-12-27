@@ -30,7 +30,7 @@ for index, row in df.iterrows():
     link_to_website = row['Link To Greenhouse Website']
     # Create a Python file name based on the company name
     scraper_name = f"{company_name.replace(' ', '')}Scraper"
-    file_name = os.path.join("../GreenhouseScrapers", f"{scraper_name}.py")
+    file_name = os.path.join("../Scrapers/CompanyScrapers/GreenhouseScrapers", f"{scraper_name}.py")
 
     # Write the scraper code to the file
     with open(file_name, 'w') as file:
