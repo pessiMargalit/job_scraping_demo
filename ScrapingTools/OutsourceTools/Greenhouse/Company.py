@@ -10,7 +10,7 @@ class GreenhouseCompany(OutsourceCompany):
 from ScrapingTools.OutsourceTools.Greenhouse.BaseScraper import GreenhouseScraper
 
 
-class {class_name}(GreenhouseScraper): 
+class {class_name}Scraper(GreenhouseScraper): 
     url = "{url}"
     name = '{name}'
 
@@ -18,7 +18,7 @@ class {class_name}(GreenhouseScraper):
         super().scrape()
 
 """
-    branch_name = "greenhouse2"
+    branch_name = "greenhouse"
 
     def __init__(self, name, url=None):
         super().__init__(name, self.branch_name, url)
