@@ -29,7 +29,7 @@ class ComeetCompany(OutsourceCompany):
         This function generate a comeet scraper using ComeetScraper class
         """
         if not directory_path:
-            root_dir = os.path.dirname(dirname(dirname(os.path.abspath(__file__))))
+            root_dir = os.path.dirname(dirname(dirname(dirname(os.path.abspath(__file__)))))
             directory_path = root_dir + r"\Scrapers\CompanyScrapers\ComeetScrapers"
         name = self.transform_string(self.name) + "Scraper"
 
@@ -46,3 +46,6 @@ class ComeetCompany(OutsourceCompany):
         except Exception as e:
             print(f"Error creating Python file: {e}")
             return None
+
+
+print(os.path.dirname(dirname(dirname(os.path.abspath(__file__)))))

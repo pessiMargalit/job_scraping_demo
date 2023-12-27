@@ -46,6 +46,7 @@ class OutsourceCompany:
             print(f"Error switching to branch {name}: {e}")
 
     def checkout_previous_branch(self):
+        # TODO: Handle printing
         self.checkout_branch("-")
 
     def add_commit_push(self, file_path, branch_name, commit_message=None):
