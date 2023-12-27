@@ -9,7 +9,7 @@ class GreenhouseURLsHandler(UrlsHandler):
         super().__init__(self.outsource_name)
 
     def get_google_result(self, company):
-        super().get_google_result(company)
+        return super().get_google_result(company)
 
     def check_url(self, name, url):
         # TODO: Checking URL

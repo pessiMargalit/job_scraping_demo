@@ -9,12 +9,9 @@ class ComeetURLsHandler(UrlsHandler):
         super().__init__(self.outsource_name)
 
     def get_google_result(self, company):
-        super().get_google_result(company)
+        return super().get_google_result(company)
 
     def check_url(self, name, url):
-        """
-        This function check the URL if it is use comeet
-        """
         try:
             comeet_prefix = "https://www.comeet.com/jobs/"
             if comeet_prefix not in url:
