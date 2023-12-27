@@ -25,10 +25,11 @@ class UrlsHandler:
 
     def get_google_result(self, company_name):
         try:
-            search_results = search(f'{self.outsource_name} {company_name} career', num=5, stop=5, pause=2)
+            search_results = search(f'{self.outsource_name} {company_name} career', num=5, pause=2)
             for result_url in search_results:
                 print(result_url)
                 if self.check_url(result_url, company_name):
+                    print("The correct one: ", result_url)
                     return result_url
             return None
         except StopIteration:
@@ -45,6 +46,7 @@ class UrlsHandler:
         try:
             # Convert the dictionary to a DataFrame
             df = pd.DataFrame(list(companies_dict.items()), columns=['Company', 'URL'])
+            print(df)
             # Write the DataFrame to the specified file path
             if output_file_path.endswith(self.allowed_extensions['csv']):
                 df.to_csv(output_file_path, index=False)
@@ -57,7 +59,8 @@ class UrlsHandler:
             print(f"Error writing to file: {e}")
 
     def perform_urls_handler_flow(self):
-        companies = input("Please insert a route for companies list")
+        companies = r"C:\Users\User\Downloads\greenhouse.xlsx"
+        # input("Please insert a route for companies list\n")
         # You can also insert an array with companies names
         comp_dict = self.initialize_company_dict(companies)
         copied_comp_dict = comp_dict.copy()
@@ -67,8 +70,9 @@ class UrlsHandler:
             #  to be more general, like: "https://www.comeet.com/jobs/surgimate/B7.00D"
             if url is None:
                 del comp_dict[comp]
-            output_file = input("Please insert a route to companies list")
-            self.update_existing_urls(output_file_path=output_file, companies_dict=comp_dict)
+            else:
+                comp_dict[comp] = url
+        output_file = r"C:\Users\User\Downloads\1.xlsx"
+        # input("Please insert a route to companies list\n")
+        self.update_existing_urls(output_file_path=output_file, companies_dict=comp_dict)
         return comp_dict
-
-
