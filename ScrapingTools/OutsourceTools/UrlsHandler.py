@@ -58,10 +58,25 @@ class UrlsHandler:
             except Exception as e:
                 print(e)
                 return None
-
-            if attempt_count == max_attempts:
-                print("Maximum attempts reached. Exiting.")
-                return None
+        try:
+            search_results = search(f'{self.outsource_name} {company_name} career', num=5, stop=5, pause=2)
+            for result_url in search_results:
+                if self.check_url(result_url, company_name):
+                    return result_url
+            search_results = search(f'{self.outsource_name} {company_name}', num=5, stop=5, pause=2)
+            for result_url in search_results:
+                if self.check_url(result_url, company_name):
+                    return result_url
+            return None
+        except StopIteration:
+            print("No search results found.")
+            return None
+        except Exception as e:
+            print(e)
+            return None
+            # if attempt_count == max_attempts:
+            #     print("Maximum attempts reached. Exiting.")
+            #     return None
 
     def check_url(self, name, url):
         pass
