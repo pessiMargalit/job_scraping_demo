@@ -31,6 +31,10 @@ class UrlsHandler:
             for result_url in search_results:
                 if self.check_url(result_url, company_name):
                     return result_url
+            search_results = search(f'{self.outsource_name} {company_name}', num=5, stop=5, pause=2)
+            for result_url in search_results:
+                if self.check_url(result_url, company_name):
+                    return result_url
             return None
         except StopIteration:
             print("No search results found.")
@@ -65,8 +69,6 @@ class UrlsHandler:
         copied_comp_dict = comp_dict.copy()
         for comp in copied_comp_dict.keys():
             url = self.get_google_result(comp)
-            # TODO: Fix URLs like "https://www.comeet.com/jobs/surgimate/B7.00D/vp-of-customers/6B.A37"
-            #  to be more general, like: "https://www.comeet.com/jobs/surgimate/B7.00D"
             if url is None:
                 del comp_dict[comp]
             else:
