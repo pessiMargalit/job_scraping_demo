@@ -1,5 +1,6 @@
 from Scrapers.Scraper import *
 
+
 class GreenhouseScraper(Scraper):
     base_url = 'https://boards.greenhouse.io/'
     url = 'https://boards.greenhouse.io/'

@@ -7,7 +7,7 @@ from ScrapingTools.OutsourceTools.OutsourceCompany import OutsourceCompany
 class GreenhouseCompany(OutsourceCompany):
     # TODO: add this to the template: official_url = "{official_url}"
     code_template = """
-from ScrapingTools.OutsourceTools.Greenhouse.BaseScraper import GreenhouseScraper
+from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraper import GreenhouseScraper
 
 
 class {class_name}Scraper(GreenhouseScraper): 

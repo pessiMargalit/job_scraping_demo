@@ -21,9 +21,7 @@ class ComeetURLsHandler(UrlsHandler):
             if not bool(pattern.match(name)):
                 return False
                 # raise Exception("Error: Company name should be only English")
-
             # Checking if the company name is in the URL
-            name = self.clear_company_name(name)
             name = name.lower().replace(" ", "")
             sub_url = url[len(comeet_prefix):]
             sub_url = sub_url.replace("-", "")
