@@ -83,7 +83,8 @@ class UrlsHandler:
             print(f"Error writing to file: {e}")
 
     def perform_urls_handler_flow(self):
-        companies = input("Please insert a route for companies list\n")
+        # companies = input("Please insert a route for companies list\n")
+        companies = ["pax8"]
         # You can also insert an array with companies names
         comp_dict = self.initialize_company_dict(companies)
         copied_comp_dict = comp_dict.copy()
@@ -93,6 +94,7 @@ class UrlsHandler:
                 del comp_dict[comp]
             else:
                 comp_dict[comp] = url
+                print(comp, url)
         output_file = input("Please insert a route to companies list\n")
         self.update_existing_urls(output_file_path=output_file, companies_dict=comp_dict)
         return comp_dict
