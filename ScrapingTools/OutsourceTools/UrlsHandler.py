@@ -74,10 +74,9 @@ class UrlsHandler:
         except Exception as e:
             print(e)
             return None
-
-            if attempt_count == max_attempts:
-                print("Maximum attempts reached. Exiting.")
-                return None
+            # if attempt_count == max_attempts:
+            #     print("Maximum attempts reached. Exiting.")
+            #     return None
 
     def check_url(self, name, url):
         pass
