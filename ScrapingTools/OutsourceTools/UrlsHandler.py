@@ -37,7 +37,7 @@ class UrlsHandler:
             try:
                 search_results = search(f'{self.outsource_name} {company_name} career', num=5, pause=pause_duration)
                 for result_url in search_results:
-                    if self.check_url(result_url, company_name):
+                    if self.check_url(company_name, result_url):
                         return result_url
                 return None
 
@@ -98,8 +98,7 @@ class UrlsHandler:
             print(f"Error writing to file: {e}")
 
     def perform_urls_handler_flow(self):
-        # companies = input("Please insert a route for companies list\n")
-        companies = ["pax8"]
+        companies = input("Please insert a route for companies list\n")
         # You can also insert an array with companies names
         comp_dict = self.initialize_company_dict(companies)
         copied_comp_dict = comp_dict.copy()
@@ -122,3 +121,4 @@ class UrlsHandler:
         if 'Ltd.' in name:
             name = name.replace('Ltd.', '').rstrip()
         return name
+
