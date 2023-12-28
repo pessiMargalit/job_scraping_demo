@@ -35,6 +35,3 @@ class ComeetURLsHandler(UrlsHandler):
         return True
 
 
-
-
-print(UrlsHandler().clear_company_name('Frebo App Ltd. (AnyBook)'))
