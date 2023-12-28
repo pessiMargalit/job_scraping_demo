@@ -7,7 +7,7 @@ from ScrapingTools.OutsourceTools.OutsourceCompany import OutsourceCompany
 class ComeetCompany(OutsourceCompany):
     code_template = \
         """
-from ScrapingTools.OutsourceTools.Comeet.BaseScraper import ComeetScraper
+from ScrapingTools.OutsourceTools.Comeet.ComeetScraper import ComeetScraper
 
 
 class {class_name}Scraper(ComeetScraper):

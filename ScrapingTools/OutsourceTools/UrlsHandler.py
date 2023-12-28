@@ -1,4 +1,6 @@
 import re
+import time
+from urllib.error import HTTPError
 
 from googlesearch import search
 import pandas as pd
@@ -13,7 +15,7 @@ class UrlsHandler:
 
     def initialize_company_dict(self, companies):
         if isinstance(companies, list):
-            return {comp: "" for comp in companies}
+            return {self.clear_company_name(comp): "" for comp in companies}
         if isinstance(companies, str):
             result_dict = dict()
             file = Path(companies)
@@ -21,23 +23,45 @@ class UrlsHandler:
                 df = pd.read_excel(companies) if companies.endswith('.xlsx') else pd.read_csv(companies)
                 for index, row in df.iterrows():
                     name = row.iloc[0]  # Assuming the name is in the first column
+                    name = self.clear_company_name(name)
                     value = row.iloc[1] if len(row) > 1 else ''
                     result_dict[name] = value
             return result_dict
 
     def get_google_result(self, company_name):
-        try:
-            search_results = search(f'{self.outsource_name} {company_name} career', num=5, stop=5, pause=2)
-            for result_url in search_results:
-                if self.check_url(result_url, company_name):
-                    return result_url
-            return None
-        except StopIteration:
-            print("No search results found.")
-            return None
-        except Exception as e:
-            print(e)
-            return None
+        attempt_count = 0
+        max_attempts = 5
+        pause_duration = 5  # Increase the pause duration
+
+        while attempt_count < max_attempts:
+            try:
+                search_results = search(f'{self.outsource_name} {company_name} career', num=5, pause=pause_duration)
+                for result_url in search_results:
+                    if self.check_url(result_url, company_name):
+                        return result_url
+                return None
+
+            except HTTPError as e:
+                if e.code == 429:
+                    print("Rate limit hit. Waiting to retry...")
+                    time.sleep(pause_duration)  # Wait before retrying
+                    pause_duration *= 2  # Exponential backoff
+                    attempt_count += 1
+                else:
+                    print(e)
+                    return None
+
+            except StopIteration:
+                print("No search results found.")
+                return None
+
+            except Exception as e:
+                print(e)
+                return None
+
+            if attempt_count == max_attempts:
+                print("Maximum attempts reached. Exiting.")
+                return None
 
     def check_url(self, name, url):
         pass
@@ -65,8 +89,6 @@ class UrlsHandler:
         copied_comp_dict = comp_dict.copy()
         for comp in copied_comp_dict.keys():
             url = self.get_google_result(comp)
-            # TODO: Fix URLs like "https://www.comeet.com/jobs/surgimate/B7.00D/vp-of-customers/6B.A37"
-            #  to be more general, like: "https://www.comeet.com/jobs/surgimate/B7.00D"
             if url is None:
                 del comp_dict[comp]
             else:
