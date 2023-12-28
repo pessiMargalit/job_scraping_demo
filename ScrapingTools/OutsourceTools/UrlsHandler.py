@@ -1,3 +1,5 @@
+import re
+
 from googlesearch import search
 import pandas as pd
 from pathlib import Path
@@ -72,3 +74,12 @@ class UrlsHandler:
         output_file = input("Please insert a route to companies list\n")
         self.update_existing_urls(output_file_path=output_file, companies_dict=comp_dict)
         return comp_dict
+
+    @staticmethod
+    def clear_company_name(company):
+        #  Remove "Ltd" suffix and special chars
+        # remove the (...)
+        name = re.sub(r'\([^)]*\)', '', company)
+        if 'Ltd.' in name:
+            name = name.replace('Ltd.', '').rstrip()
+        return name

@@ -23,8 +23,7 @@ class ComeetURLsHandler(UrlsHandler):
                 # raise Exception("Error: Company name should be only English")
 
             # Checking if the company name is in the URL
-            # TODO: Remove "Ltd" suffix and special chars
-
+            name = self.clear_company_name(name)
             name = name.lower().replace(" ", "")
             sub_url = url[len(comeet_prefix):]
             sub_url = sub_url.replace("-", "")
@@ -34,3 +33,8 @@ class ComeetURLsHandler(UrlsHandler):
             print(e)
             return False
         return True
+
+
+
+
+print(UrlsHandler().clear_company_name('Frebo App Ltd. (AnyBook)'))
