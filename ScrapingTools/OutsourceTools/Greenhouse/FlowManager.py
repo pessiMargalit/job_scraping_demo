@@ -1,5 +1,5 @@
 from ScrapingTools.OutsourceTools.Greenhouse.Company import GreenhouseCompany
-from ScrapingTools.OutsourceTools.Greenhouse.URLsHandler import GreenhouseURLsHandler
+from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseURLsHandler import GreenhouseURLsHandler
 
 if __name__ == "__main__":
     cuh = GreenhouseURLsHandler()

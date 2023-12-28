@@ -11,6 +11,7 @@ from ScrapingTools.OutsourceTools.Greenhouse.BaseScraper import GreenhouseScrape
 
 
 class {class_name}Scraper(GreenhouseScraper): 
+    official_url = '{official_url}'
     url = "{url}"
     name = '{name}'
 

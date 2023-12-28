@@ -1,4 +1,4 @@
-from ScrapingTools.OutsourceTools.Comeet.URLsHandler import ComeetURLsHandler
+from ScrapingTools.OutsourceTools.Comeet.ComeetURLsHandler import ComeetURLsHandler
 from ScrapingTools.OutsourceTools.Comeet.Company import ComeetCompany
 
 if __name__ == "__main__":
