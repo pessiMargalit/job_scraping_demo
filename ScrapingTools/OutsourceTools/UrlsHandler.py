@@ -30,22 +30,19 @@ class UrlsHandler:
 
     def get_google_result(self, company_name):
         attempt_count = 0
-        max_attempts = 3
+        max_attempts = 2
         pause_duration = 3  # Increase the pause duration
 
         while attempt_count < max_attempts:
-            print(attempt_count)
             try:
-                search_results = search(f'{self.outsource_name} {company_name} career', num=3, pause=pause_duration)
+                search_results = search(f'{self.outsource_name} {company_name} career', num=3, stop=3, pause=pause_duration)
                 for result_url in search_results:
                     print("company_name: ", company_name, "result_url: ", result_url)
                     if self.check_url(company_name, result_url):
-                        print(company_name, result_url)
                         return result_url
-                search_results = search(f'{self.outsource_name} {company_name} ', num=3, pause=pause_duration)
+                search_results = search(f'{self.outsource_name} {company_name} ', num=3, stop=3, pause=pause_duration)
                 for result_url in search_results:
                     if self.check_url(company_name, result_url):
-                        print(company_name, result_url)
                         return result_url
                 return None
 
@@ -66,6 +63,7 @@ class UrlsHandler:
             except Exception as e:
                 print(e)
                 return None
+
     # def get_google_result(self, word):
     #     results = []
     #
