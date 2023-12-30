@@ -25,7 +25,6 @@ class GreenhouseURLsHandler(UrlsHandler):
             # Checking if the company name is in the URL
             name = name.lower().replace(" ", "").replace(" Ltd", "")
             url = url.lower()
-            # sub_url = url[len(str(greenhouse_pattern)):]
             sub_url = url.replace("-", "")
             if '.' in name and name not in sub_url:
                 name = name.replace('.', '')
