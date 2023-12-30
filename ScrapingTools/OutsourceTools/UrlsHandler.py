@@ -37,6 +37,7 @@ class UrlsHandler:
             try:
                 search_results = search(f'{self.outsource_name} {company_name} career', num=5, pause=pause_duration)
                 for result_url in search_results:
+                    print("company_name: ", company_name, "result_url: ", result_url)
                     if self.check_url(company_name, result_url):
                         return result_url
                 return None
@@ -121,4 +122,3 @@ class UrlsHandler:
         if 'Ltd.' in name:
             name = name.replace('Ltd.', '').rstrip()
         return name
-
