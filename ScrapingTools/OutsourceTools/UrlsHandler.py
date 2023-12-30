@@ -30,14 +30,21 @@ class UrlsHandler:
 
     def get_google_result(self, company_name):
         attempt_count = 0
-        max_attempts = 5
-        pause_duration = 5  # Increase the pause duration
+        max_attempts = 3
+        pause_duration = 3  # Increase the pause duration
 
         while attempt_count < max_attempts:
+            print(attempt_count)
             try:
-                search_results = search(f'{self.outsource_name} {company_name} career', num=5, pause=pause_duration)
+                search_results = search(f'{self.outsource_name} {company_name} career', num=3, pause=pause_duration)
                 for result_url in search_results:
                     if self.check_url(company_name, result_url):
+                        print(company_name, result_url)
+                        return result_url
+                search_results = search(f'{self.outsource_name} {company_name} ', num=3, pause=pause_duration)
+                for result_url in search_results:
+                    if self.check_url(company_name, result_url):
+                        print(company_name, result_url)
                         return result_url
                 return None
 
@@ -58,25 +65,16 @@ class UrlsHandler:
             except Exception as e:
                 print(e)
                 return None
-        try:
-            search_results = search(f'{self.outsource_name} {company_name} career', num=5, stop=5, pause=2)
-            for result_url in search_results:
-                if self.check_url(result_url, company_name):
-                    return result_url
-            search_results = search(f'{self.outsource_name} {company_name}', num=5, stop=5, pause=2)
-            for result_url in search_results:
-                if self.check_url(result_url, company_name):
-                    return result_url
-            return None
-        except StopIteration:
-            print("No search results found.")
-            return None
-        except Exception as e:
-            print(e)
-            return None
-            # if attempt_count == max_attempts:
-            #     print("Maximum attempts reached. Exiting.")
-            #     return None
+    # def get_google_result(self, word):
+    #     results = []
+    #
+    #     # try:
+    #     for url in search(word, num=1, stop=4):
+    #         results.append(url)
+    #     # except Exception as e:
+    #     #     print(f"An error occurred during the search: {str(e)}")
+    #
+    #     return results
 
     def check_url(self, name, url):
         pass
@@ -85,7 +83,6 @@ class UrlsHandler:
         try:
             # Convert the dictionary to a DataFrame
             df = pd.DataFrame(list(companies_dict.items()), columns=['Company', 'URL'])
-            print(df)
             # Write the DataFrame to the specified file path
             if output_file_path.endswith(self.allowed_extensions['csv']):
                 df.to_csv(output_file_path, index=False)
