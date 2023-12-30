@@ -14,7 +14,7 @@ class GreenhouseURLsHandler(UrlsHandler):
     def get_google_result(self, company_name):
         return super().get_google_result(company_name)
 
-    def check_url(self, url, name):
+    def check_url(self, name, url):
         """
         This function check the URL if it is use greenhouse
         """

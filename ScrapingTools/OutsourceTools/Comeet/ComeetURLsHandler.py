@@ -14,6 +14,7 @@ class ComeetURLsHandler(UrlsHandler):
     def check_url(self, name, url):
         try:
             comeet_prefix = "https://www.comeet.com/jobs/"
+            print(url)
             if comeet_prefix not in url:
                 return False
             # TODO - try to translate company name into english
@@ -31,5 +32,3 @@ class ComeetURLsHandler(UrlsHandler):
             print(e)
             return False
         return True
-
-

@@ -37,7 +37,7 @@ class UrlsHandler:
             try:
                 search_results = search(f'{self.outsource_name} {company_name} career', num=5, pause=pause_duration)
                 for result_url in search_results:
-                    if self.check_url(result_url, company_name):
+                    if self.check_url(company_name, result_url):
                         return result_url
                 return None
 
@@ -108,6 +108,7 @@ class UrlsHandler:
                 del comp_dict[comp]
             else:
                 comp_dict[comp] = url
+                print(comp, url)
         output_file = input("Please insert a route to companies list\n")
         self.update_existing_urls(output_file_path=output_file, companies_dict=comp_dict)
         return comp_dict
@@ -120,3 +121,4 @@ class UrlsHandler:
         if 'Ltd.' in name:
             name = name.replace('Ltd.', '').rstrip()
         return name
+
