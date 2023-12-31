@@ -33,4 +33,3 @@ class ComeetURLsHandler(UrlsHandler):
         return True
 
 
-c = ComeetURLsHandler().get_google_result("nvidia")
