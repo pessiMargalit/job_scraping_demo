@@ -12,12 +12,9 @@ class GameloftScraper(Scraper):
             for job in careers:
                 title = job.findNext('h4', class_='details-title job-title link--block-target').text.strip()
                 link = job.findNext('a', class_='link--block details')['href']
-                # location = areas[area]
-                self.positions.append(self.Position(
-                    title=title,
-                    link=link,
-                    # location=location
-                ))
+                # self.positions.append(self.Position(
+                #     title=title,
+                #     link=link,
+                # ))
 
 
-GameloftScraper().check_self()
