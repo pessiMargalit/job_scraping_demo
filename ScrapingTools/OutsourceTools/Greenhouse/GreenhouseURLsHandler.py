@@ -1,7 +1,4 @@
 import re
-
-from googlesearch import search
-
 from ScrapingTools.OutsourceTools.UrlsHandler import UrlsHandler
 
 
@@ -34,4 +31,3 @@ class GreenhouseURLsHandler(UrlsHandler):
             print(e)
             return False
         return True
-
