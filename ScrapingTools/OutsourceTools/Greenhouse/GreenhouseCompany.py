@@ -14,9 +14,6 @@ class {class_name}Scraper(GreenhouseScraper):
     url = "{url}"
     name = '{name}'
 
-    def scrape(self):
-        super().scrape()
-
 """
     branch_name = "greenhouse2"
 

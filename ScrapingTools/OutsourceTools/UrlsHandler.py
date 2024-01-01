@@ -8,9 +8,6 @@ from pathlib import Path
 
 
 class UrlsHandler:
-    def __init__(self, outsource_name):
-        self.outsource_name = outsource_name
-
     allowed_extensions = {'csv': ".csv", 'excel': ".xlsx"}
 
     def initialize_company_dict(self, companies):
