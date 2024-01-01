@@ -18,6 +18,3 @@ class DexcelPharmaScraper(Scraper):
                     link=self.url,
                     content=content.text if content else None
                 ))
-
-
-DexcelPharmaScraper().check_self()

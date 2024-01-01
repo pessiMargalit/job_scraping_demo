@@ -4,6 +4,7 @@ from Scrapers.Scraper import *
 class CalypsaScraper(Scraper):
     name = 'Calypsa'
     url = 'https://calypsa.com/careers'
+    base_url = 'https://calypsa.com'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)
@@ -13,6 +14,7 @@ class CalypsaScraper(Scraper):
             if title:
                 self.positions.append(self.Position(
                     title=title.text if title else None,
-                    link=f"{self.url}{title['href']}" if title else None,
+                    link=f"{self.base_url}{title['href']}" if title else None,
                     location=self.location
                 ))
+

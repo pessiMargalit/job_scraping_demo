@@ -20,8 +20,8 @@ class InzivScraper(Scraper):
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         }
         soup = self.scraping_unit(self.url, headers=headers)
-        careers = soup.find_all('li')
-        for job in careers:
+        careers = soup.find('ul', {'class': 'comeet-positions-list'})
+        for job in careers.find_all('li'):
             title = job.findNext('div', class_='comeet-position-name')
             content = job.findNext('div', class_='comeet-position-meta')
             link = job.findNext('a', class_='comeet-position')
