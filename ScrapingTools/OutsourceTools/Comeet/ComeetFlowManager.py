@@ -1,6 +1,7 @@
 from ScrapingTools.OutsourceTools.Comeet.ComeetURLsHandler import ComeetURLsHandler
 from ScrapingTools.OutsourceTools.Comeet.ComeetCompany import ComeetCompany
 
+
 if __name__ == "__main__":
     cuh = ComeetURLsHandler()
     # companies_dict = cuh.perform_urls_handler_flow()
