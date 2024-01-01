@@ -2,6 +2,7 @@ import re
 from ScrapingTools.OutsourceTools.UrlsHandler import UrlsHandler
 from urllib.parse import urlparse, urlunparse
 
+
 class ComeetURLsHandler(UrlsHandler):
     outsource_name = "comeet"
 
@@ -38,11 +39,9 @@ class ComeetURLsHandler(UrlsHandler):
             return False
         return True
 
-
     def clear_url(self, url):
         parsed_url = urlparse(url)
         path_segments = parsed_url.path.split('/')
         base_path = '/'.join(path_segments[:-2])
         base_url = urlunparse((parsed_url.scheme, parsed_url.netloc, base_path, '', '', ''))
         return base_url
-
