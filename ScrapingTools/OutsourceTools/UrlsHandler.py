@@ -45,7 +45,7 @@ class UrlsHandler:
                 for result_url in search_results:
                     if self.check_url(company_name, result_url):
                         print("company_name: ", company_name, "result_url: ", result_url)
-                        return result_url
+                        return self.clear_url(result_url)
                 return None
 
             except HTTPError as e:
@@ -108,3 +108,7 @@ class UrlsHandler:
         if 'Ltd.' in name:
             name = name.replace('Ltd.', '').rstrip()
         return name
+
+
+    def clear_url(self, url):
+        pass
