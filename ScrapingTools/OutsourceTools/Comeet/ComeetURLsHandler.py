@@ -2,6 +2,7 @@ import re
 from ScrapingTools.OutsourceTools.UrlsHandler import UrlsHandler
 from urllib.parse import urlparse, urlunparse
 
+
 class ComeetURLsHandler(UrlsHandler):
     outsource_name = "comeet"
 
@@ -22,27 +23,22 @@ class ComeetURLsHandler(UrlsHandler):
                 return False
                 # raise Exception("Error: Company name should be only English")
             # Checking if the company name is in the URL
-
             name = name.lower().replace(" ", "")
-
             url_parts = url.split("/")
             jobs_index = url_parts.index("jobs")
             company = url_parts[jobs_index + 1]
             company = company.replace("-", "")
-
             if name != company:
                 return False
-
         except Exception as e:
             print(e)
             return False
         return True
 
-
-    def clear_url(self, url):
+    @staticmethod
+    def clear_url(url):
         parsed_url = urlparse(url)
         path_segments = parsed_url.path.split('/')
         base_path = '/'.join(path_segments[:-2])
         base_url = urlunparse((parsed_url.scheme, parsed_url.netloc, base_path, '', '', ''))
         return base_url
-

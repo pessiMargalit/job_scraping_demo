@@ -109,6 +109,6 @@ class UrlsHandler:
             name = name.replace('Ltd.', '').rstrip()
         return name
 
-
-    def clear_url(self, url):
-        pass
+    @staticmethod
+    def clear_url( url):
+        return url
