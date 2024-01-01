@@ -4,7 +4,7 @@ from ScrapingTools.OutsourceTools.Comeet.ComeetScraper import ComeetScraper
 
 class ProteantecsScraper(ComeetScraper):
     url = "https://www.comeet.com/jobs/proteantecs/D5.00E"
-    name = "Proteantecs"
+    name = "proteanTecs"
 
     def scrape(self):
         super().scrape()
