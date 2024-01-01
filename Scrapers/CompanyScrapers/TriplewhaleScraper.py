@@ -8,25 +8,27 @@ class TriplewhaleScraper(Scraper):
     url = 'https://www.triplewhale.com/careers'
 
     def scrape(self):
-        # driver = self.selenium_url_maker(self.url)
-        # WebDriverWait(driver, TIMEOUT_IN_SECONDS).until(
-        #     EC.presence_of_element_located((By.ID, 'lever-jobs-container'))
-        # )
-        #
-        # # Use BeautifulSoup to parse the driver.page_source
-        # soup = BeautifulSoup(driver.page_source, 'html.parser')
+        driver = self.selenium_url_maker(self.url)
 
-        soup = self.scraping_unit(self.url)
-        jobs = soup.find_all('div', {'id': "lever-jobs-container"})
-        print(jobs)
-        for li in soup.find_all('li', {'class': 'lever-job'}):
-            career = li.findNext('a', {'class': 'lever-job-title'})
-            location = li.findNext('span')
-            self.positions.append(self.Position(
-                title=career.text if career else None,
-                link=career['href'] if career else None,
-                location=location.text if location else None
-            ))
+        try:
+            # Wait for the lever-jobs-container to be present on the page
+            jobs_container = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.ID, 'lever-jobs-container'))
+            )
+
+            # Now that the jobs container is present, find all the li elements
+            for li in jobs_container.find_elements(By.CLASS_NAME, 'lever-job'):
+                career = li.find_element(By.CLASS_NAME, 'lever-job-title')
+                location = li.find_element(By.TAG_NAME, 'span')
+                self.positions.append(self.Position(
+                    title=career.text.strip() if career else None,
+                    link=career.get_attribute('href') if career else None,
+                    location=location.text.strip() if location else None
+                ))
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            driver.quit()  # Make sure to close the browser even if an exception occurs
 
 
 TriplewhaleScraper().check_self()
