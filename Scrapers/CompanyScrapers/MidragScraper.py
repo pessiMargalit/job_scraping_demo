@@ -24,5 +24,3 @@ class MidragScraper(Scraper):
                 link=link
             ))
 
-
-MidragScraper().check_self()
