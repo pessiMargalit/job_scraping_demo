@@ -22,14 +22,18 @@ class ComeetURLsHandler(UrlsHandler):
                 return False
                 # raise Exception("Error: Company name should be only English")
             # Checking if the company name is in the URL
+
             name = name.lower().replace(" ", "")
-            sub_url = url[len(comeet_prefix):]
-            sub_url = sub_url.replace("-", "")
-            if name not in sub_url:
+
+            url_parts = url.split("/")
+            jobs_index = url_parts.index("jobs")
+            company = url_parts[jobs_index + 1]
+            company = company.replace("-", "")
+
+            if name != company:
                 return False
+
         except Exception as e:
             print(e)
             return False
         return True
-
-
