@@ -29,6 +29,3 @@ class TriplewhaleScraper(Scraper):
             print(f"An error occurred: {e}")
         finally:
             driver.quit()  # Make sure to close the browser even if an exception occurs
-
-
-TriplewhaleScraper().check_self()
