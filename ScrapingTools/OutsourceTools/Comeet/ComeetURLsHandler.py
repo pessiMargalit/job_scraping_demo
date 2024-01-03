@@ -42,3 +42,4 @@ class ComeetURLsHandler(UrlsHandler):
         base_path = '/'.join(path_segments[:-2])
         base_url = urlunparse((parsed_url.scheme, parsed_url.netloc, base_path, '', '', ''))
         return base_url
+
