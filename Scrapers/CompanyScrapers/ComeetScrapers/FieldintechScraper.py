@@ -9,4 +9,6 @@ class FieldintechScraper(ComeetScraper):
     def scrape(self):
         super().scrape()
 
+
+FieldintechScraper().check_self()
     
