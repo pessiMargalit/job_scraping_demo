@@ -1,20 +1,18 @@
 import re
 from ScrapingTools.OutsourceTools.UrlsHandler import UrlsHandler
+from urllib.parse import urlparse, urlunparse
 
 
 class ComeetURLsHandler(UrlsHandler):
     outsource_name = "comeet"
 
-    def __init__(self):
-        super().__init__(self.outsource_name)
+    # def __init__(self):
+    #     super().__init__()
 
     def get_google_result(self, company):
-        super().get_google_result(company)
+        return super().get_google_result(company)
 
     def check_url(self, name, url):
-        """
-        This function check the URL if it is use comeet
-        """
         try:
             comeet_prefix = "https://www.comeet.com/jobs/"
             if comeet_prefix not in url:
@@ -24,16 +22,24 @@ class ComeetURLsHandler(UrlsHandler):
             if not bool(pattern.match(name)):
                 return False
                 # raise Exception("Error: Company name should be only English")
-
             # Checking if the company name is in the URL
-            # TODO: Remove "Ltd" suffix and special chars
-
             name = name.lower().replace(" ", "")
-            sub_url = url[len(comeet_prefix):]
-            sub_url = sub_url.replace("-", "")
-            if name not in sub_url:
+            url_parts = url.split("/")
+            jobs_index = url_parts.index("jobs")
+            company = url_parts[jobs_index + 1]
+            company = company.replace("-", "")
+            if name != company:
                 return False
         except Exception as e:
             print(e)
             return False
         return True
+
+    @staticmethod
+    def clear_url(url):
+        parsed_url = urlparse(url)
+        path_segments = parsed_url.path.split('/')
+        base_path = '/'.join(path_segments[:-2])
+        base_url = urlunparse((parsed_url.scheme, parsed_url.netloc, base_path, '', '', ''))
+        return base_url
+

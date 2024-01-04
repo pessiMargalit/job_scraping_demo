@@ -20,9 +20,6 @@ class OutsourceCompany:
         pass
 
     def create_branch(self, branch_name=None):
-        """
-        This function create a new branch using for the new scraper
-        """
         if not branch_name:
             branch_name = self.branch_name
             # branch_name = self.name.replace(" ", "-").lower()

@@ -1,10 +1,12 @@
-from ScrapingTools.OutsourceTools.Comeet.URLsHandler import ComeetURLsHandler
-from ScrapingTools.OutsourceTools.Comeet.Company import ComeetCompany
+from ScrapingTools.OutsourceTools.Comeet.ComeetURLsHandler import ComeetURLsHandler
+from ScrapingTools.OutsourceTools.Comeet.ComeetCompany import ComeetCompany
+
 
 if __name__ == "__main__":
     cuh = ComeetURLsHandler()
     # companies_dict = cuh.perform_urls_handler_flow()
-    companies_dict = cuh.initialize_company_dict(r"C:\Users\User\Downloads\res.xlsx")
+    # print(companies_dict)
+    companies_dict = cuh.initialize_company_dict(r"C:\Users\user\Downloads\comeetBSD.xlsx")
     cc_general = ComeetCompany("", "")
     cc_general.checkout_branch(cc_general.branch_name)
     for name, url in companies_dict.items():

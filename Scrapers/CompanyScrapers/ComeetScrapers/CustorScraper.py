@@ -2,8 +2,8 @@
 from ScrapingTools.OutsourceTools.Comeet.ComeetScraper import ComeetScraper
 
 
-class AbraScraper(ComeetScraper):
+class CustorScraper(ComeetScraper):
     url = "nan"
-    name = "Abra"
+    name = "Custor"
 
     

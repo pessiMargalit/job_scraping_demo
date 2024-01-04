@@ -1,12 +1,9 @@
 
-from ScrapingTools.OutsourceTools.Comeet.BaseScraper import ComeetScraper
+from ScrapingTools.OutsourceTools.Comeet.ComeetScraper import ComeetScraper
 
 
 class CurveScraper(ComeetScraper):
-    url = "https://www.comeet.com/jobs/curve/E4.001"
+    url = "nan"
     name = "Curve"
-
-    def scrape(self):
-        super().scrape()
 
     
