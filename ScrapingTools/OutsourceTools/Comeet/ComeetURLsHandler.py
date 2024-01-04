@@ -6,8 +6,8 @@ from urllib.parse import urlparse, urlunparse
 class ComeetURLsHandler(UrlsHandler):
     outsource_name = "comeet"
 
-    def __init__(self):
-        super().__init__(self.outsource_name)
+    # def __init__(self):
+    #     super().__init__()
 
     def get_google_result(self, company):
         return super().get_google_result(company)

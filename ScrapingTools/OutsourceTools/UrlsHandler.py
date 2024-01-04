@@ -10,6 +10,7 @@ from pathlib import Path
 class UrlsHandler:
     allowed_extensions = {'csv': ".csv", 'excel': ".xlsx"}
 
+
     def initialize_company_dict(self, companies):
         if isinstance(companies, list):
             return {self.clear_company_name(comp): "" for comp in companies}
