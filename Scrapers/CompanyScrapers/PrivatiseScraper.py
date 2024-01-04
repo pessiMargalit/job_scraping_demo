@@ -18,3 +18,4 @@ class PrivatiseScraper(Scraper):
                     title=title,
                     link=link,
                 ))
+

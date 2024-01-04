@@ -1,8 +1,8 @@
 from Scrapers.Scraper import *
 
 
-class FactoredScraper(Scraper):
-    name = "Factored"
+class LeverScraper(Scraper):
+    name = "Lever"
     url = 'https://jobs.lever.co/factored'
 
     def scrape(self):
@@ -21,5 +21,3 @@ class FactoredScraper(Scraper):
                 link=link,
                 location=location
             ))
-
-

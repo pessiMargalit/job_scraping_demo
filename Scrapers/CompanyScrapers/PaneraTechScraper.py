@@ -27,3 +27,4 @@ class PaneraTechScraper(Scraper):
                 link=link,
                 location=location[len(prefix):]
             ))
+

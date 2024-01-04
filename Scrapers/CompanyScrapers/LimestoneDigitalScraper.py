@@ -18,3 +18,5 @@ class LimestoneDigitalScraper(Scraper):
                 link=link,
                 location='remote'
             ))
+
+

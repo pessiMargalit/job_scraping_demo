@@ -24,3 +24,4 @@ class MidragScraper(Scraper):
                 link=link
             ))
 
+

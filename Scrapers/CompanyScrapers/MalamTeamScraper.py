@@ -27,3 +27,4 @@ class MalamTeamScraper(Scraper):
                     link=link,
                     location=location
                 ))
+

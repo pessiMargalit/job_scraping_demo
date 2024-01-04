@@ -18,3 +18,4 @@ class RegencorScraper(Scraper):
                 link=link,
                 content=description,
             ))
+
