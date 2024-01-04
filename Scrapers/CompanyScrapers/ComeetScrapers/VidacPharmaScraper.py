@@ -3,7 +3,7 @@ from ScrapingTools.OutsourceTools.Comeet.ComeetScraper import ComeetScraper
 
 
 class VidacpharmaScraper(ComeetScraper):
-    url = "nan"
+    url = "https://vidacpharma.com/en/"
     name = "Vidac Pharma"
 
     
