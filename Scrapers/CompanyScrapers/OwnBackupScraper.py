@@ -7,17 +7,14 @@ class OwnBackupScraper(Scraper):
 
     def scrape(self):
         soup = self.scraping_unit(self.url)
-        class_pattern = re.compile(r'job job-(\d+) jobs-item')
-        careers = soup.find_all('div', class_=class_pattern)
+        careers = soup.find_all('div', class_='div-block-37')
         for job in careers:
             title = job.find_next('div', {'class': 'title jobs-title is--margin-25'})
             link = job.find_next('a', class_='sub-title')
-
+            location = job.find_next('div', class_='location')
             if title:
                 self.positions.append(self.Position(
-                    title=title.text.strip() if title else None,
+                    title=title.text if title else None,
                     link=link['href'] if link else None,
+                    location=location.text if location else None
                 ))
-
-
-OwnBackupScraper().check_self()
