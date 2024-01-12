@@ -4,8 +4,12 @@ from Scrapers.ScrapersFactory import ScrapersFactory
 
 
 def get_scrapers_from_branch(branch_name):
+    # Fetch the branch first
+    subprocess.run(["git", "fetch", "origin", branch_name], check=True)
     # Checkout the specified branch
     subprocess.run(["git", "checkout", branch_name], check=True)
+    # Reset to make sure the working directory matches the branch
+    subprocess.run(["git", "reset", "--hard", f"origin/{branch_name}"], check=True)
 
     # Instantiate the factory and get scraper names
     factory = ScrapersFactory()
