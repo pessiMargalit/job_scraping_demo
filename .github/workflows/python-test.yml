@@ -32,6 +32,6 @@ jobs:
         # turn into array only if under Scrapers/CompanyScrapers
         CHANGED_FILES=$(echo "${{steps.files.outputs.added_modified}}" | grep -o 'Scrapers/CompanyScrapers/[^ ]*' | awk -F'/' '{print $NF}' | paste -sd, -)
         echo "New Scrapers: $CHANGED_FILES"
-        echo "SCRAPERS=$NEW_SCRAPERS" >> "$GITHUB_ENV"
+        echo "SCRAPERS=$CHANGED_FILES" >> "$GITHUB_ENV"
     - name: Run Tests on New Scrapers
       run: pytest tests/test_scrapers.py --companies $SCRAPERS
