@@ -23,7 +23,6 @@ jobs:
     - name: Find New Scrapers
       id: find-scrapers
       run: |
-        python ./find_new_scrapers.py
-        echo "::set-output name=scrapers::$(python path/to/find_new_scrapers.py)"
+        echo "SCRAPERS=$(python ./find_new_scrapers.py)" >> $GITHUB_ENV
     - name: Run Tests on New Scrapers
-      run: pytest tests/test_scrapers.py --companies ${{ steps.find-scrapers.outputs.scrapers }}
+      run: pytest tests/test_specific_company.py --companies $SCRAPERS
