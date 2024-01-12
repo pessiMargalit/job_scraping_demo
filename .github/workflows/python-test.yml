@@ -22,7 +22,10 @@ jobs:
         pip install -r requirements.txt
     - name: Find New Scrapers
       run: |
-        python ./find_new_scrapers.py > scrapers.txt
-        echo "SCRAPERS=$(<scrapers.txt)" >> $GITHUB_ENV
+        SCRAPERS=$(python ./find_new_scrapers.py)
+        echo "New Scrapers: $SCRAPERS"
+        echo "::set-env name=SCRAPERS::$SCRAPERS"
+        echo "::set-output name=SCRAPERS::$SCRAPERS"
+        echo "New Scrapers: $SCRAPERS"
     - name: Run Tests on New Scrapers
       run: pytest tests/test_scrapers.py --companies $SCRAPERS
