@@ -20,10 +20,44 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
+    - uses: actions/checkout@v2.1.0
+    - uses: jitterbit/get-changed-files@v1
+      id: files
+      with:
+        format: space-delimited
+        token: ${{ secrets.GITHUB_TOKEN }}
     - name: Find New Scrapers
       run: |
-        NEW_SCRAPERS=$(git diff --name-only origin/main...HEAD -- './Scrapers/CompanyScrapers/*.py' | sed 's/Scrapers\/CompanyScrapers\///g' | sed 's/.py//g' | tr '\n' ' ')
-        echo "New Scrapers: $NEW_SCRAPERS"
-        echo "SCRAPERS=$NEW_SCRAPERS" >> "$GITHUB_ENV"
+        # Extracting names of changed scraper files
+        # turn into array only if under Scrapers/CompanyScrapers
+        SCRAPERS=$(echo "${{steps.files.outputs.added_modified}}" | grep -o 'Scrapers/CompanyScrapers/[^ ]*' | awk -F'/' '{print $NF}' | paste -sd, -)
+        echo "SCRAPERS=$SCRAPERS" >> "$GITHUB_ENV"
     - name: Run Tests on New Scrapers
-      run: pytest tests/test_scrapers.py --companies $SCRAPERS
+      run: |
+        if [ -n "$SCRAPERS" ]; then
+          echo "Running tests on $SCRAPERS"
+          pytest tests/test_scrapers.py --companies $SCRAPERS --junit-xml=test-results.xml
+        else
+          echo "No company scrapers specified. Skipping tests."
+        fi
+    - name: Surface failing tests
+      if: always()
+      uses: pmeier/pytest-results-action@main
+      with:
+        # A list of JUnit XML files, directories containing the former, and wildcard
+        # patterns to process.
+        # See @actions/glob for supported patterns.
+        path: test-results.xml
+
+        # (Optional) Add a summary of the results at the top of the report
+        summary: true
+
+        # (Optional) Select which results should be included in the report.
+        # Follows the same syntax as `pytest -r`
+        display-options: fEX
+
+        # (Optional) Fail the workflow if no JUnit XML was found.
+        fail-on-empty: false
+
+        # (Optional) Title of the test results section in the workflow summary
+        title: Test results
