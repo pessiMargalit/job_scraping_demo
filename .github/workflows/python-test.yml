@@ -35,10 +35,10 @@ jobs:
     - name: Run Tests on New Scrapers
       run: |
         echo "Running tests on $SCRAPERS"
-        IFS=',' read -ra SCRAPER_ARRAY <<< "$SCRAPERS"
-        echo "SCRAPER_ARRAY=${SCRAPER_ARRAY[@]}"
-        for SCRAPER in "${SCRAPER_ARRAY[@]}"
+        IFS=',' # Set IFS to comma for splitting
+        for SCRAPER in $SCRAPERS
         do
           echo "Running tests for $SCRAPER"
           pytest tests/test_scrapers.py --scraper "$SCRAPER"
         done
+
