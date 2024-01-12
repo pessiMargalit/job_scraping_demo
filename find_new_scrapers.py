@@ -4,11 +4,9 @@ from Scrapers.ScrapersFactory import ScrapersFactory
 
 
 def get_scrapers_from_branch(branch_name):
-    # Fetch the branch first
+    # Fetch and checkout the specified branch
     subprocess.run(["git", "fetch", "origin", branch_name], check=True)
-    # Checkout the specified branch
     subprocess.run(["git", "checkout", branch_name], check=True)
-    # Reset to make sure the working directory matches the branch
     subprocess.run(["git", "reset", "--hard", f"origin/{branch_name}"], check=True)
 
     # Instantiate the factory and get scraper names
@@ -18,14 +16,17 @@ def get_scrapers_from_branch(branch_name):
 
 def main():
     main_branch = "main"
-    pr_branch = subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"], capture_output=True,
-                               text=True).stdout.strip()
 
-    # If we're already on the PR branch, no need to checkout again
-    if pr_branch != "HEAD":
+    # Fetch the PR branch name from GitHub Actions environment variable
+    # This variable is set to the name of the branch for the pull request
+    pr_branch = os.getenv('GITHUB_HEAD_REF', '')
+
+    # Check if we are on a PR branch
+    if pr_branch:
         # Get scrapers from the PR branch
         scrapers_pr = get_scrapers_from_branch(pr_branch)
     else:
+        # If not on a PR branch, use the current branch
         factory = ScrapersFactory()
         scrapers_pr = set(factory.get_scrapers_names())
 
