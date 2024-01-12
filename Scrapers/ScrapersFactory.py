@@ -83,6 +83,9 @@ class ScrapersFactory:
     def get_scrapers_names(self):
         return [cls.name for cls in self.__all_subclasses(Scraper.Scraper) if cls.name not in self.banned]
 
+    def get_all_scrapers(self):
+        return [cls() for cls in self.__all_subclasses(Scraper.Scraper) if cls.name not in self.banned]
+
     def get_worst_timers(self):
         return dict(
             sorted(filter(lambda elem: elem[1] >= 100, self.timing_dictionary.items()), key=lambda elem: elem[1],
@@ -97,6 +100,6 @@ class ScrapersFactory:
 
     def get_scraper_by_filename(self, filename):
         filename_without_extension = filename.replace('.py', '')
-        scrapers = [cls for cls in self.__all_subclasses(Scraper.Scraper) if cls.__name__ == filename_without_extension]
+        scrapers = [cls for cls in self.__all_subclasses(Scraper.Scraper) if filename_without_extension in cls.__name__]
         if scrapers:
             return scrapers[0]()
