@@ -1,10 +1,11 @@
-name: Python application test
+name: Python PR Test
 
-on: [push, pull_request]
+on:
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -12,10 +13,15 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.10'
+        python-version: '3.8'
     - name: Install dependencies
       run: |
         pip install pytest
-        pip install -r requirements.txt
-    - name: Run pytest
-      run: pytest
+        # Install any other dependencies your project requires
+    - name: Find New Scrapers
+      id: find-scrapers
+      run: |
+        python path/to/find_new_scrapers.py
+        echo "::set-output name=scrapers::$(python path/to/find_new_scrapers.py)"
+    - name: Run Tests on New Scrapers
+      run: pytest tests/test_specific_company.py --companies ${{ steps.find-scrapers.outputs.scrapers }}
