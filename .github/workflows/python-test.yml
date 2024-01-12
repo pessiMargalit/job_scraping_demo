@@ -38,6 +38,7 @@ jobs:
         IFS=',' read -ra SCRAPER_ARRAY <<< "$SCRAPERS"
         for SCRAPER in "${SCRAPER_ARRAY[@]}"
         do
-          echo "Running tests for $SCRAPER"
-          pytest tests/test_scrapers.py --scraper $SCRAPER
+          SCRAPER_NAME=$(echo "$SCRAPER" | sed 's/.py//') # Remove .py extension
+          echo "Running tests for $SCRAPER_NAME"
+          pytest tests/test_scrapers.py --scraper "$SCRAPER_NAME"
         done
