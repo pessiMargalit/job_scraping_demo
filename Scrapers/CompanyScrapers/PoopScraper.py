@@ -1,8 +1,8 @@
 from Scrapers.Scraper import Scraper
 
 
-class PoopScraper(Scraper):
-    name = 'Poop'
+class ExampleScraper(Scraper):
+    name = 'Example'
     url = 'example.com'
 
     def scrape(self):
