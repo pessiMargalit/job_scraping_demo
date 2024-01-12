@@ -29,9 +29,8 @@ jobs:
     - name: Find New Scrapers
       run: |
         # Extracting names of changed scraper files
-        CHANGED_FILES="${{ steps.files.outputs.added_modified }}"
         # turn into array only if under Scrapers/CompanyScrapers
-        CHANGED_FILES=$(echo "$CHANGED_FILES" | grep -E "^Scrapers/CompanyScrapers/*\.py$")
+        CHANGED_FILES=$(echo "steps.files.outputs.added_modified" | grep -E "^Scrapers/CompanyScrapers/*\.py$")
         echo "New Scrapers: $CHANGED_FILES"
         echo "SCRAPERS=$NEW_SCRAPERS" >> "$GITHUB_ENV"
     - name: Run Tests on New Scrapers
