@@ -11,7 +11,7 @@ def factory():
 
 
 def test_specific_company(factory, company_names):
-    assert company_names, "No company name was given"
+    assert company_names, "No company names were given"
 
 
 def test_scraper_existence(factory, company_names):
