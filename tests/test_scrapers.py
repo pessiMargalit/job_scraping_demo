@@ -33,7 +33,7 @@ def test_scraper_name(factory, company_scraper):
 
 
 def test_scraper_url(factory, company_scraper):
-    assert company_scraper.url, f"Scraper {company_scraper.name} does not have a default url."
+    assert company_scraper.link, f"Scraper {company_scraper.name} does not have a default url."
 
 
 def test_scarper_adds_jobs(factory, company_scraper):
@@ -46,13 +46,13 @@ def test_scarper_adds_valid_jobs(factory, company_scraper):
     name = company_scraper.name
     if not scraper_positions:
         assert False, f"Scraper {name} did not add any jobs."
-    if any([not position.url or not position.title or not position.location for position in scraper_positions]):
+    if any([not position.link or not position.title or not position.location for position in scraper_positions]):
         assert False, f"Scraper {name} added jobs with missing fields."
     if any([position.title.strip() != position.title for position in scraper_positions]):
         assert False, f"Scraper {name} added jobs with bad titles. (use .strip())"
     if any([position.location.strip() != position.location for position in scraper_positions]):
         assert False, f"Scraper {name} added jobs with bad locations. (use .strip())"
-    if any([position.url.strip() != position.url for position in scraper_positions]):
+    if any([position.link.strip() != position.link for position in scraper_positions]):
         assert False, f"Scraper {name} added jobs with bad urls. (use .strip())"
     if any([not validate_url(position.link) for position in scraper_positions]):
         assert False, f"Scraper {name} added jobs with bad urls (should start with http)."
