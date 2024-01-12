@@ -37,25 +37,30 @@ def test_scarper_adds_jobs(factory, company_scraper):
 
 def test_scarper_adds_valid_jobs(factory, company_scraper):
     scraper_positions = run_scraper_and_get_positions(company_scraper)
+    if not scraper_positions:
+        assert False, f"Scraper {company_scraper.name} did not add any jobs."
     if any([not position.url or not position.title or not position.location for position in scraper_positions]):
         assert False, f"Scraper {company_scraper.name} added jobs with missing fields."
 
 
 def test_scraper_adds_non_sanitized_jobs(factory, company_scraper):
     name = company_scraper.name
-    if company_scraper:
-        scraper_positions = run_scraper_and_get_positions(company_scraper)
-        if any([position.title.strip() != position.title for position in scraper_positions]):
-            assert False, f"Scraper {name} added jobs with bad titles. (use .strip())"
-        if any([position.location.strip() != position.location for position in scraper_positions]):
-            assert False, f"Scraper {name} added jobs with bad locations. (use .strip())"
-        if any([position.url.strip() != position.url for position in scraper_positions]):
-            assert False, f"Scraper {name} added jobs with bad urls. (use .strip())"
+    scraper_positions = run_scraper_and_get_positions(company_scraper)
+    if not scraper_positions:
+        assert False, f"Scraper {company_scraper.name} did not add any jobs."
+    if any([position.title.strip() != position.title for position in scraper_positions]):
+        assert False, f"Scraper {name} added jobs with bad titles. (use .strip())"
+    if any([position.location.strip() != position.location for position in scraper_positions]):
+        assert False, f"Scraper {name} added jobs with bad locations. (use .strip())"
+    if any([position.url.strip() != position.url for position in scraper_positions]):
+        assert False, f"Scraper {name} added jobs with bad urls. (use .strip())"
 
 
 def test_scarper_adds_jobs_with_good_url(factory, company_scraper):
     name = company_scraper.name
     scraper_positions = run_scraper_and_get_positions(company_scraper)
+    if not scraper_positions:
+        assert False, f"Scraper {company_scraper.name} did not add any jobs."
     if any([not validate_url(position.link) for position in scraper_positions]):
         assert False, f"Scraper {name} added jobs with bad urls."
 
@@ -63,6 +68,8 @@ def test_scarper_adds_jobs_with_good_url(factory, company_scraper):
 def test_scraper_runtime(factory, company_scraper):
     name = company_scraper.name
     start_time = time.time()
-    run_scraper_test(company_scraper)
+    scraper_positions = run_scraper_test(company_scraper)
     end_time = time.time()
+    if not scraper_positions:
+        assert False, f"Scraper {company_scraper.name} did not add any jobs."
     assert check_scraper_performance(start_time, end_time), f"Scraper {name} took longer than 90s."
