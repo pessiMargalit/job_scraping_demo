@@ -94,3 +94,9 @@ class ScrapersFactory:
         # if any([s.name in self.main_scrapers for s in scrapers]):
         #     return []
         return scrapers
+
+    def get_scraper_by_filename(self, filename):
+        filename_without_extension = filename.replace('.py', '')
+        scrapers = [cls for cls in self.__all_subclasses(Scraper.Scraper) if cls.__name__ == filename_without_extension]
+        if scrapers:
+            return scrapers[0]()

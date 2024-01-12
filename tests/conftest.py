@@ -1,5 +1,7 @@
 import pytest
 
+from Scrapers.ScrapersFactory import ScrapersFactory
+
 
 def pytest_addoption(parser):
     parser.addoption("--companies", action="store", default="",
@@ -12,6 +14,6 @@ def company_names(request):
     companies_list = [name.strip() for name in companies_string.split(',') if name.strip()]
 
     if not companies_list:
-        pytest.fail("No company names were provided with --companies argument")
-
-    return companies_list
+        return None
+    sf = ScrapersFactory()
+    return list(map(lambda s: sf.get_scraper_by_filename(s), companies_list))
