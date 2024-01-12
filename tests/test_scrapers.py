@@ -10,16 +10,22 @@ def factory():
     return ScrapersFactory()
 
 
-# In your test file
 @pytest.fixture(scope="session")
-def company_scraper(request, factory):
-    scraper_name = request.config.getoption("--scraper")
-    if scraper_name:
-        return factory.get_scraper_by_filename(scraper_name)
+def company_scraper_names(request):
+    return request.config.getoption("--companies").split(",")
+
+
+@pytest.mark.parametrize("company_scraper_name", company_scraper_names)
+def pytest_generate_tests(metafunc):
+    if 'company_scraper' in metafunc.fixturenames:
+        factory = ScrapersFactory()
+        company_names = metafunc.config.getoption("--companies")
+        scrapers = [factory.get_scraper_by_filename(name) for name in company_names.split(",")] if company_names else []
+        metafunc.parametrize("company_scraper", scrapers)
 
 
 def test_specific_company(factory, company_scraper):
-    assert company_scraper, "No scrapers were given"
+    assert company_scraper, "No company was given"
 
 
 def test_scraper_name(factory, company_scraper):
@@ -37,32 +43,19 @@ def test_scarper_adds_jobs(factory, company_scraper):
 
 def test_scarper_adds_valid_jobs(factory, company_scraper):
     scraper_positions = run_scraper_and_get_positions(company_scraper)
-    if not scraper_positions:
-        assert False, f"Scraper {company_scraper.name} did not add any jobs."
-    if any([not position.url or not position.title or not position.location for position in scraper_positions]):
-        assert False, f"Scraper {company_scraper.name} added jobs with missing fields."
-
-
-def test_scraper_adds_non_sanitized_jobs(factory, company_scraper):
     name = company_scraper.name
-    scraper_positions = run_scraper_and_get_positions(company_scraper)
     if not scraper_positions:
-        assert False, f"Scraper {company_scraper.name} did not add any jobs."
+        assert False, f"Scraper {name} did not add any jobs."
+    if any([not position.url or not position.title or not position.location for position in scraper_positions]):
+        assert False, f"Scraper {name} added jobs with missing fields."
     if any([position.title.strip() != position.title for position in scraper_positions]):
         assert False, f"Scraper {name} added jobs with bad titles. (use .strip())"
     if any([position.location.strip() != position.location for position in scraper_positions]):
         assert False, f"Scraper {name} added jobs with bad locations. (use .strip())"
     if any([position.url.strip() != position.url for position in scraper_positions]):
         assert False, f"Scraper {name} added jobs with bad urls. (use .strip())"
-
-
-def test_scarper_adds_jobs_with_good_url(factory, company_scraper):
-    name = company_scraper.name
-    scraper_positions = run_scraper_and_get_positions(company_scraper)
-    if not scraper_positions:
-        assert False, f"Scraper {company_scraper.name} did not add any jobs."
     if any([not validate_url(position.link) for position in scraper_positions]):
-        assert False, f"Scraper {name} added jobs with bad urls."
+        assert False, f"Scraper {name} added jobs with bad urls (should start with http)."
 
 
 def test_scraper_runtime(factory, company_scraper):
