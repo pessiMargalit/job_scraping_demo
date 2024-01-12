@@ -21,9 +21,16 @@ def main():
     pr_branch = subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"], capture_output=True,
                                text=True).stdout.strip()
 
-    # Get scrapers from both branches
+    # If we're already on the PR branch, no need to checkout again
+    if pr_branch != "HEAD":
+        # Get scrapers from the PR branch
+        scrapers_pr = get_scrapers_from_branch(pr_branch)
+    else:
+        factory = ScrapersFactory()
+        scrapers_pr = set(factory.get_scrapers_names())
+
+    # Get scrapers from the main branch
     scrapers_main = get_scrapers_from_branch(main_branch)
-    scrapers_pr = get_scrapers_from_branch(pr_branch)
 
     # Find new scrapers
     new_scrapers = scrapers_pr - scrapers_main
