@@ -24,8 +24,6 @@ jobs:
       run: |
         SCRAPERS=$(python ./find_new_scrapers.py)
         echo "New Scrapers: $SCRAPERS"
-        echo "::set-env name=SCRAPERS::$SCRAPERS"
-        echo "::set-output name=SCRAPERS::$SCRAPERS"
-        echo "New Scrapers: $SCRAPERS"
+        echo "SCRAPERS=$SCRAPERS" >> "$GITHUB_ENV"
     - name: Run Tests on New Scrapers
       run: pytest tests/test_scrapers.py --companies $SCRAPERS
