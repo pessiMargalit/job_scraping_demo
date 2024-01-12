@@ -21,7 +21,7 @@ jobs:
     - name: Find New Scrapers
       id: find-scrapers
       run: |
-        python path/to/find_new_scrapers.py
+        python ./find_new_scrapers.py
         echo "::set-output name=scrapers::$(python path/to/find_new_scrapers.py)"
     - name: Run Tests on New Scrapers
       run: pytest tests/test_specific_company.py --companies ${{ steps.find-scrapers.outputs.scrapers }}
