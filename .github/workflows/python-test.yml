@@ -10,10 +10,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Fetch main branch
-      run: |
-        git fetch origin main
-        git branch main FETCH_HEAD
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -23,9 +19,8 @@ jobs:
         pip install -r requirements.txt
     - name: Find New Scrapers
       run: |
-        # Compare PR branch with main branch to find new scrapers
-        # Adjust the path and file pattern as per your repository structure
-        NEW_SCRAPERS=$(git diff --name-only main...HEAD -- './Scrapers/CompanyScrapers/*.py')
+        git diff --name-only origin/main...HEAD -- './Scrapers/CompanyScrapers/*.py'
+        NEW_SCRAPERS=$(git diff --name-only origin/main...HEAD -- './Scrapers/CompanyScrapers/*.py' | sed 's/Scrapers\/CompanyScrapers\///g' | sed 's/.py//g' | tr '\n' ' ')
         echo "New Scrapers: $NEW_SCRAPERS"
         echo "SCRAPERS=$NEW_SCRAPERS" >> "$GITHUB_ENV"
     - name: Run Tests on New Scrapers
