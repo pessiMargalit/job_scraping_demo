@@ -23,6 +23,6 @@ jobs:
     - name: Find New Scrapers
       id: find-scrapers
       run: |
-        echo "SCRAPERS=$(python ./find_new_scrapers.py)" >> $GITHUB_ENV
+        echo "SCRAPERS=$(python ./find_new_scrapers.py)" >> $GITHUB_STATE
     - name: Run Tests on New Scrapers
       run: pytest tests/test_scrapers.py --companies $SCRAPERS
