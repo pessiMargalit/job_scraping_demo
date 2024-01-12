@@ -34,8 +34,12 @@ jobs:
         echo "SCRAPERS=$SCRAPERS" >> "$GITHUB_ENV"
     - name: Run Tests on New Scrapers
       run: |
-        echo "Running tests on $SCRAPERS"
-        pytest tests/test_scrapers.py --companies $SCRAPERS --junit-xml=test-results.xml
+        if [ -n "$SCRAPERS" ]; then
+          echo "Running tests on $SCRAPERS"
+          pytest tests/test_scrapers.py --companies $SCRAPERS --junit-xml=test-results.xml
+        else
+          echo "No company scrapers specified. Skipping tests."
+        fi
     - name: Surface failing tests
       if: always()
       uses: pmeier/pytest-results-action@main
