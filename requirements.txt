@@ -1,7 +1,8 @@
-beautifulsoup4
-requests
+beautifulsoup4~=4.12.2
+requests~=2.31.0
 urllib3
 lxml
 pytz
-tqdm
-selenium
+tqdm~=4.66.1
+selenium~=4.16.0
+pytest~=7.4.4

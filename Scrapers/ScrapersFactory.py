@@ -40,13 +40,13 @@ class ScrapersFactory:
                        'Revelator', 'Ericom', 'Genetika+', 'Sixdof.Space', 'Miggo', 'Protego',
                        'Rybtech', 'Auth0', 'Dribbble', 'Herolo', '40Nuggets', 'John Bryce',
                        'Quality Score', 'Mellanox']
-        self.main_scrapers = [GovilScraper.GovIlMainScraper.__name__,
-                              GreenhouseMainScraper.GreenhouseMainScraper.__name__,
-                              ComeetScraper.ComeetMainScraper.__name__, LeverScraper.LeverMainScraper.__name__,
-                              WorkableScraper.WorkableMainScraper.__name__, WorkdayScraper.WorkdayMainScraper.__name__,
-                              WorkdayExternalScraper.WorkdayExternalMainScraper.__name__,
-                              JobviteScraper.JobviteMainScraper.__name__, UltiproScraper.UltiproMainScraper.__name__,
-                              BambooHRScraper.BambooHRMainScraper.__name__]
+        # self.main_scrapers = [GovilScraper.GovIlMainScraper.__name__,
+        #                       GreenhouseMainScraper.GreenhouseMainScraper.__name__,
+        #                       ComeetScraper.ComeetMainScraper.__name__, LeverScraper.LeverMainScraper.__name__,
+        #                       WorkableScraper.WorkableMainScraper.__name__, WorkdayScraper.WorkdayMainScraper.__name__,
+        #                       WorkdayExternalScraper.WorkdayExternalMainScraper.__name__,
+        #                       JobviteScraper.JobviteMainScraper.__name__, UltiproScraper.UltiproMainScraper.__name__,
+        #                       BambooHRScraper.BambooHRMainScraper.__name__]
         self.manual_boards = ['TechSparkManual', 'MuniManual']
 
     def __all_subclasses(self, cls):
@@ -91,6 +91,6 @@ class ScrapersFactory:
     def get_scraper_by_name(self, scraper_name):
         scrapers = [cls() for cls in self.__all_subclasses(Scraper.Scraper)
                     if cls.name.lower() == scraper_name.lower()]
-        if any([s.name in self.main_scrapers for s in scrapers]):
-            return []
+        # if any([s.name in self.main_scrapers for s in scrapers]):
+        #     return []
         return scrapers
