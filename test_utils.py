@@ -8,7 +8,7 @@ def run_scraper_test(scraper):
 
 def run_scraper_and_get_positions(scraper):
     scraper.scrape()
-    return scraper.get_positions()
+    return scraper.get_positions() or []
 
 def validate_url(url):
     return url.startswith('http')

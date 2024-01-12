@@ -6,6 +6,4 @@ class ExampleScraper(Scraper):
     url = 'example.com'
 
     def scrape(self):
-        soup = self.scraping_unit(self.url)
-
         pass
