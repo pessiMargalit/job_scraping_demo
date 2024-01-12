@@ -19,7 +19,6 @@ jobs:
         pip install -r requirements.txt
     - name: Find New Scrapers
       run: |
-        git diff --name-only origin/main...HEAD -- './Scrapers/CompanyScrapers/*.py'
         NEW_SCRAPERS=$(git diff --name-only origin/main...HEAD -- './Scrapers/CompanyScrapers/*.py' | sed 's/Scrapers\/CompanyScrapers\///g' | sed 's/.py//g' | tr '\n' ' ')
         echo "New Scrapers: $NEW_SCRAPERS"
         echo "SCRAPERS=$NEW_SCRAPERS" >> "$GITHUB_ENV"
