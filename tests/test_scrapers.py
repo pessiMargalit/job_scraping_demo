@@ -12,10 +12,10 @@ def factory():
 
 # In your test file
 @pytest.fixture(scope="session")
-def company_scrapers(request, factory):
+def company_scraper(request, factory):
     scraper_name = request.config.getoption("--scraper")
     if scraper_name:
-        return factory.get_scraper_by_name(scraper_name)
+        return factory.get_scraper_by_filename(scraper_name)
 
 
 def test_specific_company(factory, company_scraper):
