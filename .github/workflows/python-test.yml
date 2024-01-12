@@ -1,0 +1,29 @@
+name: Python PR Test
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Fetch main branch
+      run: |
+        git fetch origin main:main
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    - name: Find New Scrapers
+      id: find-scrapers
+      run: |
+        python ./find_new_scrapers.py
+        echo "::set-output name=scrapers::$(python path/to/find_new_scrapers.py)"
+    - name: Run Tests on New Scrapers
+      run: pytest tests/test_scrapers.py --companies ${{ steps.find-scrapers.outputs.scrapers }}
