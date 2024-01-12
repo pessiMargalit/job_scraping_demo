@@ -12,7 +12,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Fetch main branch
       run: |
-        git fetch origin main:main
+        git fetch origin main
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -21,8 +21,9 @@ jobs:
       run: |
         pip install -r requirements.txt
     - name: Find New Scrapers
-      id: find-scrapers
       run: |
-        echo "SCRAPERS=$(python ./find_new_scrapers.py)" >> $GITHUB_ENV
+        NEW_SCRAPERS=$(git diff --name-only origin/main...HEAD -- './Scrapers/CompanyScrapers/*.py' | sed 's/Scrapers\/CompanyScrapers\///g' | sed 's/.py//g' | tr '\n' ' ')
+        echo "New Scrapers: $NEW_SCRAPERS"
+        echo "SCRAPERS=$NEW_SCRAPERS" >> "$GITHUB_ENV"
     - name: Run Tests on New Scrapers
       run: pytest tests/test_scrapers.py --companies $SCRAPERS
