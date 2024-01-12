@@ -10,48 +10,40 @@ def factory():
     return ScrapersFactory()
 
 
-def test_specific_company(factory, company_names):
-    assert company_names, "No company names were given"
+def test_specific_company(factory, company_scrapers):
+    assert company_scrapers, "No company names were given"
+
+def test_scraper_name(factory, company_scrapers):
+    for scraper in company_scrapers:
+        name = scraper.name
+        assert not name, f"Scraper does not have a name."
 
 
-def test_scraper_existence(factory, company_names):
-    for name in company_names:
-        scraper = factory.get_scraper_by_filename(name)
-        assert scraper, f"Scraper {name} does not exist."
+def test_scraper_url(factory, company_scrapers):
+    for scraper in company_scrapers:
+        assert not scraper.url, f"Scraper {scraper.name} does not have a default url."
 
 
-def test_scraper_name(factory, company_names):
-    for name in company_names:
-        scraper = factory.get_scraper_by_filename(name)
-        assert not scraper[0].name, f"Scraper {name} does not have a name."
-
-
-def test_scraper_url(factory, company_names):
-    for name in company_names:
-        scraper = factory.get_scraper_by_filename(name)
-        assert not scraper[0].url, f"Scraper {name} does not have a default url."
-
-
-def test_scarper_adds_jobs(factory, company_names):
-    for name in company_names:
-        scraper = factory.get_scraper_by_filename(name)
+def test_scarper_adds_jobs(factory, company_scrapers):
+    for scraper in company_scrapers:
+        name = scraper.name
         if scraper:
             has_positions = run_scraper_test(scraper[0])
-            assert has_positions, f"Scraper {name} did not add any jobs."
+            assert has_positions, f"Scraper {scraper.name} did not add any jobs."
 
 
-def test_scarper_adds_valid_jobs(factory, company_names):
-    for name in company_names:
-        scraper = factory.get_scraper_by_filename(name)
+def test_scarper_adds_valid_jobs(factory, company_scrapers):
+    for scraper in company_scrapers:
+        name = scraper.name
         if scraper:
             scraper_positions = run_scraper_and_get_positions(scraper[0])
             if any([not position.url or not position.title or not position.location for position in scraper_positions]):
                 assert False, f"Scraper {name} added jobs with missing fields."
 
 
-def test_scraper_adds_non_sanitized_jobs(factory, company_names):
-    for name in company_names:
-        scraper = factory.get_scraper_by_filename(name)
+def test_scraper_adds_non_sanitized_jobs(factory, company_scrapers):
+    for scraper in company_scrapers:
+        name = scraper.name
         if scraper:
             scraper_positions = run_scraper_and_get_positions(scraper[0])
             if any([position.title.strip() != position.title for position in scraper_positions]):
@@ -62,18 +54,18 @@ def test_scraper_adds_non_sanitized_jobs(factory, company_names):
                 assert False, f"Scraper {name} added jobs with bad urls. (use .strip())"
 
 
-def test_scarper_adds_jobs_with_good_url(factory, company_names):
-    for name in company_names:
-        scraper = factory.get_scraper_by_filename(name)
+def test_scarper_adds_jobs_with_good_url(factory, company_scrapers):
+    for scraper in company_scrapers:
+        name = scraper.name
         if scraper:
             scraper_positions = run_scraper_and_get_positions(scraper[0])
             if any([not validate_url(position.link) for position in scraper_positions]):
                 assert False, f"Scraper {name} added jobs with bad urls."
 
 
-def test_scraper_runtime(factory, company_names):
-    for name in company_names:
-        scraper = factory.get_scraper_by_filename(name)
+def test_scraper_runtime(factory, company_scrapers):
+    for scraper in company_scrapers:
+        name = scraper.name
         if scraper:
             start_time = time.time()
             run_scraper_test(scraper[0])

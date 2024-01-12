@@ -9,7 +9,7 @@ def pytest_addoption(parser):
 
 
 @pytest.fixture
-def company_names(request):
+def company_scrapers(request):
     companies_string = request.config.getoption("--companies")
     companies_list = [name.strip() for name in companies_string.split(',') if name.strip()]
 
