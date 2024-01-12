@@ -22,8 +22,10 @@ jobs:
         pip install -r requirements.txt
     - name: Find New Scrapers
       run: |
-        SCRAPERS=$(python ./find_new_scrapers.py)
-        echo "New Scrapers: $SCRAPERS"
-        echo "SCRAPERS=$SCRAPERS" >> "$GITHUB_ENV"
+        # Compare PR branch with main branch to find new scrapers
+        # Adjust the path and file pattern as per your repository structure
+        NEW_SCRAPERS=$(git diff --name-only main...HEAD -- './Scrapers/CompanyScrapers/*.py')
+        echo "New Scrapers: $NEW_SCRAPERS"
+        echo "SCRAPERS=$NEW_SCRAPERS" >> "$GITHUB_ENV"
     - name: Run Tests on New Scrapers
       run: pytest tests/test_scrapers.py --companies $SCRAPERS
