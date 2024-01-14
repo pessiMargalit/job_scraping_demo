@@ -33,7 +33,7 @@ def test_scraper_name(factory, company_scraper):
 
 
 def test_scraper_url(factory, company_scraper):
-    assert company_scraper.link, f"Scraper {company_scraper.name} does not have a default url."
+    assert company_scraper.url, f"Scraper {company_scraper.name} does not have a default url."
 
 
 def test_scarper_adds_jobs(factory, company_scraper):
