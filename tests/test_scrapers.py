@@ -35,14 +35,10 @@ def test_scraper_name(factory, company_scraper):
 def test_scraper_url(factory, company_scraper):
     assert company_scraper.url, f"Scraper {company_scraper.name} does not have a default url."
 
-
-def test_scarper_adds_jobs(factory, company_scraper):
-    has_positions = run_scraper_test(company_scraper)
-    assert has_positions, f"Scraper {company_scraper.name} did not add any jobs."
-
-
 def test_scarper_adds_valid_jobs(factory, company_scraper):
+    start_time = time.time()
     scraper_positions = run_scraper_and_get_positions(company_scraper)
+    end_time = time.time()
     name = company_scraper.name
     if not scraper_positions:
         assert False, f"Scraper {name} did not add any jobs."
@@ -56,13 +52,4 @@ def test_scarper_adds_valid_jobs(factory, company_scraper):
         assert False, f"Scraper {name} added jobs with bad urls. (use .strip())"
     if any([not validate_url(position.link) for position in scraper_positions]):
         assert False, f"Scraper {name} added jobs with bad urls (should start with http)."
-
-
-def test_scraper_runtime(factory, company_scraper):
-    name = company_scraper.name
-    start_time = time.time()
-    scraper_positions = run_scraper_test(company_scraper)
-    end_time = time.time()
-    if not scraper_positions:
-        assert False, f"Scraper {company_scraper.name} did not add any jobs."
     assert check_scraper_performance(start_time, end_time), f"Scraper {name} took longer than 90s."
