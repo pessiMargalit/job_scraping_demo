@@ -1,15 +1,14 @@
-import numpy
 import pandas as pd
 from MappingTools.AI.Tavily import find_url
 
-# Assuming the Excel file is named 'data.xlsx' and is located in the '/mnt/data/' directory
-file_path = r'C:\Users\User\Downloads\200companies.xlsx'
+
+def get_data(file_path):
+    df = pd.read_excel(file_path, engine="openpyxl")
+    return df
 
 
 def insert_urls(file_path):
-    # Read the Excel file into a DataFrame
-    df = pd.read_excel(file_path)
-
+    df = get_data(file_path)
     # Iterate over the DataFrame and add a value to the "קישור לאתר" column
     # For demonstration, I'll add a generic value like 'example.com'.
     # This can be replaced with the actual logic needed.
@@ -34,5 +33,3 @@ def insert_urls(file_path):
     output_file_path = file_path
     df.to_excel(output_file_path, index=False)
 
-
-insert_urls(file_path)

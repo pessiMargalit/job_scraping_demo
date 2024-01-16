@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 # Load the environment variables from .env file
 load_dotenv()
 
-
 llm = OpenAI(temperature=0, model_name='gpt-3.5-turbo')
 tools = load_tools(["google-serper"], llm=llm)
 agent = initialize_agent(tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
