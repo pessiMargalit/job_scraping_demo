@@ -29,4 +29,3 @@ class GoarcScraper(Scraper):
         driver.quit()
 
 
-GoarcScraper().check_self()

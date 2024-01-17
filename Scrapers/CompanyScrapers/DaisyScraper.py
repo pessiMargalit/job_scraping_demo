@@ -22,4 +22,3 @@ class DaisyScraper(Scraper):
             ))
 
 
-DaisyScraper().check_self()

@@ -28,4 +28,3 @@ class SynamediaScraper(Scraper):
             ))
 
 
-SynamediaScraper().check_self()

@@ -22,4 +22,3 @@ class BrightSourceScraper(Scraper):
         ))
 
 
-BrightSourceScraper().check_self()

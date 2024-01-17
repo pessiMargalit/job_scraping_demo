@@ -17,4 +17,3 @@ class QuantlrScraper(Scraper):
             ))
 
 
-QuantlrScraper().check_self()

@@ -23,4 +23,3 @@ class C8HealthScraper(Scraper):
             ))
 
 
-C8HealthScraper().check_self()

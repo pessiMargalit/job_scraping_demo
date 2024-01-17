@@ -56,4 +56,3 @@ class KasperskyScraper(Scraper):
                 driver.quit()
 
 
-KasperskyScraper().check_self()

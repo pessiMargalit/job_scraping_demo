@@ -22,4 +22,3 @@ class WorkForceNowScraper(Scraper):
         # ))
 
 
-WorkForceNowScraper().check_self()

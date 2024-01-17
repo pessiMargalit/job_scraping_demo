@@ -44,4 +44,3 @@ class ClarivateScraper(Scraper):
             # btn.click()
 
 
-ClarivateScraper().check_self()

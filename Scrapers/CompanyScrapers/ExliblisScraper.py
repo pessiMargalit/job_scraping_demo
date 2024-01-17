@@ -34,7 +34,6 @@ class ExliblisScraper(Scraper):
             ))
 
 
-ExliblisScraper().check_self()
 # from Scrapers.Scraper import *
 # from selenium.webdriver.support import expected_conditions as EC
 # TIMEOUT_IN_SECONDS = 10
@@ -77,4 +76,3 @@ ExliblisScraper().check_self()
 #         driver.quit()
 #
 #
-# ClarivateScraper().check_self()

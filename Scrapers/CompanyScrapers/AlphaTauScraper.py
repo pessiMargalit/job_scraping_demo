@@ -33,4 +33,3 @@ class AlphaTauScraper(Scraper):
         driver.quit()
 
 
-AlphaTauScraper().check_self()

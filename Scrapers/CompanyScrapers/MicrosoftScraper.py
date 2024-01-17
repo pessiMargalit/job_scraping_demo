@@ -83,4 +83,3 @@ class MicrosoftScraper(JsonScraper):
             executor.map(self.scrape_page, pages)
 
 
-MicrosoftScraper().check_self()

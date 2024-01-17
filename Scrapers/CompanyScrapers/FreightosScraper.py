@@ -36,4 +36,3 @@ class FreightosScraper(Scraper):
         driver.quit()
 
 
-FreightosScraper().check_self()

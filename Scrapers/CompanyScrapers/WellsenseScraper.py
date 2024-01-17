@@ -42,4 +42,3 @@ class WellsenseScraper(Scraper):
             next = False
 
 
-WellsenseScraper().check_self()

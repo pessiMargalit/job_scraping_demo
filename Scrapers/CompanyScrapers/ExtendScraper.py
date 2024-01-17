@@ -20,4 +20,3 @@ class ExtendScraper(Scraper):
                 link=urljoin(self.url, link),
                 location=location.text
             ))
-ExtendScraper().check_self()

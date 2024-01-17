@@ -21,4 +21,3 @@ class CatchMediaScraper(Scraper):
             ))
 
 
-CatchMediaScraper().check_self()

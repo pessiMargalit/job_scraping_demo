@@ -24,4 +24,3 @@ class WisesightScraper(Scraper):
         driver.quit()
 
 
-WisesightScraper().check_self()

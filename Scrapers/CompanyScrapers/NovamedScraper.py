@@ -22,4 +22,3 @@ class NovamedScraper(Scraper):
                 ))
 
 
-NovamedScraper().check_self()

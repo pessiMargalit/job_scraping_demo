@@ -22,4 +22,3 @@ class EdasScraper(Scraper):
             # ))
 
 
-EdasScraper().check_self()

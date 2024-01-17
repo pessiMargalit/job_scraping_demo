@@ -43,5 +43,4 @@ class LarsenAndToubroScraper(Scraper):
             #     ))
 
 
-# LarsenAndToubroScraper().check_self()
 LarsenAndToubroScraper().calculate_page_jobs_amount()

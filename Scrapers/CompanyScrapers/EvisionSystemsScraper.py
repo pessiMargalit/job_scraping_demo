@@ -16,4 +16,3 @@ class EvisionSystemsScraper(Scraper):
             ))
 
 
-EvisionSystemsScraper().check_self()

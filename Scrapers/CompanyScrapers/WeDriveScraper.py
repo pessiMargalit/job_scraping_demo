@@ -28,4 +28,3 @@ class WeDriveScraper(Scraper):
         driver.quit()
 
 
-WeDriveScraper().check_self()

@@ -22,4 +22,3 @@ class QleeQScraper(Scraper):
                 ))
 
 
-QleeQScraper().check_self()

@@ -23,4 +23,3 @@ class UBConnectScraper(Scraper):
                     link=urljoin(self.url, link),
                     location=location
                 ))
-UBConnectScraper().check_self()

@@ -24,4 +24,3 @@ class GenetikaPlusScraper(Scraper):
                 ))
 
 
-GenetikaPlusScraper().check_self()

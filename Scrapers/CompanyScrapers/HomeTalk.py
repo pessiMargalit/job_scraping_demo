@@ -21,4 +21,3 @@ class HomeTalkScraper(Scraper):
             ))
 
 
-HomeTalkScraper().check_self()

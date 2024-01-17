@@ -22,4 +22,3 @@ class NetworxScraper(Scraper):
             ))
 
 
-NetworxScraper().check_self()

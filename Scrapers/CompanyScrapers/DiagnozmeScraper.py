@@ -27,4 +27,3 @@ class DiagnozmeScraper(Scraper):
             ))
 
 
-DiagnozmeScraper().check_self()

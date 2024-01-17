@@ -28,6 +28,5 @@ class CauseMatchScraper(Scraper):
             # ))
 
 
-CauseMatchScraper().check_self()
 
 

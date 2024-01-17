@@ -21,4 +21,3 @@ class ArmoScraper(Scraper):
             ))
 
 
-ArmoScraper().check_self()

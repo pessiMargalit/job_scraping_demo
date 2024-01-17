@@ -17,4 +17,3 @@ class ExosommScraper(Scraper):
             ))
 
 
-ExosommScraper().check_self()

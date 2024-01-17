@@ -54,5 +54,4 @@ class GoogleScraper(Scraper):
                 driver.quit()
 
 
-GoogleScraper().check_self()
 

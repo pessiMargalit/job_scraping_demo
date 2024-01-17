@@ -28,4 +28,3 @@ class RadwareScraper(Scraper):
         driver.quit()
 
 
-RadwareScraper().check_self()

@@ -16,4 +16,3 @@ class HydroxScraper(Scraper):
             ))
 
 
-HydroxScraper().check_self()

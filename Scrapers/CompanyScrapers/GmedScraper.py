@@ -16,4 +16,3 @@ class GmedScraper(Scraper):
             ))
 
 
-GmedScraper().check_self()

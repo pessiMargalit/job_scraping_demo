@@ -54,4 +54,3 @@ class NovartisScraper(Scraper):
                 driver.quit()
 
 
-NovartisScraper().check_self()

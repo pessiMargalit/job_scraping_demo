@@ -21,4 +21,3 @@ class WisioScraper(Scraper):
             ))
 
 
-WisioScraper().check_self()
