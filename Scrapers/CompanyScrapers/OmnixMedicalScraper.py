@@ -4,7 +4,7 @@ from Scrapers.Scraper import Scraper
 
 
 class OmnixMedicalScraper(Scraper):
-    name = 'Microsoft'
+    name = 'Omnix Medical'
     url = "https://omnixmedical.com/careers/"
 
     def scrape(self):
