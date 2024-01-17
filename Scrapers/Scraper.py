@@ -60,7 +60,7 @@ class Scraper:
         """
         self.positions = []
         self.pos_class = PositionClass(
-            defaults=(None, self.name, self.url, self.location, False, None, None, FULLTIME_JOB, None, '')
+            defaults=("None", self.name, self.url, self.location, False, None, None, FULLTIME_JOB, None, '')
         )
         self.Position = self.pos_class.create_position
 
