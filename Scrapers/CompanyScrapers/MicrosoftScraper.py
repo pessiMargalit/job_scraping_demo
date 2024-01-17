@@ -1,13 +1,12 @@
-from Scrapers.CompanyScrapers.JsonScrapers.JsonScraper import JsonScraper
-import requests
 import urllib
 import concurrent.futures
-from Scrapers.CompanyScrapers.JsonScrapers.JsonScraper import JsonScraper
 import requests
 import urllib.parse
 
+from Scrapers.Scraper import Scraper
 
-class MicrosoftScraper(JsonScraper):
+
+class MicrosoftScraper(Scraper):
     name = 'Microsoft'
     url = "https://gcsservices.careers.microsoft.com/search/api/v1/search"
 
@@ -46,6 +45,7 @@ class MicrosoftScraper(JsonScraper):
                     content=content,
                     link=link
                 ))
+
     def get_careers_json(self, page_number):
         url = f"{self.url}?pg={page_number}"
         response = requests.get(url)
@@ -81,5 +81,4 @@ class MicrosoftScraper(JsonScraper):
             num_of_jobs = requests.get(self.url).json()["operationResult"]["result"]["totalJobs"]
             pages = range(1, int(num_of_jobs / 20) + 1)
             executor.map(self.scrape_page, pages)
-
 
