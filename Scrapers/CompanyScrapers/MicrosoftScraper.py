@@ -42,3 +42,4 @@ class MicrosoftScraper(JsonScraper):
                     content=content,
                     link=link
                 ))
+

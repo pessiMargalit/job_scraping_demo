@@ -1,5 +1,6 @@
 from Scrapers.Scraper import *
 from urllib.parse import quote
+
 TIMEOUT_IN_SECONDS = 30
 
 
@@ -7,6 +8,7 @@ class MatrixScraper(Scraper):
     url = 'https://www.matrix.co.il/jobs/'
     name = 'matrix'
     location = 'ירושלים'
+
     def collect_urls(self):
         try:
             soup = self.scraping_unit(self.url)
@@ -17,6 +19,7 @@ class MatrixScraper(Scraper):
         except (AttributeError, KeyError) as e:
             urls = []  # Empty list if an exception occurs
         return (urls[:])
+
     def scrape(self):
         positions_urls = MatrixScraper().collect_urls()
         for position_url in positions_urls:
@@ -31,6 +34,4 @@ class MatrixScraper(Scraper):
                         title=title.text if title else None,
                         link=link if link else self.url,
                         location=location.text if location else None,
-                ))
-
-MatrixScraper().check_self()
+                    ))
