@@ -14,7 +14,7 @@ class OwnBackupScraper(Scraper):
             location = job.find_next('div', class_='location')
             if title:
                 self.positions.append(self.Position(
-                    title=title.text if title else None,
+                    title=title.text.strip() if title else None,
                     link=link['href'] if link else None,
                     location=location.text if location else None
                 ))
