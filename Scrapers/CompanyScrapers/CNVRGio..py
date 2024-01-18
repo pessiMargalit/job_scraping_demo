@@ -13,7 +13,6 @@ class CNVRGioScraper(Scraper):
             title = div.findNext('div', {'class': 'comeet-position-name'})
             location = div.findNext('div', {'class': 'comeet-position-meta'})
             link = title.findNext('a')['href']
-            # link = link['href']
             self.positions.append(self.Position(
                 title=title.text.strip() if title else None,
                 link=link if link else self.url,
