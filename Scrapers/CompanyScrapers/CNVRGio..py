@@ -1,7 +1,7 @@
 from Scrapers.Scraper import *
 
 
-class ArmoScraper(Scraper):
+class CNVRGioScraper(Scraper):
     name = 'cnvrg.io'
     url = 'https://cnvrg.io/Careers/'
     location = 'Jerusalem'
