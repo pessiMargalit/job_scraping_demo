@@ -2,6 +2,8 @@
 This is the main scraper class, an "abstract" (not via abc library currently), that all the scrapers will inherit from.
 """
 from math import cos, pi, floor
+from os import getenv
+from typing import NamedTuple
 from urllib.request import urlopen
 from urllib import error, parse
 from urllib.request import build_opener
@@ -9,7 +11,18 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 import ssl
 from Scrapers.PositionClass import *
+import re
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import SessionNotCreatedException
+from selenium.webdriver.chrome.service import Service
+import time
 import requests
+import json
+from datetime import datetime
 from Scrapers.PositionClass import PositionClass
 
 HTML_PARSER = 'html.parser'
@@ -47,7 +60,7 @@ class Scraper:
         """
         self.positions = []
         self.pos_class = PositionClass(
-            defaults=("None", self.name, self.url, self.location, False, None, None, FULLTIME_JOB, None, '')
+            defaults=(None, self.name, self.url, self.location, False, None, None, FULLTIME_JOB, None, '')
         )
         self.Position = self.pos_class.create_position
 
