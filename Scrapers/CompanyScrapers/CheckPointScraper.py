@@ -23,5 +23,3 @@ class CheckPointScraper(Scraper):
                 )
             )
 
-
-CheckPointScraper().check_self()

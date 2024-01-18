@@ -20,12 +20,10 @@ class GoarcScraper(Scraper):
             title = data.find('h2', {'class': 'comeet-position-name'})
             location = data.find('span', {'class': 'comeet-position-location'})
             self.positions.append(self.Position(
-                title=title.text if title else None,
+                title=title.text.strip() if title else None,
                 link=job_url if job_url else self.url,
-                location=location.text if location else None,
+                location=location.text.strip() if location else None,
             ))
             driver2.quit()
 
         driver.quit()
-
-
