@@ -11,12 +11,11 @@ class ExtendScraper(Scraper):
     def scrape(self):
         soup = self.scraping_unit(self.url)
         for a_tag in soup.findAll('a', {'class': 'comeet-position'}):
-
             title = a_tag.findNext('div', {"class": 'comeet-position-name'})
             location = a_tag.findNext('div', {'class': 'comeet-position-meta'})
-            link=a_tag['href']
+            link = a_tag['href']
             self.positions.append(self.Position(
-                title=title.text,
+                title=title.text.strip(),
                 link=urljoin(self.url, link),
                 location=location.text
             ))

@@ -1,3 +1,5 @@
+from urllib.parse import urljoin
+
 from Scrapers.Scraper import *
 
 
@@ -12,9 +14,9 @@ class DellScraper(Scraper):
         table = soup.find('section', {'id': 'search-results-list'})
         for li_tag in table.findAll('li'):
             a_tag = li_tag.findNext('a')
-            link = a_tag['href']
-            title = a_tag.findNext('h2').text
-            location = a_tag.findNext('span', 'job-location-search').text
+            link = urljoin(self.url,a_tag['href'])
+            title = a_tag.findNext('h2').text.strip()
+            location = a_tag.findNext('span', 'job-location-search').text.strip()
             self.positions.append(self.Position(
                 title=title,
                 link=link,

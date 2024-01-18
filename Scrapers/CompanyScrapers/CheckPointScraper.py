@@ -9,11 +9,11 @@ class CheckPointScraper(Scraper):
         soup = self.scraping_unit(self.url)
         position_results = soup.find('div', id='positionResults')
         for job in position_results.findAll('div', class_='position'):
-            title = job.findNext('a').text
+            title = job.findNext('a').text.strip()
             title = title.strip('\n')
             link = job.findNext('a')['href']
             info = job.findNext('div', class_='posInfo')
-            location = info.findNext('p').text
+            location = info.findNext('p').text.strip()
             # the location is in the first p tag, the tag doesn't have any specific identifier.
             self.positions.append(
                 self.Position(
@@ -24,3 +24,4 @@ class CheckPointScraper(Scraper):
             )
 
 
+CheckPointScraper().check_self()

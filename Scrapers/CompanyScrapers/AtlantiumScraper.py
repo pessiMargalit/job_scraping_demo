@@ -13,9 +13,10 @@ class AtlantiumScraper(Scraper):
             a_href = div.findNext('a')['href']
             title = div.findNext('h4').text
             link = "https://atlantium.com/career/https://atlantium.com/career/" + a_href
-            location = None
+            # location = None
             self.positions.append(self.Position(
                 title=title,
                 link=link,
-                location=location
+                # location=location
             ))
+
