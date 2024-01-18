@@ -22,14 +22,12 @@ class AlphaTauScraper(Scraper):
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         jobs = soup.find('div', {'class': 'jobBoard row softLightShadow'})
         for div_tag in jobs.findAll('div', {'class': 'row jobListing'}):
-            title = div_tag.findNext('h4', {'class': 'jobTitle'})
+            title = div_tag.findNext('h4', {'class': 'jobTitle'}).text.strip()
             p_tag = div_tag.findNext('p', {'class': 'details inline'})
-            location = p_tag.text.split("•")[0]
+            location = p_tag.text.split("•")[0].strip()
             self.positions.append(self.Position(
-                title=title.text,
+                title=title,
                 location=location if location else None,
                 link=self.url
             ))
         driver.quit()
-
-
