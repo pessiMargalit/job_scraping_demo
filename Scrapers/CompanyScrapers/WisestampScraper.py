@@ -15,11 +15,9 @@ class WisestampScraper(Scraper):
             # the title class and the location class are not unique
             if title and location and (self.url in link.lower()):
                 title = title.text
-                location = location.text
+                location = location.text.strip()
                 self.positions.append(self.Position(
                     title=title,
                     link=link,
                     location=location
                 ))
-
-

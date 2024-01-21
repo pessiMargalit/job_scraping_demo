@@ -23,3 +23,5 @@ class ChatterBoxScraper(Scraper):
                     link=link['href'] if link else None,
                     location=location if location else None
                 ))
+
+
