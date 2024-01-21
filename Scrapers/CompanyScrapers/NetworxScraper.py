@@ -20,5 +20,3 @@ class NetworxScraper(Scraper):
                 location=location
             ))
 
-
-NetworxScraper().check_self()
