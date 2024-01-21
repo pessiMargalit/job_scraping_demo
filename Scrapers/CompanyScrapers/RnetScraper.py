@@ -4,7 +4,6 @@ from Scrapers.Scraper import *
 class RnetScraper(Scraper):
     name = 'Rnet'
     url = 'https://www.rnet-tech.com/index.php/careers'
-    location = 'Jerusalem'  # default location, when not set its automatically 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)

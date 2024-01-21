@@ -1,7 +1,8 @@
 from urllib.parse import urljoin
 
 from Scrapers.Scraper import *
-
+from bs4 import BeautifulSoup
+from msedge.selenium_tools import Edge, EdgeOptions
 
 # the href is to js function
 
@@ -9,6 +10,21 @@ class InnodataScraper(Scraper):
     name = 'innodata'
     url = 'https://innodata.com/career/'
     location = 'San Mateo, 101 S Ellsworth Ave, United States'  # default location, when not set its automatically 'Jerusalem'
+
+    def get_edge_driver(url, debug=False, ssl_problems=False):
+        edge_options = EdgeOptions()
+        edge_options.use_chromium = True  # To use Edge Chromium
+        edge_options.add_argument("--no-sandbox")
+        edge_options.add_argument('--disable-dev-shm-usage')
+        if not debug:
+            edge_options.add_argument("--headless")
+        if ssl_problems:
+            edge_options.add_argument("--allow-running-insecure-content")
+            edge_options.add_argument("--allow-insecure-localhost")
+            edge_options.add_argument("--ignore-urlfetcher-cert-requests")
+        driver = Edge(options=edge_options)
+        driver.get(url)
+        return driver
 
     def scrape(self):
         driver = self.get_edge_driver(self.url)
@@ -24,4 +40,5 @@ class InnodataScraper(Scraper):
                 link=link,
                 location=location
             ))
+
 

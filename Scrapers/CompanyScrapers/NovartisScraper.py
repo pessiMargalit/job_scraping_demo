@@ -15,7 +15,7 @@ class NovartisScraper(Scraper):
         soup = self.scraping_unit(self.url)
         last_page = soup.find('li', {'class': 'page-item pager__item--last'})
         last_page = int(last_page.getText())
-        return last_page-1
+        return last_page - 1
 
     def specific_page_url(self, index):
         string_index = f"?page={index}"
@@ -36,21 +36,22 @@ class NovartisScraper(Scraper):
 
                 # Loop through job elements and extract information
                 for tr_tag in soup.findAll('tr', {'tabindex': '0'}):
-
-                    title = tr_tag.findNext('a', {"hreflang":"en"}).text
+                    title = tr_tag.findNext('a', {"hreflang": "en"}).text
 
                     link = tr_tag.findNext('a')['href']
 
                     location = tr_tag.findNext('td', {"headers": "view-field-job-work-location-table-column"}).text
 
                     self.positions.append(self.Position(
-                        title=title,
+                        title=title.strip(),
                         link=urljoin(self.url, link),
-                        location=location
+                        location=location.strip()
                     ))
             except Exception as e:
                 print(f"An error occurred: {e}")
             finally:
                 driver.quit()
+
+
 
 

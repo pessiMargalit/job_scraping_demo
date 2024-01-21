@@ -4,7 +4,6 @@ from Scrapers.Scraper import *
 class OrcamScraper(Scraper):
     name = 'orcam'
     url = 'https://careers.orcam.com/'
-    location = 'west Jerusalem'  # default location, when not set its automatically 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)
@@ -13,7 +12,7 @@ class OrcamScraper(Scraper):
             link = a_tag['href']
             location = a_tag.findNext('li', {'class': 'location'}).text
             self.positions.append(self.Position(
-                title=title,
+                title=title.strip(),
                 link=link,
                 location=location
             ))

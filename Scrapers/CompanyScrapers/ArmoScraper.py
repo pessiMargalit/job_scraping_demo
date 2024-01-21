@@ -4,7 +4,6 @@ from Scrapers.Scraper import *
 class ArmoScraper(Scraper):
     name = 'Armo'
     url = 'https://www.armosec.io/careers/'
-    location = 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)

@@ -3,7 +3,6 @@ from Scrapers.Scraper import *
 
 class DexcelPharmaScraper(Scraper):
     name = 'Dexcel Pharma'
-    location = 'Israel'
     url = 'https://www.dexcel.com/careers'
 
     def scrape(self):

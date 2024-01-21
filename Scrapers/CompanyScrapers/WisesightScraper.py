@@ -7,7 +7,6 @@ from Scrapers.Scraper import Scraper
 class WisesightScraper(Scraper):
     name = 'Wisesight'
     url = 'https://www.careers-page.com/wisesight'
-    location = 'Jerusalem'  # default location, when not set its automatically 'Jerusalem'
 
     def scrape(self):
         driver = self.selenium_url_maker(self.url)

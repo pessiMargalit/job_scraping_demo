@@ -4,7 +4,6 @@ from Scrapers.Scraper import *
 class HomeTalkScraper(Scraper):
     name = 'Home talk'
     url = 'https://www.careers.hometalk.com/'
-    location = 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)

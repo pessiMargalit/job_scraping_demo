@@ -11,7 +11,6 @@ TIMEOUT_IN_SECONDS = 10
 class ExliblisScraper(Scraper):
     name = 'Exliblis'
     url = 'https://careers.clarivate.com/search/searchjobs'
-    location = 'Jerusalem'
 
     def scrape(self):
         driver = self.selenium_url_maker(self.url)

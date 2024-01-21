@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup
 class DiagnozmeScraper(Scraper):
     name = 'Diagnoz.me'
     url = 'https://www.news.diagnose.me/careers'
-    location = 'Jerusalem'  # default location, when not set its automatically 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)

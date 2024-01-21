@@ -5,7 +5,6 @@ from Scrapers.Scraper import *
 class WisestampScraper(Scraper):
     name = 'Wisestamp'
     url = 'https://www.wisestamp.com/careers/'
-    location = 'West Jerusalem'  # default location, when not set its automatically 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)

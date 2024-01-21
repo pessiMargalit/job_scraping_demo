@@ -4,7 +4,6 @@ from Scrapers.Scraper import *
 class CatchMediaScraper(Scraper):
     name = 'catchmedia'
     url = 'https://www.catchmedia.com/catch-media-company-careers.html'
-    location = 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)

@@ -7,7 +7,6 @@ TIMEOUT_IN_SECONDS = 30
 class MatrixScraper(Scraper):
     url = 'https://www.matrix.co.il/jobs/'
     name = 'matrix'
-    location = 'ירושלים'
 
     def collect_urls(self):
         try:
@@ -31,7 +30,10 @@ class MatrixScraper(Scraper):
                 link = quote(title.findNext('a')['href'], safe=':/')
                 if self.location in location.text:
                     self.positions.append(self.Position(
-                        title=title.text if title else None,
+                        title=title.text.strip() if title else None,
                         link=link if link else self.url,
-                        location=location.text if location else None,
+                        location=location.text.strip() if location else None,
                     ))
+
+
+MatrixScraper().check_self()

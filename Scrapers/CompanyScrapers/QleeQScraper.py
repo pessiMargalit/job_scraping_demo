@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup
 class QleeQScraper(Scraper):
     name = 'QleeQ'
     url = 'https://qleeq.azurewebsites.net/careers.html'
-    location = 'Jerusalem'  # default location, when not set its automatically 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)

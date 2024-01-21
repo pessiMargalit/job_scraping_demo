@@ -4,7 +4,6 @@ from Scrapers.Scraper import *
 class BynetScraper(Scraper):
     name = 'Bynet'
     url = 'https://www.bynet.co.il/open-positions/'
-    location = 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)

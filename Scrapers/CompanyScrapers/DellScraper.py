@@ -7,7 +7,6 @@ from Scrapers.Scraper import *
 class DellScraper(Scraper):
     name = 'dell'
     url = 'https://jobs.dell.com/location/israel-jobs/375/294640/2'
-    location = 'west Jerusalem'  # default location, when not set its automatically 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)

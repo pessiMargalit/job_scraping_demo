@@ -4,7 +4,6 @@ class BrightSourceScraper(Scraper):
 
     name = 'BrightSource'
     url = 'https://www.newbrightsource.com/careers'
-    location = 'west Jerusalem'  # default location, when not set its automatically 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)

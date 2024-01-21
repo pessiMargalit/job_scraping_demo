@@ -4,7 +4,6 @@ from Scrapers.Scraper import *
 class C8healthScraper(Scraper):
     name = 'c8health'
     url = 'https://c8health.com/careers/'
-    location = 'west Jerusalem'  # default location, when not set its automatically 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)

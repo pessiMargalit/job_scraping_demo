@@ -4,7 +4,6 @@ from Scrapers.Scraper import *
 class OrcaScraper(Scraper):
     name = 'orca'
     url = 'https://orca.security/about/careers/#open-positions'
-    location = 'west Jerusalem'  # default location, when not set its automatically 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)

@@ -6,7 +6,6 @@ from Scrapers.Scraper import Scraper
 class ExtendScraper(Scraper):
     name = 'EXTEND'
     url = 'https://defense.xtend.me/about/careers/'
-    location = 'Jerusalem'  # default location, when not set its automatically 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)

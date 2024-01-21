@@ -3,7 +3,6 @@ from urllib.parse import urljoin
 from Scrapers.Scraper import *
 
 
-# problem
 class NetworxScraper(Scraper):
     name = 'networx'
     url = 'https://apply.workable.com/networx-1/'
@@ -14,7 +13,7 @@ class NetworxScraper(Scraper):
         for li_tag in soup.findAll('li', {'class': 'styles--1vo9F'}):
             title = li_tag.findNext('h2', {'class': 'styles--3TJHk'}).text
             link = urljoin(self.url, li_tag.findNext('a')['href'])
-            location=li_tag.findNext('span',{'class':'styles--1_T3H'}).text
+            location = li_tag.findNext('span', {'class': 'styles--1Sarc'}).text
             self.positions.append(self.Position(
                 title=title,
                 link=link,
@@ -22,3 +21,4 @@ class NetworxScraper(Scraper):
             ))
 
 
+NetworxScraper().check_self()

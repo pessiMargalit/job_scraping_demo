@@ -3,7 +3,6 @@ from Scrapers.Scraper import *
 
 class InzivScraper(Scraper):
     name = 'Inziv'
-    location = 'Jerusalem'
     url = 'https://inziv.com/careers/'
 
     def scraping_unit(self, url, headers=None):
@@ -27,9 +26,9 @@ class InzivScraper(Scraper):
             link = job.findNext('a', class_='comeet-position')
             if title:
                 self.positions.append(self.Position(
-                    title=title.text,
+                    title=title.text.strip(),
                     link=f"https:{link['href']}" if link else None,
-                    content=content.text if content else None
+                    content=content.text.strip() if content else None
                 ))
 
 

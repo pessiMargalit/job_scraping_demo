@@ -7,7 +7,6 @@ from Scrapers.Scraper import Scraper
 class RadwareScraper(Scraper):
     name = 'Radware'
     url = 'https://radware.taleo.net/careersection/ex/joblist.ftl'
-    location = 'IL-IL-Jerusalem'
 
     def scrape(self):
         driver = self.selenium_url_maker(self.url)
@@ -21,8 +20,8 @@ class RadwareScraper(Scraper):
                 location = tr_tag.findNext('div', {'class': 'morelocation'})
 
                 self.positions.append(self.Position(
-                    title=title.text,
-                    location=location.text if location else None,
+                    title=title.text.strip(),
+                    location=location.text.strip() if location else None,
                     link=self.url
                 ))
         driver.quit()

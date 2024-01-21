@@ -6,7 +6,6 @@ TIMEOUT_IN_SECONDS = 60
 class SynamediaScraper(Scraper):
     name = 'Synamedia'
     url = 'https://synamedia.sumtotal.host/Careers/search?q='
-    location = 'Jerusalem'
 
     def scrape(self):
         driver = self.selenium_url_maker(self.url)

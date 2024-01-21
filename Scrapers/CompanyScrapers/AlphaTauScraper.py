@@ -12,7 +12,6 @@ class AlphaTauScraper(Scraper):
     name = 'Alpha Tau'
     #  original URL: 'https://www.alphatau.com/careers' but the jobs are at a different URL
     url = 'https://www.powr.io/plugins/job-board/wix_view?lang=en&dateNumberFormat=en-us&isPrimaryLanguage=true&pageId=hc85f&compId=TPASection_k9wgzbp5&viewerCompId=TPASection_k9wgzbp5&siteRevision=3845&viewMode=site&deviceType=desktop&locale=en&regionalLanguage=en&width=980&height=938&instance=eV8hqapVR8UfqvpZpu8skZshCn42DAE1UwQ2M57FMmA.eyJpbnN0YW5jZUlkIjoiNTAzMGZmMjItY2M5OC00YzAzLWIwZTItYTgzYzQxNjQ4ZWMzIiwiYXBwRGVmSWQiOiIxMzBmZTM1Ni02NWEyLWY2YTAtZDgyZS03NWQ2YWExZGRmNmIiLCJzaWduRGF0ZSI6IjIwMjMtMTItMzFUMDg6MDM6MTQuNDgwWiIsInZlbmRvclByb2R1Y3RJZCI6InBybyIsImRlbW9Nb2RlIjpmYWxzZSwiYWlkIjoiZWI0NmIyNmEtZmRjMC00NGMyLTgzYWYtN2FhZDJmZDkxYzUzIiwic2l0ZU93bmVySWQiOiI3NDkyNWRmYS1kYWJhLTQ0ZjItYTIzNi1mYmY3MmM3NzU2YTEifQ&commonConfig=%7B%22brand%22%3A%22wix%22%2C%22host%22%3A%22VIEWER%22%2C%22bsi%22%3A%2231aec756-b6d1-4d13-9755-ec145bc2a4e4%7C1%22%2C%22BSI%22%3A%2231aec756-b6d1-4d13-9755-ec145bc2a4e4%7C1%22%7D&currentRoute=.%2Fcareers&target=_top&section-url=https%3A%2F%2Fwww.alphatau.com%2Fcareers%2F&vsi=435f461a-bf1c-4f3f-9bae-83341f54ffd0&mirror=surgeFactoryInstantResume'
-    location = 'Jerusalem'
 
     def scrape(self):
         driver = self.selenium_url_maker(self.url)

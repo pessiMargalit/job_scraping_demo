@@ -4,7 +4,6 @@ from Scrapers.Scraper import *
 class DDSScraper(Scraper):
     name = 'DDS'
     url = 'https://www.vscyberhosting3.com/dds/Careers.aspx?type=CAREERSMAIN'
-    location = 'west Jerusalem'  # default location, when not set its automatically 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)

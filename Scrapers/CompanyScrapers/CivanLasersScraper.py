@@ -3,7 +3,6 @@ from Scrapers.Scraper import *
 
 class CivanLasersScraper(Scraper):
     name = 'Calypsa'
-    location = 'Jerusalem'
     url = 'https://www.staging.civanlasers.com/careers'
 
     def scrape(self):

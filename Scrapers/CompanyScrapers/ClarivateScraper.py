@@ -11,7 +11,7 @@ TIMEOUT_IN_SECONDS = 10
 class ClarivateScraper(Scraper):
     name = 'Clarivate'
     url = 'https://careers.clarivate.com/search/searchjobs'
-    location = 'Jerusalem'
+
     NUMBER_JOBS_PER_PAGE = 12
 
     @staticmethod

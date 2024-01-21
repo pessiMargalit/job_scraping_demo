@@ -4,7 +4,6 @@ from Scrapers.Scraper import *
 class LidwaveScraper(Scraper):
     name = 'Lidware'
     url = 'https://www.lidwave.com/career/'
-    location = 'Wst Jerusalem'  # default location, when not set its automatically 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)

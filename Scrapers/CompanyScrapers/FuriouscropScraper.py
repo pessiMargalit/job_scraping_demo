@@ -5,7 +5,6 @@ from urllib.parse import urljoin
 class FuriouscropScraper(Scraper):
     name = 'Furiouscrop'
     url = 'https://furiouscorp.com/careers/'
-    location = 'West Jerusalem'  # default location, when not set its automatically 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)
