@@ -1,3 +1,4 @@
+
 from urllib.parse import urljoin
 
 from Scrapers.Scraper import *

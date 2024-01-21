@@ -15,10 +15,11 @@ class BrightSourceScraper(Scraper):
             title=text[0]
             location=text[1]
             link=dcaree.findNext('a')
-        self.positions.append(self.Position(
-            title=title,
-            link=link['href'],
-            location=location
-        ))
+            self.positions.append(self.Position(
+                title=title.strip(),
+                link=link['href'],
+                location=location.strip()
+            ))
+
 
 

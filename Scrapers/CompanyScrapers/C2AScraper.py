@@ -1,7 +1,7 @@
 from Scrapers.Scraper import *
 
 
-class C2AlScraper(Scraper):
+class C2AScraper(Scraper):
     name = 'C2A Security'
     url = 'https://c2a-sec.com/careers/'
 
