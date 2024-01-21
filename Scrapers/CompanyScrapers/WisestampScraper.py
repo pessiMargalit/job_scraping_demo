@@ -22,6 +22,3 @@ class WisestampScraper(Scraper):
                     link=link,
                     location=location
                 ))
-
-
-WisestampScraper().check_self()
