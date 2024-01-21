@@ -82,3 +82,5 @@ class MicrosoftScraper(Scraper):
             pages = range(1, int(num_of_jobs / 20) + 1)
             executor.map(self.scrape_page, pages)
 
+
+MicrosoftScraper().check_self()

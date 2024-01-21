@@ -1,5 +1,3 @@
-from telnetlib import EC
-
 from Scrapers.Scraper import *
 
 TIMEOUT_IN_SECONDS = 10
@@ -8,6 +6,7 @@ TIMEOUT_IN_SECONDS = 10
 class ClalitScraper(Scraper):
     name = 'קופת חולים כללית'
     url = 'https://jobs.clalitapps.co.il/clalit/index.html?ci=0'
+
     def scrape(self):
         # Use selenium to wait for the page to load
         driver = self.selenium_url_maker(self.url)
@@ -28,3 +27,6 @@ class ClalitScraper(Scraper):
 
         # Close the driver when done
         driver.quit()
+
+
+ClalitScraper().check_self()
