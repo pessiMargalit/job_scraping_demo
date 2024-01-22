@@ -39,5 +39,5 @@ class InnodataScraper(Scraper):
             self.positions.append(self.Position(
                 title=title,
                 link=link,
-                location=location
+                location=location.strip()
             ))
