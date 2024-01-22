@@ -1,3 +1,5 @@
+from urllib.parse import urljoin
+
 from Scrapers.Scraper import Scraper
 
 
@@ -10,10 +12,12 @@ class AranScraper(Scraper):
         div_careers = soup.find('div', {'class': 'row'})
         for career in div_careers.findAll('div', {'class': 'entry-content'}):
             title = career.findNext('h2').text.strip()
-            link = career.findNext('a')['href']
+            email = career.findNext('a')['href']
             self.positions.append(self.Position(
                 title=title,
-                link=link,
+                content=email,
+                link=self.url
             ))
 
 
+AranScraper().check_self()
