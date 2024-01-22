@@ -17,5 +17,3 @@ class SurgimateScraper(Scraper):
                 link=link,
                 location=location
             ))
-
-

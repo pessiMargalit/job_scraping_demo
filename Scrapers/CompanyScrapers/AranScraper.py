@@ -4,7 +4,7 @@ from Scrapers.Scraper import Scraper
 
 
 class AranScraper(Scraper):
-    name = 'aran'
+    name = 'Aran'
     url = 'https://www.aran-rd.com/category/career/'
 
     def scrape(self):
@@ -13,11 +13,11 @@ class AranScraper(Scraper):
         for career in div_careers.findAll('div', {'class': 'entry-content'}):
             title = career.findNext('h2').text.strip()
             email = career.findNext('a')['href']
+            article = career.find_parent('article') if career else None
+            article_id = article['id']
+            job_link = f"{self.url}#{article_id}" if article_id else self.url
             self.positions.append(self.Position(
                 title=title,
                 content=email,
-                link=self.url
+                link=job_link
             ))
-
-
-AranScraper().check_self()

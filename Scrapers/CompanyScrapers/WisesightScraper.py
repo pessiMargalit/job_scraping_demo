@@ -18,6 +18,6 @@ class WisesightScraper(Scraper):
             self.positions.append(self.Position(
                 title=title.text.strip(),
                 link=urljoin(self.url, link),
-                location=location.text if location else self.location
+                location=location.text.strip() if location else self.location
             ))
         driver.quit()
