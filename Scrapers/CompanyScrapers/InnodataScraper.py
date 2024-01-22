@@ -40,4 +40,3 @@ class InnodataScraper(Scraper):
                 link=link,
                 location=location.strip()
             ))
-InnodataScraper().check_self()
