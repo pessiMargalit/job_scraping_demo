@@ -10,9 +10,7 @@ class BynetScraper(Scraper):
         i = 1
         for div in soup.findAll('article', {'class': 'job-wrapper'}):
             title = div.findNext('h3', {'class': 'job-role'})
-            print(title.text)
             location = div.findNext('span', {'class': 'job-location-wrapper'})
-            print(location.text)
             link = f'{self.url}#{i}'
             i += 1
             self.positions.append(self.Position(
