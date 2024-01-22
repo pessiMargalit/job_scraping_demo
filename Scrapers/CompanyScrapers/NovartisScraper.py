@@ -50,4 +50,3 @@ class NovartisScraper(Scraper):
             finally:
                 driver.quit()
 
-
