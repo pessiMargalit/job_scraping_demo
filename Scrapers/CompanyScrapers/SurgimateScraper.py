@@ -8,7 +8,8 @@ class SurgimateScraper(Scraper):
     def scrape(self):
         soup = self.scraping_unit(self.url)
         for a_tag in soup.findAll('a', {'class': 'comeet-position'}):
-            link = a_tag['href']
+            # TODO: link = a_tag['href'].replace("//", ""), the url that we got is incorrect!!
+            link = self.url
             title = a_tag.findNext('div', {'class': 'comeet-position-name'}).text.strip()
             job_meta_data = a_tag.findNext('div', {'class': 'comeet-position-meta'}).text
             location = job_meta_data.split()[0]

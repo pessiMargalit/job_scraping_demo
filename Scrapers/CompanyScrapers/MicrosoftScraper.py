@@ -26,10 +26,10 @@ class MicrosoftScraper(Scraper):
     def scrape_page(self, page_number):
         jobs = self.get_careers_json(page_number)
         for job in jobs:
-            title = job['title']
-            location = job["properties"]['primaryLocation']
-            content = job['properties']['description']
-            job_id = job["jobId"]
+            title = job['title'].strip()
+            location = job["properties"]['primaryLocation'].strip()
+            content = job['properties']['description'].strip()
+            job_id = job["jobId"].strip()
             title_no_space = title.replace(" ", "-")
             correct_title = urllib.parse.quote(title_no_space, safe='')
             link = f"https://jobs.careers.microsoft.com/global/en/job/{job_id}/{correct_title}"

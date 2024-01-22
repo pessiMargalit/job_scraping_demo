@@ -8,18 +8,16 @@ from Scrapers.Scraper import Scraper
 
 class NovartisScraper(Scraper):
     name = 'Novartis'
-    url = 'https://www.novartis.com/careers/career-search'
+    url = 'https://www.novartis.com/careers/career-search?search_api_fulltext=&country%5B%5D=LOC_IL&field_alternative_country%5B%5D=LOC_IL&early_talent=All&field_job_posted_date=All'
     max = 2
 
     def calculate_max_iteration(self):
         soup = self.scraping_unit(self.url)
         last_page = soup.find('li', {'class': 'page-item pager__item--last'})
-        last_page = int(last_page.getText())
-        return last_page - 1
-
-    def specific_page_url(self, index):
-        string_index = f"?page={index}"
-        return urljoin(self.url, string_index)
+        if last_page:
+            last_page = int(last_page.getText())
+            return last_page - 1
+        return 1
 
     def scrape(self):
         iteration = 0
@@ -27,7 +25,7 @@ class NovartisScraper(Scraper):
 
         while iteration < max_iteration:
             iteration += 1
-            driver = self.selenium_url_maker(self.specific_page_url(iteration))
+            driver = self.selenium_url_maker(self.url)
             try:
                 updated_page_source = driver.page_source
 
@@ -51,7 +49,5 @@ class NovartisScraper(Scraper):
                 print(f"An error occurred: {e}")
             finally:
                 driver.quit()
-
-
 
 

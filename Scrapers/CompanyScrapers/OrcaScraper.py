@@ -8,7 +8,7 @@ class OrcaScraper(Scraper):
     def scrape(self):
         soup = self.scraping_unit(self.url)
         for li_tag in soup.findAll('li', {'class': 'greenhouse-jobs__position'}):
-            title = li_tag.findNext('div', {'class': 'greenhouse-jobs__position-name'}).text
+            title = li_tag.findNext('div', {'class': 'greenhouse-jobs__position-name'}).text.strip()
             link = li_tag.findNext('a')['href']
             location = li_tag['data-location']
             self.positions.append(self.Position(

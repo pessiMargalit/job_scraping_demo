@@ -7,6 +7,7 @@ from Scrapers.Scraper import *
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
+
 class KasperskyScraper(Scraper):
     name = 'Kaspersky'
     url = 'https://careers.kaspersky.com/vacancy'
@@ -54,5 +55,3 @@ class KasperskyScraper(Scraper):
             finally:
                 index += 1
                 driver.quit()
-
-

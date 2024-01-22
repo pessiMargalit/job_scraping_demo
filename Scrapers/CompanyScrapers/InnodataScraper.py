@@ -31,7 +31,7 @@ class InnodataScraper(Scraper):
         driver = self.selenium_url_maker(self.url)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         for ul_tag in soup.findAll('ul', {'class': 'elementor-icon-list-items elementor-inline-items'}):
-            title, location = ul_tag.findNext('span', {'class': 'elementor-icon-list-text'}).text.split('-')
+            title, location = ul_tag.findNext('span', {'class': 'elementor-icon-list-text'}).text.strip().split('-')
             # can not get specifically to the modal although i took the modal id but it brings to the specific place
             # of the job on the web page
             modal_url = "#" + ul_tag.findNext('div', {'id': 'modal-af056e6'})['id']
@@ -41,4 +41,3 @@ class InnodataScraper(Scraper):
                 link=link,
                 location=location
             ))
-

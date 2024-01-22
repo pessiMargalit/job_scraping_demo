@@ -1,3 +1,5 @@
+from urllib.parse import urljoin
+
 from Scrapers.Scraper import *
 
 
@@ -12,8 +14,6 @@ class MobileyeScraper(Scraper):
             location = a_tag.findNext('div', {'class': 'location'})
             self.positions.append(self.Position(
                 title=h3_tag.text.strip(),
-                link=a_tag['href'],
+                link=urljoin(self.url, a_tag['href']),
                 location=location.text.strip()
             ))
-
-

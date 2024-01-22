@@ -16,5 +16,5 @@ class ExtendScraper(Scraper):
             self.positions.append(self.Position(
                 title=title.text.strip(),
                 link=urljoin(self.url, link),
-                location=location.text
+                location=location.text.strip()
             ))
