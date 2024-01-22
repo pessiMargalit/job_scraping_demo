@@ -16,5 +16,3 @@ class OrcamScraper(Scraper):
                 link=link,
                 location=location
             ))
-
-
