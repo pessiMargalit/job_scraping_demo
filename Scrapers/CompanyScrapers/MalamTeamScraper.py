@@ -28,3 +28,4 @@ class MalamTeamScraper(Scraper):
                     location=location
                 ))
 
+

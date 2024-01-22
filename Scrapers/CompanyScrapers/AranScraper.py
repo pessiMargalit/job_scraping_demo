@@ -18,6 +18,3 @@ class AranScraper(Scraper):
                 content=email,
                 link=self.url
             ))
-
-
-AranScraper().check_self()

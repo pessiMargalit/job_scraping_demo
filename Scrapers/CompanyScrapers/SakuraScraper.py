@@ -23,3 +23,5 @@ class SakuraScraper(Scraper):
                 ))
         except URLError as e:
             print(f"Error: {e}")
+
+
