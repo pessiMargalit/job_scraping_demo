@@ -8,15 +8,14 @@ class NetworxScraper(Scraper):
     url = 'https://apply.workable.com/networx-1/'
 
     def scrape(self):
-        driver = self.selenium_url_maker(self.url)
-        soup = BeautifulSoup(driver.page_source, 'html.parser')
-        for li_tag in soup.findAll('li', {'class': 'styles--1vo9F'}):
-            title = li_tag.findNext('h2', {'class': 'styles--3TJHk'}).text
-            link = urljoin(self.url, li_tag.findNext('a')['href'])
-            location = li_tag.findNext('span', {'class': 'styles--1Sarc'}).text
-            self.positions.append(self.Position(
-                title=title,
-                link=link,
-                location=location
-            ))
-
+        response = requests.get('https://apply.workable.com/api/v3/accounts/networx-1/jobs')
+        jobs_json = response.json().get('results')
+        for job in jobs_json:
+            self.positions.append(
+                self.Position(
+                    title=job.get('title'),
+                    link=f"https://apply.workable.com/{self.slug}/j/{job.get('shortcode')}/",
+                    location=f"{job.get('location').get('country')}, {job.get('location').get('city')}",
+                    remote=job.get('remote')
+                )
+            )
