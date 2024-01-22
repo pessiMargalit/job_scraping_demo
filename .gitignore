@@ -136,3 +136,7 @@ Scrapers/__pycache__/
 Writers/__pycache__/
 __pycache__/
 .idea/
+
+
+#ignore scrapers to do
+ScrapersToDo/
