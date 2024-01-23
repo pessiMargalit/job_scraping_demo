@@ -6,4 +6,3 @@ class TrullionScraper(ComeetScraper):
     url = "https://www.comeet.com/jobs/trullion/07.000"
     name = "Trullion"
 
-    
