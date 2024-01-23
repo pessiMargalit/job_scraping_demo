@@ -6,4 +6,3 @@ class MyheritageScraper(ComeetScraper):
     url = "https://careers.myheritage.com/"
     name = "MyHeritage"
 
-    
