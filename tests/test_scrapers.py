@@ -20,7 +20,8 @@ def pytest_generate_tests(metafunc):
     if 'company_scraper' in metafunc.fixturenames:
         factory = ScrapersFactory()
         company_names = metafunc.config.getoption("--companies")
-        scrapers = [factory.get_scraper_by_filename(name) for name in company_names.split(",")] if company_names else []
+        scrapers = [factory.get_scraper_by_filename(name) for name in company_names.split(",")
+                    if factory.get_scraper_by_filename(name) is not None] if company_names else []
         metafunc.parametrize("company_scraper", scrapers)
 
 
