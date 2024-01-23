@@ -13,8 +13,8 @@ class MDIHealthScraper(Scraper):
             location = div.findNext('span')
             content = div.findNext('div', {"class": "page"})
             self.positions.append(self.Position(
-                title=title.text if title else None,
+                title=title.text.strip() if title else None,
                 link=self.url,
                 location=location.text.strip() if location else None,
-                content=content.text.strip() if content else None
+                content=content.text if content else None
             ))
