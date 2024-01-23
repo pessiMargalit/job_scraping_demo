@@ -1,5 +1,4 @@
-
-from ScrapingTools.OutsourceTools.Comeet.BaseScraper import ComeetScraper
+from ScrapingTools.OutsourceTools.Comeet.ComeetScraper import ComeetScraper
 
 
 class Pax8Scraper(ComeetScraper):
