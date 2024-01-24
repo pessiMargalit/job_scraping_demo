@@ -9,3 +9,4 @@ class CodefreshScraper(GreenhouseScraper):
     def scrape(self):
         super().scrape()
 
+CodefreshScraper().check_self()
