@@ -6,4 +6,3 @@ class JifitiScraper(ComeetScraper):
     url = "https://www.comeet.com/jobs/jifiti/47.005"
     name = "Jifiti"
 
-    

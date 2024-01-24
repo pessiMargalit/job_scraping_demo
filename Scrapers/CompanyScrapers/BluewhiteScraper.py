@@ -6,4 +6,3 @@ class BluewhiteScraper(ComeetScraper):
     url = "https://www.comeet.com/jobs/bluewhite/D5.00D"
     name = "Blue White"
 
-    
