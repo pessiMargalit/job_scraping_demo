@@ -2,7 +2,7 @@
 from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraper import GreenhouseScraper
 
 
-class MavenclinicScraper(GreenhouseScraper): 
+class MavenClinicScraper(GreenhouseScraper):
     url = "https://boards.greenhouse.io/mavenclinic"
     name = 'Maven Clinic'
 

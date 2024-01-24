@@ -2,7 +2,7 @@
 from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraper import GreenhouseScraper
 
 
-class MeshpaymentsScraper(GreenhouseScraper): 
+class MeshPaymentsScraper(GreenhouseScraper):
     url = "https://boards.greenhouse.io/meshpayments"
     name = 'MESH Payments'
 
