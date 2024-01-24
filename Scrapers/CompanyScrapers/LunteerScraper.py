@@ -3,7 +3,7 @@ from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraper import Greenhouse
 
 
 class LunteerScraper(GreenhouseScraper): 
-    url = "https://boards.greenhouse.io/volunteer/jobs/1494225"
+    url = "https://boards.greenhouse.io/volunteer"
     name = 'Lunteer'
 
     def scrape(self):
