@@ -35,16 +35,3 @@ urllib3==2.1.0
 useragent==0.1.1
 watchdog==3.0.0
 wsproto==1.2.0
-
-beautifulsoup4~=4.12.2
-requests~=2.31.0
-urllib3
-lxml
-pytz
-tqdm~=4.66.1
-selenium~=4.16.0
-pandas~=2.1.4
-
-google~=3.0.0
-openpyxl~=3.1.2
-django-googlesearch~=0.2
