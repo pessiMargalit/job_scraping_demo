@@ -5,7 +5,3 @@ from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraper import Greenhouse
 class NomadHealthScraper(GreenhouseScraper):
     url = "https://boards.greenhouse.io/nomadhealth"
     name = 'Nomad Health'
-
-    def scrape(self):
-        super().scrape()
-

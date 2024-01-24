@@ -5,7 +5,3 @@ from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraper import Greenhouse
 class VaretoScraper(GreenhouseScraper): 
     url = "https://boards.greenhouse.io/vareto"
     name = 'Vareto'
-
-    def scrape(self):
-        super().scrape()
-
