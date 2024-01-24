@@ -6,7 +6,6 @@ class GreenhouseScraper(Scraper):
     url = 'https://boards.greenhouse.io/'
     name = 'Greenhouse'
 
-
     def scrape(self):
         soup = self.scraping_unit(self.url)
         for position_div in soup.findAll('div', {'class': 'opening'}):
@@ -14,7 +13,7 @@ class GreenhouseScraper(Scraper):
             location = position_div.findNext('span', {'class': 'location'})
             link = title['href'] if title else None
             self.positions.append(self.Position(
-                title=title.text if title else None,
+                title=title.text.strip() if title else None,
                 link=f'{self.base_url}{link}',
-                location=location.text if location else None
+                location=location.text.strip() if location else None
             ))
