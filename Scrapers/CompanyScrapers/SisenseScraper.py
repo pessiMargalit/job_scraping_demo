@@ -6,6 +6,5 @@ class SisenseScraper(GreenhouseScraper):
     url = "https://boards.greenhouse.io/embed/job_board?for=sisense"
     name = 'Sisense'
 
-    def scrape(self):
-        super().scrape()
+     
 

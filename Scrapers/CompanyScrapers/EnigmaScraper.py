@@ -6,6 +6,5 @@ class EnigmaScraper(GreenhouseScraper):
     url = "https://boards.greenhouse.io/enigmaio"
     name = 'ENIGMA'
 
-    def scrape(self):
-        super().scrape()
+     
 

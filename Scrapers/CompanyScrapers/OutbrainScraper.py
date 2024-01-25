@@ -6,6 +6,5 @@ class OutbrainScraper(GreenhouseScraper):
     url = "https://boards.eu.greenhouse.io/outbraininc"
     name = 'Outbrain'
 
-    def scrape(self):
-        super().scrape()
+     
 
