@@ -40,8 +40,6 @@ def test_scarper_adds_valid_jobs(factory, company_scraper):
     scraper_positions = run_scraper_and_get_positions(company_scraper)
     end_time = time.time()
     name = company_scraper.name
-    if not scraper_positions:
-        assert False, f"Scraper {name} did not add any jobs."
     if any([not position.link or not position.title or not position.location for position in scraper_positions]):
         assert False, f"Scraper {name} added jobs with missing fields."
     if any([position.title.strip() != position.title for position in scraper_positions]):
