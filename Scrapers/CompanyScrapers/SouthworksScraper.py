@@ -6,6 +6,4 @@ class SouthworksScraper(GreenhouseScraper):
     url = "https://boards.greenhouse.io/southworks"
     name = 'SOUTHWORKS'
 
-    def scrape(self):
-        super().scrape()
-
+    

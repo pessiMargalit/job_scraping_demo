@@ -6,6 +6,4 @@ class JfrogScraper(GreenhouseScraper):
     url = "https://boards.greenhouse.io/embed/job_board?for=jfrog"
     name = 'JFrog'
 
-    def scrape(self):
-        super().scrape()
 

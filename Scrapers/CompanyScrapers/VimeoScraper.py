@@ -6,6 +6,4 @@ class VimeoScraper(GreenhouseScraper):
     url = "https://boards.greenhouse.io/vimeo"
     name = 'Vimeo'
 
-    def scrape(self):
-        super().scrape()
-
+    

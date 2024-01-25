@@ -6,6 +6,3 @@ class ForterScraper(GreenhouseScraper):
     url = "https://boards.greenhouse.io/forter"
     name = 'Forter'
 
-    def scrape(self):
-        super().scrape()
-

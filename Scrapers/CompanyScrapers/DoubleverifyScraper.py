@@ -6,6 +6,4 @@ class DoubleverifyScraper(GreenhouseScraper):
     url = "https://boards.greenhouse.io/doubleverify"
     name = 'DoubleVerify'
 
-    def scrape(self):
-        super().scrape()
 

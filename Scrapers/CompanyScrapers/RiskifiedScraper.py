@@ -6,6 +6,4 @@ class RiskifiedScraper(GreenhouseScraper):
     url = "https://boards.greenhouse.io/embed/job_board?for=riskified"
     name = 'Riskified'
 
-    def scrape(self):
-        super().scrape()
-
+    
