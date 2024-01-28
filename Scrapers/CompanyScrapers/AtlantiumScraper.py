@@ -6,8 +6,7 @@ class AtlantiumScraper(Scraper):
     url = 'https://atlantium.com/career/https://atlantium.com/career/'
 
     def scrape(self):
-        driver = self.selenium_url_maker(self.url)
-        soup = BeautifulSoup(driver.page_source, 'html.parser')
+        soup = self.scraping_unit(self.url)
         for div in soup.findAll('div', {'class': 'panel-heading'}):
             a_href = div.findNext('a')['href']
             title = div.findNext('h4').text

@@ -13,13 +13,6 @@ class FreightosScraper(Scraper):
         WebDriverWait(driver, TIMEOUT_IN_SECONDS).until(
             EC.presence_of_element_located((By.CLASS_NAME, 'freightos-positions'))
         )
-        # # Use BeautifulSoup to parse the driver.page_source
-        # # soup = BeautifulSoup(driver.page_source, 'html.parser')
-        # show_more_button = WebDriverWait(driver, TIMEOUT_IN_SECONDS).until(
-        #     EC.element_to_be_clickable((By.CLASS_NAME, 'button'))
-        # )
-        # show_more_button = driver.find_element(By.CLASS_NAME, 'button')
-        # driver.execute_script("arguments[0].scrollIntoView(true);", show_more_button)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
 
         for div in soup.findAll('div', {'class': 'freightos-position-wrap'}):
@@ -33,5 +26,3 @@ class FreightosScraper(Scraper):
                 location=location.text.strip() if location else None,
             ))
         driver.quit()
-
-

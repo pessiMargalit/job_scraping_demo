@@ -7,8 +7,7 @@ from Scrapers.Scraper import *
 class FizibleScraper(Scraper):
     name = 'Fizible'
     url = 'https://www.vizible.zone/careers-viziblezone-protecting-vulnerable-road-users'
-    # Warning: unknown location is bad did not find there location in simple google search
-    location = 'UNKNOWN'
+    location = 'HQ'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)

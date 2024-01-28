@@ -1,10 +1,10 @@
 from Scrapers.Scraper import *
 from selenium.webdriver.common.by import By
 
+
 class SquareTalkScraper(Scraper):
     name = 'SquareTalk'
     url = 'https://squaretalk.com/career/#rec_job_listing_div'
-    # TODO: ask if it is needed to because there is only jobs at Bulgaria
 
     def scrape(self):
         driver = self.selenium_url_maker(self.url)
