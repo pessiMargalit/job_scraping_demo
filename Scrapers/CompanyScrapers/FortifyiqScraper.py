@@ -3,6 +3,7 @@ from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraper import Greenhouse
 
 
 class FortifyiqScraper(GreenhouseScraper): 
-    url = "https://boards.greenhouse.io/fortifyiq?t=159143e15us"
     name = 'FortifyIQ'
+    url = GreenhouseScraper.url.format(name)
+
 
