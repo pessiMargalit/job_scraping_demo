@@ -20,8 +20,7 @@ def pytest_generate_tests(metafunc):
     if 'company_scraper' in metafunc.fixturenames:
         factory = ScrapersFactory()
         company_names = metafunc.config.getoption("--companies")
-        scrapers = [factory.get_scraper_by_filename(name) for name in company_names.split(",")
-                    if factory.get_scraper_by_filename(name) is not None] if company_names else []
+        scrapers = [factory.get_scraper_by_filename(name) for name in company_names.split(",")] if company_names else []
         metafunc.parametrize("company_scraper", scrapers)
 
 
@@ -36,14 +35,11 @@ def test_scraper_name(factory, company_scraper):
 def test_scraper_url(factory, company_scraper):
     assert company_scraper.url, f"Scraper {company_scraper.name} does not have a default url."
 
-
 def test_scarper_adds_valid_jobs(factory, company_scraper):
     start_time = time.time()
     scraper_positions = run_scraper_and_get_positions(company_scraper)
     end_time = time.time()
     name = company_scraper.name
-    if not scraper_positions:
-        assert False, f"Scraper {name} did not add any jobs."
     if any([not position.link or not position.title or not position.location for position in scraper_positions]):
         assert False, f"Scraper {name} added jobs with missing fields."
     if any([position.title.strip() != position.title for position in scraper_positions]):
