@@ -3,5 +3,5 @@ from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraper import Greenhouse
 
 
 class GamidaCellScraper(GreenhouseScraper):
-    name = 'Gamida Cell'
+    name = 'GamidaCell'
     url = GreenhouseScraper.url.format(name)

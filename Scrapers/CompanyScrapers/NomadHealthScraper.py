@@ -3,6 +3,6 @@ from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraper import Greenhouse
 
 
 class NomadHealthScraper(GreenhouseScraper):
-    name = 'Nomad Health'
+    name = 'NomadHealth'
     url = GreenhouseScraper.url.format(name)
 
