@@ -1,6 +1,4 @@
 from Scrapers.Scraper import *
-import json
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
 class LarsenAndToubroScraper(Scraper):
