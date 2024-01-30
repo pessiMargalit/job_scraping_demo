@@ -20,7 +20,10 @@ class HadassahMedicalCenterScraper(Scraper):
 
     def scrape(self):
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"}
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.5",
+            "Referer": "https://www.google.com/"}
         req = Request(self.url, headers=headers)
         page = urlopen(req)
         soup = BeautifulSoup(page, 'html.parser')
@@ -28,6 +31,9 @@ class HadassahMedicalCenterScraper(Scraper):
 
         with ThreadPoolExecutor() as executor:
             futures = [executor.submit(self.process_job, tag_li) for tag_li in list_jobs.findAll('li')]
-            for future in futures:
-                result = future.result()
-                self.positions.append(result)
+        for future in futures:
+            result = future.result()
+            self.positions.append(result)
+
+
+HadassahMedicalCenterScraper().check_self()
