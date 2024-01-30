@@ -33,15 +33,14 @@ class EfiScraper(Scraper):
         soup = self.scraping_unit(self.url.format(page))
         positions = soup.find_all(attrs={'class': "oracletaleocwsv2-accordion-head-info"})
         for pos in positions:
-            print(pos)
-        #     title = pos.findNext('h4', {'class': "oracletaleocwsv2-head-title"})
-        #     link = pos.findNext('a', {"class": "viewJobLink"})
-        #     location = pos.findNext('div')
-            # self.positions.append(self.Position(
-            #     title=title.text.strip() if title else None,
-            #     link=link["href"] if link else self.url,
-            #     location=location.text.strip() if location else self.location,
-            # ))
+            title = pos.findNext('h4', {'class': "oracletaleocwsv2-head-title"})
+            link = pos.findNext('a', {"class": "viewJobLink"})
+            location = pos.findNext('div')
+            self.positions.append(self.Position(
+                title=title.text.strip() if title else None,
+                link=link["href"] if link else self.url,
+                location=location.text.strip() if location else self.location,
+            ))
 
     def scrape(self):
         num_pages = 50
