@@ -1,3 +1,5 @@
+from urllib.request import Request, urlopen
+from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from concurrent.futures import ThreadPoolExecutor
 from Scrapers.Scraper import *
@@ -17,7 +19,11 @@ class HadassahMedicalCenterScraper(Scraper):
         )
 
     def scrape(self):
-        soup = self.scraping_unit(self.url)
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"}
+        req = Request(self.url, headers=headers)
+        page = urlopen(req)
+        soup = BeautifulSoup(page, 'html.parser')
         list_jobs = soup.find('ul', {'class': 'general-container-wide_list'})
 
         with ThreadPoolExecutor() as executor:
