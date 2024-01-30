@@ -10,7 +10,12 @@ class HadassahMedicalCenterScraper(Scraper):
     url = 'https://www.hadassah.org.il/careers/'
 
     def scrape(self):
-        soup = self.scraping_unit(self.url)
+        # soup = self.scraping_unit(self.url)
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"}
+        req = Request(self.url, headers=headers)
+        page = urlopen(req)
+        soup = BeautifulSoup(page, 'html.parser')
         list_jobs = soup.find('ul', {'class': 'general-container-wide_list'})
         for tag_li in list_jobs.findAll('li'):
             title = tag_li.find('h2', {'class': 'general-container_title'}).text
