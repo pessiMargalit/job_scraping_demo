@@ -37,4 +37,3 @@ class LeumitScraper(Scraper):
                 self.positions.extend(job.result())
 
 
-LeumitScraper().check_self()
