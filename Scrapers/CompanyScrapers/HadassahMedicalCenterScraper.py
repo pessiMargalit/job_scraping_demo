@@ -55,23 +55,23 @@
 #     #             result = future.result()
 #     #             self.positions.append(result)
 
+from urllib.parse import urljoin
 from Scrapers.Scraper import *
 
 
-class AdarMedidotScraper(Scraper):
-    name = 'Adar Medidot'
-    url = 'http://www.adarkav.org.il/%d7%94%d7%92%d7%a9%d7%aa-%d7%9e%d7%95%d7%a2%d7%9e%d7%93%d7%95%d7%aa/'
+class HadassahMedicalCenterScraper(Scraper):
+    name = 'Hadassah Medical Center'
+    url = 'https://www.hadassah.org.il/careers/'
+    location = 'Jerusalem'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)
-        for tag_h3 in soup.findAll('h3'):
-            tag_a = tag_h3.find('a')
-            detail = tag_a.text.split('–')
-            title = detail[0]
-            location = detail[1]
-            link = tag_a['href']
+        list_jobs = soup.find('ul', {'class': 'general-container-wide_list'})
+        for tag_li in list_jobs.findAll('li'):
+            title = tag_li.find('h2', {'class': 'general-container_title'}).text
+            link = tag_li.find('a')['href']
             self.positions.append(self.Position(
                 title=title.strip(),
-                link=link,
-                location=location.strip()
+                link=urljoin(self.url, link),
+                location=self.location
             ))
