@@ -10,27 +10,12 @@ class EfiScraper(Scraper):
     # url = 'https://www.efi.com/about-efi/careers/job-search/'
     location = 'Jerusalem'
 
-    # def scrape_page(self):
+    # def scrape(self):
     #     driver = self.selenium_url_maker(self.url)
-    #     button_locator = (By.CLASS_NAME, "btn.btn-primary.oracletaleocwsv2-btn-fa.fa-search")
-    #     print(button_locator)
+    #     button_locator = (By.CLASS_NAME, "btn btn-primary oracletaleocwsv2-btn-fa fa-search")
     #     button = WebDriverWait(driver, 10).until(EC.presence_of_element_located(button_locator))
     #     button.click()
     #     soup = self.scraping_unit(driver.page_source)
-    #     positions = soup.find_all(attrs={'class': "oracletaleocwsv2-accordion-head-info"})
-    #     for pos in positions:
-    #         print(pos)
-    #     title = pos.findNext('h4', {'class': "oracletaleocwsv2-head-title"})
-    #     link = pos.findNext('a', {"class": "viewJobLink"})
-    #     location = pos.findNext('div')
-    # self.positions.append(self.Position(
-    #     title=title.text.strip() if title else None,
-    #     link=link["href"] if link else self.url,
-    #     location=location.text.strip() if location else self.location,
-    # ))
-
-    # def scrape_page(self, page):
-    #     soup = self.scraping_unit(self.url.format(page))
     #     positions = soup.find_all(attrs={'class': "oracletaleocwsv2-accordion-head-info"})
     #     for pos in positions:
     #         title = pos.findNext('h4', {'class': "oracletaleocwsv2-head-title"})
@@ -41,12 +26,14 @@ class EfiScraper(Scraper):
     #             link=link["href"] if link else self.url,
     #             location=location.text.strip() if location else self.location,
     #         ))
+    #
+    #     driver.quit()
+
     def scrape_page(self, page):
         all_jobs_response = requests.get(self.url.format(page))
         if all_jobs_response.status_code == 200:
             all_jobs_data = all_jobs_response.json()
             for job in all_jobs_data['response']:
-                print(job)
                 title = job.findNext('h4', {'class': "oracletaleocwsv2-head-title"})
                 link = job.findNext('a', {"class": "viewJobLink"})
                 location = job.findNext('div')
