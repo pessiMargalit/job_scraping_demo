@@ -35,4 +35,3 @@ class ShupersalScraper(Scraper):
             )
         driver.quit()
 
-ShupersalScraper().check_self()
