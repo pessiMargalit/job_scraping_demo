@@ -4,3 +4,4 @@ from ScrapingTools.OutsourceTools.MyWorkDay.MyWorkDayScraper import MyWorkDayScr
 class CradlepointScraper(MyWorkDayScraper):
     url = "https://cradlepoint.wd1.myworkdayjobs.com/wday/cxs/cradlepoint/job-opportunities/jobs"
     name = "Cradlepoint"
+
