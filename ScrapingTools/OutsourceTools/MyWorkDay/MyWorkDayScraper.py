@@ -99,7 +99,7 @@ class MyWorkDayScraper(Scraper):
         for i in range(20, total, 20):
             json_data_list.append({'limit': 20, 'offset': i})
 
-        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+        # asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
         loop = asyncio.new_event_loop()
         jsons = loop.run_until_complete(MyWorkDayScraper.get_pages(loop, BASE_URL, json_data_list))
