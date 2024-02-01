@@ -111,9 +111,9 @@ class MyWorkDayScraper(Scraper):
                 continue
             self.positions.append(
                 self.Position(
-                    title=job.get('title'),
+                    title=job.get('title').strip(),
                     link=f"{COMPANY_URL}{job.get('externalPath')}",
-                    location=job.get('locationsText'),
+                    location=job.get('locationsText').strip(),
                 )
             )
 
