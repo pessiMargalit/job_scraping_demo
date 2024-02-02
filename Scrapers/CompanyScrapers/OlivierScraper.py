@@ -2,7 +2,7 @@ from Scrapers.Scraper import *
 
 
 class OlivierScraper(Scraper):
-    name = 'אס קיי אינסייט בע"מ - אוליבייה'
+    name = 'אוליבייה'
     url = 'https://olivier-il.com/%d7%93%d7%a8%d7%95%d7%a9%d7%99%d7%9d/'
     location = 'ירושלים'
 
