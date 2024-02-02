@@ -3,7 +3,7 @@ from Scrapers.Scraper import *
 
 
 class AlynHospitaScraper(Scraper):
-    name = 'Alyn Hospita'
+    name = 'Alyn Hospital'
     url = 'https://www.alyn.org.il/%D7%93%D7%A8%D7%95%D7%A9%D7%99%D7%9D'
     location = 'Jerusalem'
 
