@@ -18,4 +18,3 @@ class UdiMariliScraper(Scraper):
                 title=title.text[11:].strip() if title else None,
                 location=location.text.strip() if location else self.location
             ))
-
