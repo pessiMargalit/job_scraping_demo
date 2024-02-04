@@ -68,4 +68,3 @@ class MeuhedetScraper(Scraper):
             executor.map(self.scrape_page, pages)
 
 
-MeuhedetScraper().check_self()
