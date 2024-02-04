@@ -7,7 +7,8 @@ class ClalitScraper(Scraper):
     url = "https://jobs.clalitapps.co.il/"
     location = "ירושלים והסביבה"
 
-    def get_careers_json(self):
+    @staticmethod
+    def get_careers_json():
         url = "https://jobs.clalitapps.co.il/CandidateAPI/api//position/Search/9E6C0368-A39E-4D83-803E-CF2AF0BA28DD"
 
         payload = {"KeyWords": "", "CategoryId": ["0"], "countryId": 2, "cityId": []}
