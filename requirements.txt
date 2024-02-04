@@ -35,3 +35,5 @@ urllib3==2.1.0
 useragent==0.1.1
 watchdog==3.0.0
 wsproto==1.2.0
+
+aiohttp~=3.9.1
