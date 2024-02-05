@@ -14,7 +14,7 @@ class BDSKScraper(Scraper):
                                                                  '-default elementor-section-height-default' in value)
         for pos in positions:
             title = pos.findNext('span').text.strip()
-            link = pos.findNext('li', {"itemprop": "datePublished"}).findNext('a')
+            link = pos.findNext('li', {'itemprop': 'datePublished'}).findNext('a')
             content = pos.findNext(attrs={'class': 'ee-unfold__content'})
             location = pos.findPrevious('h2', {'class': 'elementor-heading-title elementor-size-default'})
             self.positions.append(self.Position(
