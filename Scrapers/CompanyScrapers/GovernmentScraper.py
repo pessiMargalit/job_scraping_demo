@@ -6,7 +6,6 @@ from Scrapers.Scraper import *
 class GovernmentScraper(Scraper):
     name = 'Government'
     url = 'https://www.gov.il/he/departments/publications/?limit=10'
-    json_url = "https://www.gov.il/he/api/PublicationApi/Index?limit=10&skip=0"
 
     def get_jobs(self, url):
         are_open_positions = False
@@ -34,13 +33,14 @@ class GovernmentScraper(Scraper):
             are_open_positions = True
         return are_open_positions
 
+    @staticmethod
+    def get_num_of_total_jobs():
+        res = requests.get("https://www.gov.il/he/api/PublicationApi/Index?limit=10&skip=0")
+        return json.loads(res.content)["total"]
+
     def scrape(self):
-        num_of_total_jobs = self.get_total_jobs()
+        num_of_total_jobs = GovernmentScraper().get_num_of_total_jobs()
         for index in range(1, int(num_of_total_jobs / 10)):
             flag = self.get_jobs(f"https://www.gov.il/he/api/PublicationApi/Index?limit={index}0&skip={index + 1}0")
             if not flag:
                 return
-
-    def get_total_jobs(self):
-        res = requests.get("https://www.gov.il/he/api/PublicationApi/Index?limit=10&skip=0")
-        return json.loads(res.content)["total"]
