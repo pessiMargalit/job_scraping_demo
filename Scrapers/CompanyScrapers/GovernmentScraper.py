@@ -17,8 +17,16 @@ class GovernmentScraper(Scraper):
             current_date = datetime.utcnow()
             if given_date < current_date:
                 continue
-            title = job["Title"]
             link = urljoin("https://www.gov.il/he/departments/publications/drushim/", job["UrlName"])
+            res = requests.get(link)
+            if res.status_code != 200:
+                # it's mata data
+                continue
+            if job["OfficeDesc"]:
+                company = job["OfficeDesc"][0]
+            else:
+                company = None
+            title = job["Title"]
             if job["CitiesDesc"]:
                 location = job["CitiesDesc"][0]
             else:
@@ -27,22 +35,30 @@ class GovernmentScraper(Scraper):
                 self.Position(
                     title=title.strip(),
                     link=link,
-                    location=location
+                    location=location,
+                    company=company if company else self.name
                 )
             )
             are_open_positions = True
         return are_open_positions
 
     @staticmethod
-    def get_num_of_total_jobs():
+    def get_num_json_pages():
         res = requests.get("https://www.gov.il/he/api/PublicationApi/Index?limit=10&skip=0")
-        return json.loads(res.content)["total"]
+        return json.loads(res.content)["pages"]
 
     def scrape(self):
-        num_of_total_jobs = GovernmentScraper().get_num_of_total_jobs()
-        for index in range(50, int(num_of_total_jobs), 50):
-            flag = self.get_jobs(f"https://www.gov.il/he/api/PublicationApi/Index?limit={index}&skip={index - 50}")
-            if not flag:
-                # its means that was page with no any open position
-                return
+        num_of_pages = GovernmentScraper().get_num_json_pages()
+        for index in range(1, num_of_pages):
+            num = index * 50
+            try:
+                flag = self.get_jobs(
+                    f"https://www.gov.il/he/api/PublicationApi/Index?limit={num}&skip={num - 50}")
+                if not flag:
+                    # it means that was page with no any open position
+                    return
+            except:
+                continue
 
+
+GovernmentScraper().check_self()
