@@ -7,3 +7,4 @@ class OpenaiScraper(GreenhouseScraper):
     name = 'OpenAI'
 
 
+

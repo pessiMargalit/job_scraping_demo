@@ -7,3 +7,4 @@ class JfrogScraper(GreenhouseScraper):
     name = 'JFrog'
 
 
+

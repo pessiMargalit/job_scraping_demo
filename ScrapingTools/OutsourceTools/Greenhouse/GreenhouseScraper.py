@@ -17,3 +17,4 @@ class GreenhouseScraper(Scraper):
                 link=f'{self.base_url}{link}',
                 location=location.text.strip() if location else None
             ))
+            

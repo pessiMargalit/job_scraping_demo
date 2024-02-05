@@ -7,3 +7,4 @@ class BluevineScraper(GreenhouseScraper):
     name = 'Bluevine'
 
 
+
