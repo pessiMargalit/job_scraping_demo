@@ -1,47 +1,46 @@
 from urllib.parse import urljoin
 
-import requests
-
 from Scrapers.Scraper import *
 
 
 class GovernmentScraper(Scraper):
     name = 'Government'
-    url = 'https://www.gov.il/he/Search?query=%D7%93%D7%A8%D7%95%D7%A9%D7%99%D7%9D&mainTypes=drushim'
+    url = 'https://www.gov.il/he/departments/publications/?limit=10'
+    json_url = "https://www.gov.il/he/api/PublicationApi/Index?limit=10&skip=0"
 
-    @staticmethod
-    def get_num_of_jobs(url):
+    def get_jobs(self, url):
+        are_open_positions = False
         res = requests.get(url)
-        return json.loads(res.content)["Total"]
-
-    def get_location(self, job_url):
-        base_url = "https://www.gov.il/he/Departments/publications/drushim/"
-        index = job_url.find("publications/drushim/")
-        extracted_url = job_url[index + len("publications/drushim/"):]
-        soup = self.scraping_unit(urljoin(base_url, extracted_url))
-        location = soup.find("span", id="cmd_location_1").text.strip()
-        return location
+        result = json.loads(res.content)["results"]
+        for job in result:
+            last_date = job["LastDate"]
+            given_date = datetime.strptime(last_date, "%Y-%m-%dT%H:%M:%SZ")
+            current_date = datetime.utcnow()
+            if given_date < current_date:
+                continue
+            title = job["Title"]
+            link = urljoin("https://www.gov.il/he/departments/publications/drushim/", job["UrlName"])
+            if job["CitiesDesc"]:
+                location = job["CitiesDesc"][0]
+            else:
+                location = None
+            self.positions.append(
+                self.Position(
+                    title=title.strip(),
+                    link=link,
+                    location=location
+                )
+            )
+            are_open_positions = True
+        return are_open_positions
 
     def scrape(self):
-        startPage = 0
-        json_url = f"https://searchgov.gov.il/govil/generalsearch//?query=%d7%93%d7%a8%d7%95%d7%a9%d7%99%d7%9d&startPage={startPage}&officeOrUnitID=&mainType=drushim&ab=1"
+        num_of_total_jobs = self.get_total_jobs()
+        for index in range(1, int(num_of_total_jobs / 10)):
+            flag = self.get_jobs(f"https://www.gov.il/he/api/PublicationApi/Index?limit={index}0&skip={index + 1}0")
+            if not flag:
+                return
 
-        total_jobs = self.get_num_of_jobs(json_url)
-        for index in range(0, total_jobs, 10):
-            startPage += 1
-            res = requests.get(json_url)
-            jobs = json.loads(res.text)["Results"]
-            for job in jobs:
-                url = job["Url"]
-                title = job["Title"]
-                location = self.get_location(url)
-
-                self.positions.append(
-                    self.Position(
-                        title=title,
-                        link=url,
-                        location=location
-                    )
-                )
-
-
+    def get_total_jobs(self):
+        res = requests.get("https://www.gov.il/he/api/PublicationApi/Index?limit=10&skip=0")
+        return json.loads(res.content)["total"]
