@@ -4,7 +4,7 @@ from urllib.parse import urljoin, quote
 
 class BereshitScraper(Scraper):
     name = 'בראשית'
-    url = f'https://bereshit-hr.co.il/%d7%9c%d7%95%d7%97-%d7%9e%d7%a9%d7%a8%d7%95%d7%aa/'
+    url = 'https:/bereshit-hr.co.il/%d7%9c%d7%95%d7%97-%d7%9e%d7%a9%d7%a8%d7%95%d7%aa/'
     location = 'ירושלים'
 
     def get_fields_urls(self):
