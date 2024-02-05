@@ -1,7 +1,7 @@
 
-from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraper import GreenhouseScraper
+from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraperJson import GreenhouseScraperJson
 
 
-class GamidaCellScraper(GreenhouseScraper):
+class GamidaCellScraper(GreenhouseScraperJson):
     name = 'GamidaCell'
-    url = GreenhouseScraper.url.format(name)
+    url = GreenhouseScraperJson.url.format(name)

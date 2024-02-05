@@ -1,7 +1,7 @@
 
-from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraper import GreenhouseScraper
+from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraperJson import GreenhouseScraperJson
 
 
-class VaretoScraper(GreenhouseScraper):
+class VaretoScraper(GreenhouseScraperJson):
     name = 'vareto'
-    url = GreenhouseScraper.url.format(name)
+    url = GreenhouseScraperJson.url.format(name)

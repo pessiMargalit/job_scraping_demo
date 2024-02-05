@@ -1,7 +1,7 @@
 from Scrapers.Scraper import *
 
 
-class GreenhouseScraper(Scraper):
+class GreenhouseScraperJson(Scraper):
     url = "https://api.greenhouse.io/v1/boards/{}/embed/jobs"
     name = 'Greenhouse'
 
