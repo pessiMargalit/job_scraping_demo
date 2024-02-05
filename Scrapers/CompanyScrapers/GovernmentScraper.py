@@ -39,15 +39,9 @@ class GovernmentScraper(Scraper):
         return json.loads(res.content)["total"]
 
     def scrape(self):
-        try:
-            res = requests.get("https://www.gov.il/he/api/PublicationApi/Index?limit=10&skip=0")
-            if res.status_code == 200:
-                raise Exception
-        except:
-            print("###############################")
-            return
         num_of_total_jobs = GovernmentScraper().get_num_of_total_jobs()
         for index in range(1, int(num_of_total_jobs / 10)):
             flag = self.get_jobs(f"https://www.gov.il/he/api/PublicationApi/Index?limit={index}0&skip={index + 1}0")
             if not flag:
+                # its means that was page with no any open position
                 return
