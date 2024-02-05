@@ -5,32 +5,31 @@ from Scrapers.Scraper import *
 
 class LarsenAndToubroScraper(Scraper):
     name = 'Larsen & Toubro'
-    url = 'https://larsentoubrocareers.peoplestrong.com/job/joblist'
+    url = 'https://larsentoubrocareers.peoplestrong.com/api/cp/rest/altone/cp/jobs/v1?offset=0&limit=100'
     location = 'Jerusalem'
 
-    def calculate_num_of_positions(self):
+    def get_all_jobs_urls(self):
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
                           ' (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
         }
         response = requests.get(self.url, headers=headers)
         if response.status_code == 200:
-            soup = BeautifulSoup(response.content, 'html.parser')
-            num_of_positions = soup.find_all(attrs={'class': 'totale-num text-uppercase'})
-            return num_of_positions
+            res_json = response.json()
+            total = res_json.get('totalRecords')
+            urls = [self.url.replace('offset=0', f'offset={i}') for i in range(0, total, 100)]
+            return urls
 
     def scrape(self):
-        # num_of_positions = self.calculate_num_of_positions()
-        jobs_json_url = 'https://larsentoubrocareers.peoplestrong.com/api/cp/rest/altone/cp/jobs/v1?offset=0&limit=45'
+
+        jobs_urls = self.get_all_jobs_urls()
 
         # Use a ThreadPoolExecutor to parallelize the scraping process
         with concurrent.futures.ThreadPoolExecutor() as executor:
             futures = []
 
-            for i in range(0, 1000, 45):
-                jobs_json_url = jobs_json_url.replace(f'offset={i - 45}', f'offset={i}')
-
-                future = executor.submit(self.scrape_job_data, jobs_json_url)
+            for url in jobs_urls:
+                future = executor.submit(self.scrape_job_data, url)
                 futures.append(future)
 
             concurrent.futures.wait(futures, return_when=concurrent.futures.ALL_COMPLETED)
