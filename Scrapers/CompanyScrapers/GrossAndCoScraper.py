@@ -21,6 +21,3 @@ class GrossAndCoScraper(Scraper):
             self.positions.append(self.Position(
                 title=title.text.strip() if title else None,
             ))
-
-
-GrossAndCoScraper().check_self()
