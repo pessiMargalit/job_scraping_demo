@@ -15,11 +15,6 @@ class HerbertSamuelScraper(Scraper):
         i = 1
         for div in soup.find_all('div', {"class": 'elementor-widget-wrap elementor-element-populated'})[16:-17]:
             title = div.findNext('h2', {'class': 'elementor-heading-title elementor-size-default'})
-            # # l = div.findAllNext('div',{'class':'elementor-widget-container'})[2].findAllNext('p')[-9]
-            # l = div.findAllNext('div',{'class':'elementor-widget-container'})
-            # # print(l.text[:-40])
-            # print(l)
-
             self.positions.append(self.Position(
                 title=title.text,
                 link=urljoin(self.url,f'#{i}')
