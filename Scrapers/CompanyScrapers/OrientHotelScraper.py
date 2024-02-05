@@ -22,4 +22,4 @@ class OrientHotelScraper(Scraper):
             ))
 
 
-OrientHotelScraper().check_self()
+
