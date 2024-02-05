@@ -8,7 +8,6 @@ TIMEOUT_IN_SECONDS = 30
 class MatrixScraper(Scraper):
     url = 'https://www.matrix.co.il/jobs/'
     name = 'matrix'
-    # location = 'ירושלים'
 
     def collect_urls(self):
         try:
@@ -22,7 +21,7 @@ class MatrixScraper(Scraper):
                 li_tag.findNext('a')['href'] for i, li_tag in enumerate(ul_tag) if i % 2 != 0
             ]
         except (AttributeError, KeyError) as e:
-            urls = []  # Empty list if an exception occurs
+            urls = []
         return (urls[:])
 
     def scrape(self):
@@ -34,7 +33,6 @@ class MatrixScraper(Scraper):
                 title = div.findNext('h2', {'class': 'job-title'})
                 location = div.findNext('b', {'class': 'job-areas'})
                 link = quote(title.findNext('a')['href'], safe=':/')
-                # if self.location in location.text:
                 self.positions.append(self.Position(
                     title=title.text.strip() if title else None,
                     link=link if link else self.url,

@@ -67,5 +67,3 @@ class MeuhedetScraper(Scraper):
             pages = range(1, int(self.pages_num / 20) + 1)
             executor.map(self.scrape_page, pages)
 
-
-MeuhedetScraper().check_self()
