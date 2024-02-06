@@ -58,5 +58,17 @@ class BDOScraper(Scraper):
         for pg_num in range(int(BDOScraper().get_num_of_json_pg())):
             url = f"{json_url}{pg_num - 1}"
             response = requests.get(url, headers=headers)
+            if not response.ok:
+                continue
             jobs = response.json()
-            print(jobs)
+            for job in jobs["results"]:
+                title = job["JobTitle"]
+                location = job["LocationAddress"]
+                link = job["JobsiteUrl"]
+                self.positions.append(
+                    self.Position(
+                        title=title,
+                        location=location,
+                        link=link
+                    )
+                )
