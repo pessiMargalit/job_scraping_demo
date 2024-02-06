@@ -2,6 +2,8 @@ from urllib.parse import urljoin
 
 from Scrapers.Scraper import *
 
+NUM_OF_JOBS_IN_JSON = 10
+
 
 class GovernmentScraper(Scraper):
     name = 'Government'
@@ -35,12 +37,12 @@ class GovernmentScraper(Scraper):
 
     @staticmethod
     def get_num_of_total_jobs():
-        res = requests.get("https://www.gov.il/he/api/PublicationApi/Index?limit=10&skip=0")
+        res = requests.get(f"https://www.gov.il/he/api/PublicationApi/Index?limit={NUM_OF_JOBS_IN_JSON}&skip=0")
         return json.loads(res.content)["total"]
 
     def scrape(self):
         num_of_total_jobs = GovernmentScraper().get_num_of_total_jobs()
-        for index in range(50, int(num_of_total_jobs), 50):
+        for index in range(50, num_of_total_jobs, NUM_OF_JOBS_IN_JSON):
             flag = self.get_jobs(f"https://www.gov.il/he/api/PublicationApi/Index?limit={index}&skip={index - 50}")
             if not flag:
                 # its means that was page with no any open position
