@@ -21,6 +21,15 @@ class GovernmentScraper(Scraper):
                 continue
             title = job["Title"]
             link = urljoin("https://www.gov.il/he/departments/publications/drushim/", job["UrlName"])
+            res = requests.get(link)
+            if not res.ok:
+                # it's mata data , not a position
+                continue
+            if job["OfficeDesc"]:
+                company = job["OfficeDesc"][0]
+            else:
+                company = None
+            title = job["Title"]
             if job["CitiesDesc"]:
                 location = job["CitiesDesc"][0]
             else:
@@ -29,7 +38,8 @@ class GovernmentScraper(Scraper):
                 self.Position(
                     title=title.strip(),
                     link=link,
-                    location=location
+                    location=location,
+                    company=company if company else self.name
                 )
             )
             are_open_positions = True
@@ -37,7 +47,7 @@ class GovernmentScraper(Scraper):
 
     @staticmethod
     def get_num_of_total_jobs():
-        res = requests.get(f"https://www.gov.il/he/api/PublicationApi/Index?limit={NUM_OF_JOBS_IN_JSON}&skip=0")
+        res = requests.get("https://www.gov.il/he/api/PublicationApi/Index?limit=10&skip=0")
         return json.loads(res.content)["total"]
 
     def scrape(self):
