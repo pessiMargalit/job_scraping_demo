@@ -10,10 +10,10 @@ class GovernmentScraper(Scraper):
     url = 'https://www.gov.il/he/departments/publications/?limit=10'
 
     def get_jobs(self, url):
-        are_open_positions = False
+        # are_open_positions = False
         res = requests.get(url)
         if not res.ok:
-            return are_open_positions
+            return # are_open_positions
         result = json.loads(res.content)["results"]
         for job in result:
             last_date = job["LastDate"]
@@ -23,7 +23,7 @@ class GovernmentScraper(Scraper):
                 continue
             link = urljoin("https://www.gov.il/he/departments/publications/drushim/", job["UrlName"])
             res = requests.get(link)
-            if res.status_code != 200:
+            if not res.ok:
                 # it's mata data , not a position
                 continue
             if job["OfficeDesc"]:
@@ -44,7 +44,7 @@ class GovernmentScraper(Scraper):
                 )
             )
             are_open_positions = True
-        return are_open_positions
+        # return are_open_positions
 
     @staticmethod
     def get_num_json_pages():
@@ -55,10 +55,12 @@ class GovernmentScraper(Scraper):
         num_of_pages = GovernmentScraper().get_num_json_pages()
         for index in range(1, num_of_pages):
             num = index * NUM_OF_JOBS_IN_JSON
-            flag = self.get_jobs(
+            # flag = \
+            self.get_jobs(
                 f"https://www.gov.il/he/api/PublicationApi/Index?limit={num}&skip={num - 50}")
-            if not flag:
-                # it means that was page with no any open position
-                return
+            # if not flag:
+            #     # it means that was page with no any open position
+            #     return
 
 
+# GovernmentScraper().check_self()
