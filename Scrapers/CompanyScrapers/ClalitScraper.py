@@ -37,3 +37,4 @@ class ClalitScraper(Scraper):
                 location=location,
                 link=link
             ))
+
