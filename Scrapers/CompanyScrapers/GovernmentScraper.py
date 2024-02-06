@@ -56,16 +56,10 @@ class GovernmentScraper(Scraper):
         return json.loads(res.content)["total"]
 
     def scrape(self):
-        num_of_total_jobs = self.get_num_of_total_jobs()
+        num_of_total_jobs = GovernmentScraper().get_num_of_total_jobs()
+        for index in range(NUM_OF_JOBS_IN_JSON, num_of_total_jobs, NUM_OF_JOBS_IN_JSON):
+            are_open_positions_yet = self.get_jobs(f"https://www.gov.il/he/api/PublicationApi/Index?limit={index}&skip={index - 50}")
+            if not are_open_positions_yet:
+                # its means that was page with no any open position
+                return
 
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            futures = []
-            for index in range(NUM_OF_JOBS_IN_JSON, num_of_total_jobs, NUM_OF_JOBS_IN_JSON):
-                json_url = f"https://www.gov.il/he/api/PublicationApi/Index?limit={index}&skip={index - NUM_OF_JOBS_IN_JSON}"
-                futures.append(executor.submit(self.get_jobs, json_url))
-
-            for future in concurrent.futures.as_completed(futures):
-                future.result()
-
-
-GovernmentScraper().check_self()
