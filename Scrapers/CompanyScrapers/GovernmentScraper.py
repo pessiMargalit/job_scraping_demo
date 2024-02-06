@@ -1,4 +1,3 @@
-import concurrent.futures
 from urllib.parse import urljoin
 
 from Scrapers.Scraper import *
@@ -22,6 +21,7 @@ class GovernmentScraper(Scraper):
                 given_date = datetime.strptime(last_date, "%Y-%m-%dT%H:%M:%SZ")
                 current_date = datetime.utcnow()
                 if given_date < current_date:
+                    # the position is closed
                     continue
                 link = urljoin("https://www.gov.il/he/departments/publications/drushim/", job["UrlName"])
                 res = requests.get(link)
@@ -29,6 +29,7 @@ class GovernmentScraper(Scraper):
                     # it's mata data , not a position
                     continue
                 if job["OfficeDesc"]:
+                    # current office
                     company = job["OfficeDesc"][0]
                 else:
                     company = None
