@@ -4,15 +4,16 @@ from Scrapers.Scraper import *
 
 
 class OrcamScraper(Scraper):
-    name = 'orcam'
+    name = 'Orcam'
     url = 'https://careers.orcam.com/'
 
     def scrape(self):
         soup = self.scraping_unit(self.url)
-        for a_tag in soup.findAll('a', {'class': 'col-md-6'}):
-            title = a_tag.findNext('h5', {'class': 'title'}).text.strip()
-            link = urljoin(self.url,a_tag['href'])
-            location = a_tag.findNext('li', {'class': 'location'}).text.strip()
+        for job in soup.findAll('div', {'class': 'sc-uzptka-1 ifQvfy'}):
+            details = job.findNext('a', {'class': 'sc-6exb5d-1 hftbaU'})
+            title = details.text
+            link = urljoin(self.url, details['href'])
+            location = job.findNext('span', {'class': 'sc-6exb5d-4 knWhYe'}).text
             self.positions.append(self.Position(
                 title=title,
                 link=link,
