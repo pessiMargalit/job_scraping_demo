@@ -1,6 +1,4 @@
-import json
 import math
-from urllib.parse import urljoin
 
 import requests
 from Scrapers.Scraper import Scraper
@@ -10,7 +8,9 @@ class BDOScraper(Scraper):
     name = "BDO"
     url = "https://bdo-career.hunterhrms.com/%D7%9B%D7%9C-%D7%94%D7%9E%D7%A9%D7%A8%D7%95%D7%AA/#page-1"
 
-    def get_num_of_json_pg(self):
+
+    @staticmethod
+    def get_num_of_json_pg():
         json_url = "https://bdo-career.hunterhrms.com/wp-json/niloosoft/v1/search-results?page="
 
         headers = {
@@ -58,8 +58,17 @@ class BDOScraper(Scraper):
         for pg_num in range(int(BDOScraper().get_num_of_json_pg())):
             url = f"{json_url}{pg_num - 1}"
             response = requests.get(url, headers=headers)
+            if not response.ok:
+                continue
             jobs = response.json()
-            print(jobs)
-
-
-BDOScraper().check_self()
+            for job in jobs["results"]:
+                title = job["JobTitle"]
+                location = job["LocationAddress"]
+                link = job["JobsiteUrl"]
+                self.positions.append(
+                    self.Position(
+                        title=title,
+                        location=location,
+                        link=link
+                    )
+                )
