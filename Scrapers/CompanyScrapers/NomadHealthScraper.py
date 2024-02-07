@@ -1,8 +1,8 @@
 
-from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraperJson import GreenhouseScraperJson
+from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraper import GreenhouseScraper
 
 
-class NomadHealthScraper(GreenhouseScraperJson):
+class NomadHealthScraper(GreenhouseScraper):
     name = 'NomadHealth'
-    url = GreenhouseScraperJson.url.format(name)
+    url = "https://boards.greenhouse.io/nomadhealth"
 
