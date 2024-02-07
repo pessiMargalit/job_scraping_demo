@@ -21,6 +21,3 @@ class BrownHotelsScraper(Scraper):
                 title=title.text,
                 link=link
             ))
-
-
-BrownHotelsScraper().check_self()
