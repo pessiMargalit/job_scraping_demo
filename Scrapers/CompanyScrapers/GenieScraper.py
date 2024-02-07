@@ -1,5 +1,3 @@
-from sqlalchemy.sql.elements import conv
-
 from Scrapers.Scraper import *
 
 
