@@ -14,7 +14,6 @@ class AtlasHotelsScraper(Scraper):
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
         result = requests.get(self.url, headers=headers, verify=False)
         soup = BeautifulSoup(result.content, 'html.parser')
-        # soup = self.scraping_unit(self.url)
         for div in soup.find_all('div', {"class": 'job-card'}):
             title = div.findNext('h3', {'class': 'job-title'})
             link = div.findNext('a', {'class': 'btn btn-secondary job-link'})['href']
@@ -23,5 +22,3 @@ class AtlasHotelsScraper(Scraper):
                 link=link
             ))
 
-
-AtlasHotelsScraper().check_self()
