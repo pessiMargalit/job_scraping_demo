@@ -20,4 +20,3 @@ class GlobaNetworksScraper(Scraper):
             )
 
 
-GlobaNetworksScraper().check_self()
