@@ -1,8 +1,8 @@
 
-from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraperJson import GreenhouseScraperJson
+from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraper import GreenhouseScraper
 
 
-class CodefreshScraper(GreenhouseScraperJson):
+class CodefreshScraper(GreenhouseScraper):
     name = 'Codefresh'
-    url = GreenhouseScraperJson.url.format(name)
+    url = "https://boards.greenhouse.io/codefresh"
 
