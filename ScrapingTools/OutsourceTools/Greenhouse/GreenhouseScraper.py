@@ -12,7 +12,6 @@ class GreenhouseScraper(Scraper):
         response = requests.get(self.json_url)
         if not response.ok:
             raise ValueError
-            raise AttributeError("cannot find json url")
         response_json = response.json()
         for job in response_json.get('jobs'):
             self.positions.append(
