@@ -1,9 +1,9 @@
 
-from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraperJson import GreenhouseScraperJson
+from ScrapingTools.OutsourceTools.Greenhouse.GreenhouseScraper import GreenhouseScraper
 
 
-class FortifyiqScraper(GreenhouseScraperJson):
+class FortifyiqScraper(GreenhouseScraper):
     name = 'FortifyIQ'
-    url = GreenhouseScraperJson.url.format(name)
+    url = "https://boards.greenhouse.io/fortifyiq?t=159143e15us"
 
 
